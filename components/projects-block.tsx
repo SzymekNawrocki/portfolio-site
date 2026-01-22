@@ -38,7 +38,7 @@ export function ProjectsBlock({
   return (
     <section className="py-16">
       <div className="mx-auto px-4 max-w-7xl">
-        <div className="mb-12 text-center">
+        <div className="mb-12">
           <Eyebrow text={eyebrow} />
           <SectionTitle text={title} className="mb-4" />
           {description && (

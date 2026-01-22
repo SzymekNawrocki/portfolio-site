@@ -42,8 +42,8 @@ export default async function Page({
   }
 
   return (
-    <main className="gap-6 grid grid-cols-1 mx-auto p-12 container">
-      <Post {...post} />
+    <main className="py-12">
+      <Post {...post} lang={lang} />
     </main>
   );
 }

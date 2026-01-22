@@ -4,3 +4,24 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function calculateReadingTime(body: any[]): number {
+  if (!body) return 0;
+  
+  const wordsPerMinute = 200;
+  let textContent = "";
+  
+  body.forEach((block) => {
+    if (block._type === "block" && block.children) {
+      block.children.forEach((child: any) => {
+        if (child.text) {
+          textContent += child.text + " ";
+        }
+      });
+    }
+  });
+  
+  const wordCount = textContent.trim().split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+

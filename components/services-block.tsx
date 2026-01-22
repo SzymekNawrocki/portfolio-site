@@ -27,12 +27,12 @@ export function ServicesBlock({
 
   return (
     <div className="py-16">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto px-4 max-w-7xl">
         <Eyebrow text={eyebrow} />
 
         <SectionTitle text={title} className="mb-12" />
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
             const Icon =
               service.icon && iconsMap[service.icon]
@@ -42,25 +42,25 @@ export function ServicesBlock({
             return (
               <Card
                 key={service._id}
-                className="border-border group rounded-xl border shadow-sm transition-shadow hover:shadow-md"
+                className="group shadow-sm hover:shadow-md border border-border rounded-xl transition-shadow"
               >
                 <CardHeader className="flex items-center gap-4 pb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
-                    <Icon className="text-secondary-foreground h-5 w-5" />
+                  <div className="flex justify-center items-center bg-secondary rounded-xl w-10 h-10">
+                    <Icon className="w-5 h-5 text-secondary-foreground" />
                   </div>
-                  <CardTitle className="text-card-foreground text-xl font-semibold">
+                  <CardTitle className="font-semibold text-card-foreground text-xl">
                     {service.title}
                   </CardTitle>
                 </CardHeader>
 
-                <CardContent className="text-muted-foreground mb-4 text-sm">
+                <CardContent className="mb-4 text-accent text-sm">
                   {service.description}
                 </CardContent>
 
                 <div className="px-6 pb-6">
                   <Link
                     href={`/services/${service.slug.current}`}
-                    className="hover:text-primary-foreground inline-flex items-center gap-1 text-sm font-semibold tracking-wide text-primary"
+                    className="inline-flex items-center gap-1 font-semibold text-primary hover:text-primary-foreground text-sm tracking-wide"
                   >
                     Read more
                     <svg
@@ -68,7 +68,7 @@ export function ServicesBlock({
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="h-4 w-4"
+                      className="w-4 h-4"
                     >
                       <path
                         strokeLinecap="round"
