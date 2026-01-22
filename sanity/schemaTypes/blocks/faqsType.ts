@@ -7,6 +7,10 @@ export const faqsType = defineType({
   type: "object",
   fields: [
     defineField({
+      name: "eyebrow",
+      type: "string",
+    }),
+    defineField({
       name: "title",
       type: "string",
     }),

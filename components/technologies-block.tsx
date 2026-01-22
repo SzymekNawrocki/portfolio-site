@@ -4,6 +4,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { Separator } from "@/components/ui/separator";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { ArrowRight } from "lucide-react";
+import { Eyebrow } from "./eyebrow";
+import { SectionTitle } from "./section-title";
 
 type TechnologiesBlockProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -20,22 +22,16 @@ export function TechnologiesBlock({
 
   return (
     <section className="py-16">
-      <div className="mx-auto px-4 max-w-7xl">
-        {eyebrow && (
-          <span className="mb-2 text-accent text-sm uppercase tracking-[0.2em]">
-            {eyebrow}
-          </span>
-        )}
+      <div className="mx-auto my-11 px-4 max-w-7xl">
+        <Eyebrow text={eyebrow} />
 
-        {title && (
-          <h2 className="mb-12 font-bold text-foreground text-3xl">{title}</h2>
-        )}
+        <SectionTitle text={title} className="mb-12" />
 
-        <div className="items-start gap-12 grid grid-cols-1 md:grid-cols-2">
+        <div className="gap-12 grid grid-cols-1 md:grid-cols-2">
           {image && (
-            <div className="relative rounded-lg w-full h-[300px] md:h-[380px] overflow-hidden">
+            <div className="relative rounded-lg w-full h-full overflow-hidden">
               <Image
-                src={urlFor(image).width(900).height(900).url()}
+                src={urlFor(image).width(1000).height(1000).url()}
                 alt={title ?? "Technologies"}
                 fill
                 className="object-cover"

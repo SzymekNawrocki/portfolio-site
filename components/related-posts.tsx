@@ -9,6 +9,9 @@ import { client } from "@/sanity/lib/client";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
+import { Eyebrow } from "./eyebrow";
+import { SectionTitle } from "./section-title";
+
 const { projectId, dataset, stega } = client.config();
 export const createDataAttributeConfig = {
   projectId,
@@ -43,12 +46,8 @@ export function RelatedPosts({
     <aside className="mt-16">
       <Card className="bg-card/80 shadow-primary/10 shadow-xl border border-border rounded-[2rem] text-card-foreground">
         <CardHeader className="gap-3">
-          <p className="font-semibold text-muted-foreground text-xs uppercase tracking-[0.35em]">
-            Desert echoes
-          </p>
-          <CardTitle className="font-serif text-foreground text-2xl">
-            Related posts
-          </CardTitle>
+          <Eyebrow text="Desert echoes" className="tracking-[0.35em] text-xs" />
+          <SectionTitle text="Related posts" tag="h3" className="text-2xl font-serif" />
           <Separator className="bg-border/60" />
         </CardHeader>
 

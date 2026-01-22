@@ -23,9 +23,9 @@ export function PostCard(props: POSTS_QUERYResult[0] & { lang: string }) {
         </CardContent>
 
         <CardHeader className="flex flex-col justify-center md:col-span-5">
-          <CardTitle className="relative font-semibold text-slate-800 group-hover:text-pink-600 text-2xl transition-colors">
+          <CardTitle className="relative font-semibold text-foreground group-hover:text-accent text-2xl transition-colors">
             <span className="z-10 relative">{title}</span>
-            <span className="z-0 absolute inset-0 bg-pink-50 opacity-0 group-hover:opacity-100 rounded-lg scale-75 group-hover:scale-100 transition-all" />
+            <span className="z-0 absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 rounded-lg scale-75 group-hover:scale-100 transition-all" />
           </CardTitle>
 
           <div className="flex items-center gap-x-6 mt-3">

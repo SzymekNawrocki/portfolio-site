@@ -1,7 +1,7 @@
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { PROJECT_QUERYResult } from "@/sanity/types";
-import { Title } from "./title";
+import { SectionTitle } from "./section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
 import {
@@ -14,13 +14,13 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
+import { Eyebrow } from './eyebrow';
 
 export function Project(props: NonNullable<PROJECT_QUERYResult>) {
   const {
     title,
     mainImage,
     body,
-    publishedAt,
     projectLink,
     githubLink,
     technologies
@@ -32,7 +32,7 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
         <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
             <div>
                 <CardTitle>
-                    <Title>{title}</Title>
+                    <SectionTitle text={title} tag="h1" className="lg:text-6xl text-2xl md:text-4xl" />
                 </CardTitle>
             </div>
 

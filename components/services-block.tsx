@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Globe, Code, Mail, Server, Cpu, ArrowRight } from "lucide-react";
+import { Globe, Code, Mail, Server, Cpu } from "lucide-react";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Eyebrow } from "./eyebrow";
+import { SectionTitle } from "./section-title";
 
 const iconsMap = {
   Globe,
@@ -26,17 +28,9 @@ export function ServicesBlock({
   return (
     <div className="py-16">
       <div className="mx-auto max-w-7xl px-4">
-        {eyebrow && (
-          <span className="text-accent mb-2 text-sm uppercase tracking-widest">
-            {eyebrow}
-          </span>
-        )}
+        <Eyebrow text={eyebrow} />
 
-        {title && (
-          <h2 className="text-foreground mb-12 text-4xl font-extrabold">
-            {title}
-          </h2>
-        )}
+        <SectionTitle text={title} className="mb-12" />
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {

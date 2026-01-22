@@ -4,6 +4,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
 import { ProjectsBlock as ProjectsBlockSchema, Project as ProjectSchema, Technology, Slug } from "@/sanity/types";
+import { Eyebrow } from "./eyebrow";
+import { SectionTitle } from "./section-title";
 
 type Project = {
   _id: string;
@@ -37,18 +39,10 @@ export function ProjectsBlock({
     <section className="py-16">
       <div className="mx-auto px-4 max-w-7xl">
         <div className="mb-12 text-center">
-          {eyebrow && (
-            <span className="block mb-2 text-accent text-sm uppercase tracking-[0.2em]">
-              {eyebrow}
-            </span>
-          )}
-          {title && (
-            <h2 className="mb-4 font-bold text-foreground text-3xl md:text-4xl">
-              {title}
-            </h2>
-          )}
+          <Eyebrow text={eyebrow} />
+          <SectionTitle text={title} className="mb-4" />
           {description && (
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-muted-foreground text-lg">
               {description}
             </p>
           )}
@@ -58,7 +52,7 @@ export function ProjectsBlock({
           {displayProjects.map((project) => (
             <div
               key={project._id}
-              className="flex flex-col bg-card shadow-sm border border-border rounded-xl overflow-hidden transition-all hover:shadow-md"
+              className="flex flex-col bg-card shadow-sm hover:shadow-md border border-border rounded-xl overflow-hidden transition-all"
             >
               {project.mainImage && (
                 <div className="relative h-48 overflow-hidden">
@@ -66,7 +60,7 @@ export function ProjectsBlock({
                     src={urlFor(project.mainImage).width(600).height(400).url()}
                     alt={project.mainImage.alt || project.title || "Project Image"}
                     fill
-                    className="object-cover transition-transform hover:scale-105 duration-300"
+                    className="object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
               )}
@@ -80,22 +74,22 @@ export function ProjectsBlock({
                     <h3 className="font-bold text-xl">{project.title}</h3>
                   )}
                 </div>
-                
+
                 {project.description && (
-                   <p className="mb-6 line-clamp-3 text-muted-foreground">
+                   <p className="mb-6 text-muted-foreground line-clamp-3">
                     {project.description}
                    </p>
                 )}
 
-                <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto mb-6">
                     {project.technologies?.filter(Boolean).map((tech) => (
                         <div key={tech?._id} className="bg-secondary/50 p-1.5 rounded-md" title={tech?.name || ""}>
                              {tech.icon ? (
-                                <Image 
-                                    src={urlFor(tech.icon).width(24).height(24).url()} 
-                                    alt={tech.name || ""} 
-                                    width={20} 
-                                    height={20} 
+                                <Image
+                                    src={urlFor(tech.icon).width(24).height(24).url()}
+                                    alt={tech.name || ""}
+                                    width={20}
+                                    height={20}
                                     className="w-5 h-5 object-contain"
                                 />
                              ) : (

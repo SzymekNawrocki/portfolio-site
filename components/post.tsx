@@ -2,7 +2,7 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { Categories } from "./categories";
 import { POST_QUERYResult } from "@/sanity/types";
-import { Title } from "./title";
+import { SectionTitle } from "./section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
 import { RelatedPosts } from "./related-posts";
@@ -34,7 +34,7 @@ export function Post(props: NonNullable<POST_QUERYResult>) {
         </div>
 
         <CardTitle>
-          <Title>{title}</Title>
+          <SectionTitle text={title} tag="h1" className="lg:text-6xl text-2xl md:text-4xl" />
         </CardTitle>
 
         <Separator />

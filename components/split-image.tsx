@@ -2,6 +2,7 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { stegaClean } from "next-sanity";
+import { SectionTitle } from "./section-title";
 
 type SplitImageProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -24,11 +25,7 @@ export function SplitImage({ title, image, orientation }: SplitImageProps) {
         />
       ) : null}
       <div className="flex w-1/3 items-center">
-        {title ? (
-          <h2 className="mx-auto max-w-3xl text-pretty text-3xl font-light text-pink-500 md:text-5xl lg:text-8xl">
-            {title}
-          </h2>
-        ) : null}
+        <SectionTitle text={title} className="mx-auto max-w-3xl text-pretty text-accent font-light lg:text-8xl" />
       </div>
     </div>
   );
