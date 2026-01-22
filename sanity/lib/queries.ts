@@ -1,0 +1,466 @@
+import { defineQuery } from "next-sanity";
+
+export const POSTS_QUERY = defineQuery(`
+  *[_type == "post" && defined(slug.current) && language == $lang]
+  | order(publishedAt desc)[0...12]{
+    _id,
+    title,
+    slug,
+    body,
+    mainImage,
+    publishedAt,
+    "categories": coalesce(
+      categories[]->{_id, slug, title},
+      []
+    ),
+    author->{name, image}
+  }
+`);
+
+export const POSTS_SLUGS_QUERY = defineQuery(`
+  *[_type == "post" && defined(slug.current) && language == $lang]{
+    "slug": slug.current,
+    language
+  }
+`);
+
+export const PROJECTS_QUERY = defineQuery(`
+  *[_type == "project" && defined(slug.current) && language == $lang]
+  | order(_createdAt desc){
+    _id,
+    title,
+    slug,
+    description,
+    mainImage,
+    projectLink,
+    githubLink,
+    "technologies": coalesce(
+      technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+      []
+    ),
+    language
+  }
+`);
+
+export const PROJECTS_SLUGS_QUERY = defineQuery(`
+  *[_type == "project" && defined(slug.current) && language == $lang]{
+    "slug": slug.current,
+    language
+  }
+`);
+
+export const PROJECT_QUERY = defineQuery(`
+  *[_type == "project" && slug.current == $slug && language == $lang][0]{
+    _id,
+    title,
+    slug,
+    description,
+    body,
+    mainImage,
+    projectLink,
+    githubLink,
+    "technologies": coalesce(
+      technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+      []
+    ),
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const POST_QUERY = defineQuery(`
+  *[_type == "post" && slug.current == $slug && language == $lang][0]{
+    _id,
+    title,
+    body,
+    mainImage,
+    publishedAt,
+    "categories": coalesce(
+      categories[]->{_id, slug, title},
+      []
+    ),
+    author->{name, image},
+    relatedPosts[]{
+      _key,
+      ...@->{
+        _id,
+        title,
+        slug,
+        language
+      }
+    },
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const PAGE_QUERY = defineQuery(`
+  *[_type in ["page", "technology", "service"] && slug.current == $slug && language == $lang][0]{
+    ...,
+    "seo": {
+      "title": coalesce(seo.title, title, name, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    },
+    content[]{
+      ...,
+      _type == "faqs" => {
+        ...,
+        faqs[]->
+      },
+      _type == "servicesSection" => {
+        ...,
+        services[]->
+      },
+      _type == "servicesBlock" => {
+        ...,
+        services[]->
+      },
+      _type == "technologiesBlock" => {
+        ...,
+        technologies[]->{
+          _id,
+          name,
+          slug,
+          description,
+          icon,
+          color,
+          language
+        }
+      },
+      _type == "projectsBlock" => {
+        ...,
+        mode == "selected" => {
+          projects[]-> [language == $lang]{
+             _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            )
+          }
+        },
+        mode == "all" => {
+          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(publishedAt desc)[0...100] {
+             _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            )
+          }
+        }
+      }
+    }
+  }
+`);
+
+export const PAGES_SLUGS_QUERY = defineQuery(`
+  *[_type == "page" && defined(slug.current) && language == $lang]{
+    "slug": slug.current,
+    language
+  }
+`);
+
+export const HOME_PAGE_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+    homePage->{
+      ...,
+      content[] {
+        ...,
+
+        _type == "faqs" => {
+          ...,
+          faqs[]->
+        },
+
+        _type == "servicesSection" => {
+          ...,
+          services[]->
+        },
+
+        _type == "servicesBlock" => {
+          ...,
+          services[]->
+        },
+
+        _type == "technologiesBlock" => {
+          ...,
+          technologies[]->{
+            _id,
+            name,
+            slug,
+            description,
+            icon,
+            color,
+            language
+          }
+        },
+
+        _type == "projectsBlock" => {
+          ...,
+          mode == "selected" => {
+            projects[]-> [language == $lang]{
+              _id,
+              title,
+              slug,
+              description,
+              mainImage,
+              projectLink,
+              githubLink,
+              "technologies": coalesce(
+                technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+                []
+              )
+            }
+          },
+          mode == "all" => {
+            "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {
+              _id,
+              title,
+              slug,
+              description,
+              mainImage,
+              projectLink,
+              githubLink,
+              "technologies": coalesce(
+                technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+                []
+              )
+            }
+          }
+        }
+      }
+    }
+  }
+`);
+
+export const TECHNOLOGY_QUERY = defineQuery(`
+  *[_type == "technology" && slug.current == $slug && language == $lang][0]{
+    _id,
+    name,
+    slug,
+    description,
+    icon,
+    color,
+    content[]{
+      ...,
+      _type == "faqs" => {
+        ...,
+        faqs[]->
+      },
+      _type == "servicesSection" => {
+        ...,
+        services[]->
+      },
+      _type == "servicesBlock" => {
+        ...,
+        services[]->
+      },
+      _type == "technologiesBlock" => {
+        ...,
+        technologies[]->{
+          _id,
+          name,
+          slug,
+          description,
+          icon,
+          color,
+          language
+        }
+      },
+      _type == "projectsBlock" => {
+        ...,
+        mode == "selected" => {
+          projects[]-> [language == $lang]{
+            _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            )
+          }
+        },
+        mode == "all" => {
+          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {
+            _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            ),
+            language
+          }
+        }
+      }
+    },
+    "seo": {
+      "title": coalesce(seo.title, name, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const TECHNOLOGIES_QUERY = defineQuery(`
+  *[_type == "technology" && defined(slug.current) && language == $lang]
+  | order(name asc){
+    _id,
+    name,
+    slug,
+    description,
+    icon,
+    color,
+    language
+  }
+`);
+
+export const SERVICE_QUERY = defineQuery(`
+  *[_type == "service" && slug.current == $slug && language == $lang][0]{
+    _id,
+    title,
+    slug,
+    description,
+    icon,
+    content[]{
+      ...,
+      _type == "faqs" => {
+        ...,
+        faqs[]->
+      },
+      _type == "servicesSection" => {
+        ...,
+        services[]->
+      },
+      _type == "servicesBlock" => {
+        ...,
+        services[]->
+      },
+      _type == "technologiesBlock" => {
+        ...,
+        technologies[]->{
+          _id,
+          name,
+          slug,
+          description,
+          icon,
+          color,
+          language
+        }
+      },
+      _type == "projectsBlock" => {
+        ...,
+        mode == "selected" => {
+          projects[]-> [language == $lang]{
+            _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            )
+          }
+        },
+        mode == "all" => {
+          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {
+            _id,
+            title,
+            slug,
+            description,
+            mainImage,
+            projectLink,
+            githubLink,
+            "technologies": coalesce(
+              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              []
+            ),
+            language
+          }
+        }
+      }
+    },
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const SERVICES_QUERY = defineQuery(`
+  *[_type == "service" && defined(slug.current) && language == $lang]
+  | order(title asc){
+    _id,
+    title,
+    slug,
+    description,
+    icon,
+    language
+  }
+`);
+
+export const SERVICES_SLUGS_QUERY = defineQuery(`
+  *[_type == "service" && defined(slug.current) && language == $lang]{
+    "slug": slug.current,
+    language
+  }
+`);
+
+export const REDIRECTS_QUERY = defineQuery(`
+  *[_type == "redirect" && isEnabled == true]{
+    source,
+    destination,
+    permanent
+  }
+`);
+
+export const OG_IMAGE_QUERY = defineQuery(`
+  *[_id == $id][0]{
+    title,
+    mainImage
+  }
+`);
+
+export const SITEMAP_QUERY = defineQuery(`
+  *[_type in ["page", "post", "technology", "service", "project"] && defined(slug.current) && language == $lang]{
+    "href": select(
+      _type == "page" => "/" + slug.current,
+      _type == "post" => "/posts/" + slug.current,
+      _type == "technology" => "/technologies/" + slug.current,
+      _type == "service" => "/services/" + slug.current,
+      _type == "project" => "/projects/" + slug.current,
+      slug.current
+    ),
+    _updatedAt
+  }
+`);
