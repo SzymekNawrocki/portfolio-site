@@ -9,8 +9,8 @@ import { client } from "@/sanity/lib/client";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-import { Eyebrow } from "./eyebrow";
-import { SectionTitle } from "./section-title";
+import { Eyebrow } from "../ui/eyebrow";
+import { SectionTitle } from "../ui/section-title";
 
 const { projectId, dataset, stega } = client.config();
 export const createDataAttributeConfig = {

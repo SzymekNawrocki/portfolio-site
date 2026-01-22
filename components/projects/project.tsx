@@ -1,7 +1,7 @@
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { PROJECT_QUERYResult } from "@/sanity/types";
-import { SectionTitle } from "./section-title";
+import { SectionTitle } from "../ui/section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
 import {
@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
-import { Eyebrow } from './eyebrow';
+import { Eyebrow } from '../ui/eyebrow';
 
 export function Project(props: NonNullable<PROJECT_QUERYResult>) {
   const {
@@ -88,9 +88,9 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
                     <div className="flex flex-wrap gap-2">
                          {technologies.map((tech) => (
                             <Badge
-                              key={tech?._id}
-                              variant="secondary"
-                              className="flex items-center gap-2 px-3 py-1"
+                               key={tech?._id}
+                               variant="secondary"
+                               className="flex items-center gap-2 px-3 py-1"
                             >
                                 {tech?.name ?? "—"}
                             </Badge>

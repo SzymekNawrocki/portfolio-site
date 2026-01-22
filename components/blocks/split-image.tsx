@@ -2,7 +2,7 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { stegaClean } from "next-sanity";
-import { SectionTitle } from "./section-title";
+import { SectionTitle } from "../ui/section-title";
 
 type SplitImageProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],

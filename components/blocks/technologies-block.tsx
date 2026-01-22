@@ -4,8 +4,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { Separator } from "@/components/ui/separator";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { ArrowRight } from "lucide-react";
-import { Eyebrow } from "./eyebrow";
-import { SectionTitle } from "./section-title";
+import { Eyebrow } from "../ui/eyebrow";
+import { SectionTitle } from "../ui/section-title";
 
 type TechnologiesBlockProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],

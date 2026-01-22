@@ -1,8 +1,8 @@
 import { client } from "@/sanity/lib/client";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
-import { SectionTitle } from "@/components/section-title";
-import { Eyebrow } from "@/components/eyebrow";
-import { PostCard } from "@/components/post-card";
+import { SectionTitle } from "@/components/ui/section-title";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { PostCard } from "@/components/blog/post-card";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 

@@ -111,20 +111,33 @@ export const PAGE_QUERY = defineQuery(`
     content[]{
       ...,
       _type == "faqs" => {
-        ...,
-        faqs[]->
+        "faqs": faqs[]->{
+          _id,
+          _type,
+          title,
+          body
+        }
       },
       _type == "servicesSection" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "servicesBlock" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "technologiesBlock" => {
-        ...,
-        technologies[]->{
+        "technologies": technologies[]->{
           _id,
           name,
           slug,
@@ -135,10 +148,13 @@ export const PAGE_QUERY = defineQuery(`
         }
       },
       _type == "projectsBlock" => {
-        ...,
+        "eyebrow": eyebrow,
+        "title": title,
+        "description": description,
+        "mode": mode,
         mode == "selected" => {
-          projects[]-> [language == $lang]{
-             _id,
+          "projects": projects[]->[language == $lang]{
+            _id,
             title,
             slug,
             description,
@@ -146,14 +162,14 @@ export const PAGE_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             )
           }
         },
         mode == "all" => {
           "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(publishedAt desc)[0...100] {
-             _id,
+            _id,
             title,
             slug,
             description,
@@ -161,7 +177,7 @@ export const PAGE_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             )
           }
@@ -184,25 +200,34 @@ export const HOME_PAGE_QUERY = defineQuery(`
       ...,
       content[] {
         ...,
-
         _type == "faqs" => {
-          ...,
-          faqs[]->
+          "faqs": faqs[]->{
+            _id,
+            _type,
+            title,
+            body
+          }
         },
-
         _type == "servicesSection" => {
-          ...,
-          services[]->
+          "services": services[]->{
+            _id,
+            title,
+            slug,
+            description,
+            icon
+          }
         },
-
         _type == "servicesBlock" => {
-          ...,
-          services[]->
+          "services": services[]->{
+            _id,
+            title,
+            slug,
+            description,
+            icon
+          }
         },
-
         _type == "technologiesBlock" => {
-          ...,
-          technologies[]->{
+          "technologies": technologies[]->{
             _id,
             name,
             slug,
@@ -212,11 +237,13 @@ export const HOME_PAGE_QUERY = defineQuery(`
             language
           }
         },
-
         _type == "projectsBlock" => {
-          ...,
+          "eyebrow": eyebrow,
+          "title": title,
+          "description": description,
+          "mode": mode,
           mode == "selected" => {
-            projects[]-> [language == $lang]{
+            "projects": projects[]->[language == $lang]{
               _id,
               title,
               slug,
@@ -225,7 +252,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
               projectLink,
               githubLink,
               "technologies": coalesce(
-                technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+                technologies[]->[language == $lang]{_id, slug, name, icon, language},
                 []
               )
             }
@@ -240,7 +267,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
               projectLink,
               githubLink,
               "technologies": coalesce(
-                technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+                technologies[]->[language == $lang]{_id, slug, name, icon, language},
                 []
               )
             }
@@ -262,20 +289,33 @@ export const TECHNOLOGY_QUERY = defineQuery(`
     content[]{
       ...,
       _type == "faqs" => {
-        ...,
-        faqs[]->
+        "faqs": faqs[]->{
+          _id,
+          _type,
+          title,
+          body
+        }
       },
       _type == "servicesSection" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "servicesBlock" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "technologiesBlock" => {
-        ...,
-        technologies[]->{
+        "technologies": technologies[]->{
           _id,
           name,
           slug,
@@ -286,9 +326,12 @@ export const TECHNOLOGY_QUERY = defineQuery(`
         }
       },
       _type == "projectsBlock" => {
-        ...,
+        "eyebrow": eyebrow,
+        "title": title,
+        "description": description,
+        "mode": mode,
         mode == "selected" => {
-          projects[]-> [language == $lang]{
+          "projects": projects[]->[language == $lang]{
             _id,
             title,
             slug,
@@ -297,7 +340,7 @@ export const TECHNOLOGY_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             )
           }
@@ -312,7 +355,7 @@ export const TECHNOLOGY_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             ),
             language
@@ -351,20 +394,33 @@ export const SERVICE_QUERY = defineQuery(`
     content[]{
       ...,
       _type == "faqs" => {
-        ...,
-        faqs[]->
+        "faqs": faqs[]->{
+          _id,
+          _type,
+          title,
+          body
+        }
       },
       _type == "servicesSection" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "servicesBlock" => {
-        ...,
-        services[]->
+        "services": services[]->{
+          _id,
+          title,
+          slug,
+          description,
+          icon
+        }
       },
       _type == "technologiesBlock" => {
-        ...,
-        technologies[]->{
+        "technologies": technologies[]->{
           _id,
           name,
           slug,
@@ -375,9 +431,12 @@ export const SERVICE_QUERY = defineQuery(`
         }
       },
       _type == "projectsBlock" => {
-        ...,
+        "eyebrow": eyebrow,
+        "title": title,
+        "description": description,
+        "mode": mode,
         mode == "selected" => {
-          projects[]-> [language == $lang]{
+          "projects": projects[]->[language == $lang]{
             _id,
             title,
             slug,
@@ -386,7 +445,7 @@ export const SERVICE_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             )
           }
@@ -401,7 +460,7 @@ export const SERVICE_QUERY = defineQuery(`
             projectLink,
             githubLink,
             "technologies": coalesce(
-              technologies[]-> [language == $lang]{_id, slug, name, icon, language},
+              technologies[]->[language == $lang]{_id, slug, name, icon, language},
               []
             ),
             language

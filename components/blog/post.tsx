@@ -2,17 +2,10 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { Categories } from "./categories";
 import { POST_QUERYResult } from "@/sanity/types";
-import { SectionTitle } from "./section-title";
+import { SectionTitle } from "../ui/section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
 import { RelatedPosts } from "./related-posts";
-
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { calculateReadingTime } from "@/lib/utils";
 import { MoveLeft, Clock, Calendar } from "lucide-react";
@@ -102,4 +95,3 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
     </div>
   );
 }
-

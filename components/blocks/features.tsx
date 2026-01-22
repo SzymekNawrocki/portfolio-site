@@ -1,6 +1,6 @@
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { SectionTitle } from "./section-title";
+import { SectionTitle } from "../ui/section-title";
 
 type FeaturesProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],

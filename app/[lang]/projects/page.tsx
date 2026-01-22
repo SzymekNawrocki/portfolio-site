@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
-import { ProjectsBlock } from "@/components/projects-block";
+import { ProjectsBlock } from "@/components/blocks/projects-block";
 
 export default async function Page({
   params,

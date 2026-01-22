@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Globe, Code, Mail, Server, Cpu } from "lucide-react";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Eyebrow } from "./eyebrow";
-import { SectionTitle } from "./section-title";
+import { Eyebrow } from "../ui/eyebrow";
+import { SectionTitle } from "../ui/section-title";
 
 const iconsMap = {
   Globe,

@@ -7,8 +7,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { urlFor } from "@/sanity/lib/image";
-import { Eyebrow } from "./eyebrow";
-import { SectionTitle } from "./section-title";
+import { Eyebrow } from "../ui/eyebrow";
+import { SectionTitle } from "../ui/section-title";
 
 type FAQsProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],

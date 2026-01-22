@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
 import { PROJECT_QUERY, PROJECTS_SLUGS_QUERY } from "@/sanity/lib/queries";
 import { PROJECTS_SLUGS_QUERYResult } from "@/sanity/types";
-import { Project } from "@/components/project";
+import { Project } from "@/components/projects/project";
 import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { urlFor } from "@/sanity/lib/image";

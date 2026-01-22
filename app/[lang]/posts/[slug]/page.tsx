@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
 import { POST_QUERY, POSTS_SLUGS_QUERY } from "@/sanity/lib/queries";
-import { Post } from "@/components/post";
+import { Post } from "@/components/blog/post";
 import { routing } from "@/i18n/routing";
 
 export async function generateStaticParams() {

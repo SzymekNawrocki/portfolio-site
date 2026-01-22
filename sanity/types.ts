@@ -212,6 +212,7 @@ export type Locale = {
 
 export type Faqs = {
   _type: "faqs";
+  eyebrow?: string;
   title?: string;
   faqs?: Array<{
     _ref: string;
@@ -966,12 +967,1533 @@ export type POST_QUERYResult = {
     seoImage: null;
   };
 } | null;
+// Variable: PAGE_QUERY
+// Query: *[_type in ["page", "technology", "service"] && slug.current == $slug && language == $lang][0]{    ...,    "seo": {      "title": coalesce(seo.title, title, name, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    },    content[]{      ...,      _type == "faqs" => {        "faqs": faqs[]->{          _id,          _type,          title,          body        }      },      _type == "servicesSection" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "servicesBlock" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "technologiesBlock" => {        "technologies": technologies[]->{          _id,          name,          slug,          description,          icon,          color,          language        }      },      _type == "projectsBlock" => {        "eyebrow": eyebrow,        "title": title,        "description": description,        "mode": mode,        mode == "selected" => {          "projects": projects[]->[language == $lang]{            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            )          }        },        mode == "all" => {          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(publishedAt desc)[0...100] {            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            )          }        }      }    }  }
+export type PAGE_QUERYResult = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  social?: Social;
+  slug?: Slug;
+  content: Array<{
+    _key: string;
+    _type: "cta";
+    subtitle?: string;
+    title?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "faqs";
+    eyebrow?: string;
+    title?: string;
+    faqs: Array<{
+      _id: string;
+      _type: "faq";
+      title: string | null;
+      body: BlockContent | null;
+    }> | null;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "features";
+    title?: string;
+    features?: Array<{
+      title?: string;
+      text?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "hero";
+    title?: string;
+    text?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    button?: {
+      label?: string;
+      href?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }> | null;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "servicesBlock";
+    eyebrow?: string;
+    title?: string;
+    services: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string;
+      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    }>;
+  } | {
+    _key: string;
+    _type: "splitImage";
+    orientation?: "imageLeft" | "imageRight";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "technologiesBlock";
+    eyebrow?: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    technologies: Array<{
+      _id: string;
+      name: string;
+      slug: Slug;
+      description: string | null;
+      icon: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      color: string | null;
+      language: string | null;
+    }>;
+  }> | null;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  seo: {
+    title: string | "";
+    description: "";
+    seoImage: null;
+  };
+} | {
+  _id: string;
+  _type: "service";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  icon?: "Code" | "Cpu" | "Globe" | "Mail" | "Server";
+  description: string;
+  content: Array<{
+    _key: string;
+    _type: "cta";
+    subtitle?: string;
+    title?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "faqs";
+    eyebrow?: string;
+    title?: string;
+    faqs: Array<{
+      _id: string;
+      _type: "faq";
+      title: string | null;
+      body: BlockContent | null;
+    }> | null;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "features";
+    title?: string;
+    features?: Array<{
+      title?: string;
+      text?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "hero";
+    title?: string;
+    text?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    button?: {
+      label?: string;
+      href?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }> | null;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "servicesBlock";
+    eyebrow?: string;
+    title?: string;
+    services: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string;
+      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    }>;
+  } | {
+    _key: string;
+    _type: "splitImage";
+    orientation?: "imageLeft" | "imageRight";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "technologiesBlock";
+    eyebrow?: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    technologies: Array<{
+      _id: string;
+      name: string;
+      slug: Slug;
+      description: string | null;
+      icon: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      color: string | null;
+      language: string | null;
+    }>;
+  }> | null;
+  seo: {
+    title: string;
+    description: string;
+    seoImage: null;
+  };
+  language?: string;
+} | {
+  _id: string;
+  _type: "technology";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  icon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  color?: string;
+  content: Array<{
+    _key: string;
+    _type: "cta";
+    subtitle?: string;
+    title?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "faqs";
+    eyebrow?: string;
+    title?: string;
+    faqs: Array<{
+      _id: string;
+      _type: "faq";
+      title: string | null;
+      body: BlockContent | null;
+    }> | null;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "features";
+    title?: string;
+    features?: Array<{
+      title?: string;
+      text?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "hero";
+    title?: string;
+    text?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    button?: {
+      label?: string;
+      href?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }> | null;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "servicesBlock";
+    eyebrow?: string;
+    title?: string;
+    services: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string;
+      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    }>;
+  } | {
+    _key: string;
+    _type: "splitImage";
+    orientation?: "imageLeft" | "imageRight";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "technologiesBlock";
+    eyebrow?: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    technologies: Array<{
+      _id: string;
+      name: string;
+      slug: Slug;
+      description: string | null;
+      icon: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      color: string | null;
+      language: string | null;
+    }>;
+  }> | null;
+  seo: {
+    title: string;
+    description: string | "";
+    seoImage: null;
+  };
+  language?: string;
+} | null;
 // Variable: PAGES_SLUGS_QUERY
 // Query: *[_type == "page" && defined(slug.current) && language == $lang]{    "slug": slug.current,    language  }
 export type PAGES_SLUGS_QUERYResult = Array<{
   slug: string | null;
   language: string | null;
 }>;
+// Variable: HOME_PAGE_QUERY
+// Query: *[_id == "siteSettings"][0]{    homePage->{      ...,      content[] {        ...,        _type == "faqs" => {          "faqs": faqs[]->{            _id,            _type,            title,            body          }        },        _type == "servicesSection" => {          "services": services[]->{            _id,            title,            slug,            description,            icon          }        },        _type == "servicesBlock" => {          "services": services[]->{            _id,            title,            slug,            description,            icon          }        },        _type == "technologiesBlock" => {          "technologies": technologies[]->{            _id,            name,            slug,            description,            icon,            color,            language          }        },        _type == "projectsBlock" => {          "eyebrow": eyebrow,          "title": title,          "description": description,          "mode": mode,          mode == "selected" => {            "projects": projects[]->[language == $lang]{              _id,              title,              slug,              description,              mainImage,              projectLink,              githubLink,              "technologies": coalesce(                technologies[]->[language == $lang]{_id, slug, name, icon, language},                []              )            }          },          mode == "all" => {            "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {              _id,              title,              slug,              description,              mainImage,              projectLink,              githubLink,              "technologies": coalesce(                technologies[]->[language == $lang]{_id, slug, name, icon, language},                []              )            }          }        }      }    }  }
+export type HOME_PAGE_QUERYResult = {
+  homePage: null;
+} | {
+  homePage: {
+    _id: string;
+    _type: "page";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    language?: string;
+    social?: Social;
+    slug?: Slug;
+    content: Array<{
+      _key: string;
+      _type: "cta";
+      subtitle?: string;
+      title?: string;
+      buttonText?: string;
+      buttonLink?: string;
+      backgroundImage?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+    } | {
+      _key: string;
+      _type: "faqs";
+      eyebrow?: string;
+      title?: string;
+      faqs: Array<{
+        _id: string;
+        _type: "faq";
+        title: string | null;
+        body: BlockContent | null;
+      }> | null;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+    } | {
+      _key: string;
+      _type: "features";
+      title?: string;
+      features?: Array<{
+        title?: string;
+        text?: string;
+        _type: "feature";
+        _key: string;
+      }>;
+    } | {
+      _key: string;
+      _type: "hero";
+      title?: string;
+      text?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      } | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      button?: {
+        label?: string;
+        href?: string;
+      };
+    } | {
+      _key: string;
+      _type: "projectsBlock";
+      eyebrow: string | null;
+      title: string | null;
+      description: string | null;
+      mode: "all" | "selected" | null;
+      projects: Array<{
+        _id: string;
+        title: string;
+        slug: Slug;
+        description: string | null;
+        mainImage: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        } | null;
+        projectLink: string | null;
+        githubLink: string | null;
+        technologies: Array<{
+          _id: string;
+          slug: Slug;
+          name: string;
+          icon: {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          };
+          language: string | null;
+        }> | Array<never>;
+      }>;
+      limit?: number;
+    } | {
+      _key: string;
+      _type: "projectsBlock";
+      eyebrow: string | null;
+      title: string | null;
+      description: string | null;
+      mode: "all" | "selected" | null;
+      projects?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      limit?: number;
+    } | {
+      _key: string;
+      _type: "projectsBlock";
+      eyebrow: string | null;
+      title: string | null;
+      description: string | null;
+      mode: "all" | "selected" | null;
+      projects: Array<{
+        _id: string;
+        title: string;
+        slug: Slug;
+        description: string | null;
+        mainImage: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        } | null;
+        projectLink: string | null;
+        githubLink: string | null;
+        technologies: Array<{
+          _id: string;
+          slug: Slug;
+          name: string;
+          icon: {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+          };
+          language: string | null;
+        }> | Array<never>;
+      }> | null;
+      limit?: number;
+    } | {
+      _key: string;
+      _type: "servicesBlock";
+      eyebrow?: string;
+      title?: string;
+      services: Array<{
+        _id: string;
+        title: string;
+        slug: Slug;
+        description: string;
+        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      }>;
+    } | {
+      _key: string;
+      _type: "splitImage";
+      orientation?: "imageLeft" | "imageRight";
+      title?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+    } | {
+      _key: string;
+      _type: "technologiesBlock";
+      eyebrow?: string;
+      title?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      technologies: Array<{
+        _id: string;
+        name: string;
+        slug: Slug;
+        description: string | null;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        color: string | null;
+        language: string | null;
+      }>;
+    }> | null;
+    mainImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    seo?: Seo;
+  } | null;
+} | null;
+// Variable: TECHNOLOGY_QUERY
+// Query: *[_type == "technology" && slug.current == $slug && language == $lang][0]{    _id,    name,    slug,    description,    icon,    color,    content[]{      ...,      _type == "faqs" => {        "faqs": faqs[]->{          _id,          _type,          title,          body        }      },      _type == "servicesSection" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "servicesBlock" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "technologiesBlock" => {        "technologies": technologies[]->{          _id,          name,          slug,          description,          icon,          color,          language        }      },      _type == "projectsBlock" => {        "eyebrow": eyebrow,        "title": title,        "description": description,        "mode": mode,        mode == "selected" => {          "projects": projects[]->[language == $lang]{            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            )          }        },        mode == "all" => {          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            ),            language          }        }      }    },    "seo": {      "title": coalesce(seo.title, name, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    }  }
+export type TECHNOLOGY_QUERYResult = {
+  _id: string;
+  name: string;
+  slug: Slug;
+  description: string | null;
+  icon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  color: string | null;
+  content: Array<{
+    _key: string;
+    _type: "cta";
+    subtitle?: string;
+    title?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "faqs";
+    eyebrow?: string;
+    title?: string;
+    faqs: Array<{
+      _id: string;
+      _type: "faq";
+      title: string | null;
+      body: BlockContent | null;
+    }> | null;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "features";
+    title?: string;
+    features?: Array<{
+      title?: string;
+      text?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "hero";
+    title?: string;
+    text?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    button?: {
+      label?: string;
+      href?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+      language: string | null;
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }> | null;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "servicesBlock";
+    eyebrow?: string;
+    title?: string;
+    services: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string;
+      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    }>;
+  } | {
+    _key: string;
+    _type: "splitImage";
+    orientation?: "imageLeft" | "imageRight";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "technologiesBlock";
+    eyebrow?: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    technologies: Array<{
+      _id: string;
+      name: string;
+      slug: Slug;
+      description: string | null;
+      icon: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      color: string | null;
+      language: string | null;
+    }>;
+  }> | null;
+  seo: {
+    title: string;
+    description: string | "";
+    seoImage: null;
+  };
+} | null;
 // Variable: TECHNOLOGIES_QUERY
 // Query: *[_type == "technology" && defined(slug.current) && language == $lang]  | order(name asc){    _id,    name,    slug,    description,    icon,    color,    language  }
 export type TECHNOLOGIES_QUERYResult = Array<{
@@ -994,6 +2516,299 @@ export type TECHNOLOGIES_QUERYResult = Array<{
   color: string | null;
   language: string | null;
 }>;
+// Variable: SERVICE_QUERY
+// Query: *[_type == "service" && slug.current == $slug && language == $lang][0]{    _id,    title,    slug,    description,    icon,    content[]{      ...,      _type == "faqs" => {        "faqs": faqs[]->{          _id,          _type,          title,          body        }      },      _type == "servicesSection" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "servicesBlock" => {        "services": services[]->{          _id,          title,          slug,          description,          icon        }      },      _type == "technologiesBlock" => {        "technologies": technologies[]->{          _id,          name,          slug,          description,          icon,          color,          language        }      },      _type == "projectsBlock" => {        "eyebrow": eyebrow,        "title": title,        "description": description,        "mode": mode,        mode == "selected" => {          "projects": projects[]->[language == $lang]{            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            )          }        },        mode == "all" => {          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,            "technologies": coalesce(              technologies[]->[language == $lang]{_id, slug, name, icon, language},              []            ),            language          }        }      }    },    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    }  }
+export type SERVICE_QUERYResult = {
+  _id: string;
+  title: string;
+  slug: Slug;
+  description: string;
+  icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+  content: Array<{
+    _key: string;
+    _type: "cta";
+    subtitle?: string;
+    title?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "faqs";
+    eyebrow?: string;
+    title?: string;
+    faqs: Array<{
+      _id: string;
+      _type: "faq";
+      title: string | null;
+      body: BlockContent | null;
+    }> | null;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "features";
+    title?: string;
+    features?: Array<{
+      title?: string;
+      text?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "hero";
+    title?: string;
+    text?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    button?: {
+      label?: string;
+      href?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+      language: string | null;
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
+    }>;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "projectsBlock";
+    eyebrow: string | null;
+    title: string | null;
+    description: string | null;
+    mode: "all" | "selected" | null;
+    projects: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string | null;
+      mainImage: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      } | null;
+      projectLink: string | null;
+      githubLink: string | null;
+      technologies: Array<{
+        _id: string;
+        slug: Slug;
+        name: string;
+        icon: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        language: string | null;
+      }> | Array<never>;
+    }> | null;
+    limit?: number;
+  } | {
+    _key: string;
+    _type: "servicesBlock";
+    eyebrow?: string;
+    title?: string;
+    services: Array<{
+      _id: string;
+      title: string;
+      slug: Slug;
+      description: string;
+      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    }>;
+  } | {
+    _key: string;
+    _type: "splitImage";
+    orientation?: "imageLeft" | "imageRight";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "technologiesBlock";
+    eyebrow?: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    technologies: Array<{
+      _id: string;
+      name: string;
+      slug: Slug;
+      description: string | null;
+      icon: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      color: string | null;
+      language: string | null;
+    }>;
+  }> | null;
+  seo: {
+    title: string;
+    description: string;
+    seoImage: null;
+  };
+} | null;
 // Variable: SERVICES_QUERY
 // Query: *[_type == "service" && defined(slug.current) && language == $lang]  | order(title asc){    _id,    title,    slug,    description,    icon,    language  }
 export type SERVICES_QUERYResult = Array<{
@@ -1078,8 +2893,12 @@ declare module "@sanity/client" {
     "\n  *[_type == \"project\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": PROJECTS_SLUGS_QUERYResult;
     "\n  *[_type == \"project\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    slug,\n    description,\n    body,\n    mainImage,\n    projectLink,\n    githubLink,\n    \"technologies\": coalesce(\n      technologies[]-> [language == $lang]{_id, slug, name, icon, language},\n      []\n    ),\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": PROJECT_QUERYResult;
     "\n  *[_type == \"post\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POST_QUERYResult;
+    "\n  *[_type in [\"page\", \"technology\", \"service\"] && slug.current == $slug && language == $lang][0]{\n    ...,\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, name, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    },\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{\n          _id,\n          _type,\n          title,\n          body\n        }\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{\n          _id,\n          name,\n          slug,\n          description,\n          icon,\n          color,\n          language\n        }\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            )\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(publishedAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            )\n          }\n        }\n      }\n    }\n  }\n": PAGE_QUERYResult;
     "\n  *[_type == \"page\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": PAGES_SLUGS_QUERYResult;
+    "\n  *[_id == \"siteSettings\"][0]{\n    homePage->{\n      ...,\n      content[] {\n        ...,\n        _type == \"faqs\" => {\n          \"faqs\": faqs[]->{\n            _id,\n            _type,\n            title,\n            body\n          }\n        },\n        _type == \"servicesSection\" => {\n          \"services\": services[]->{\n            _id,\n            title,\n            slug,\n            description,\n            icon\n          }\n        },\n        _type == \"servicesBlock\" => {\n          \"services\": services[]->{\n            _id,\n            title,\n            slug,\n            description,\n            icon\n          }\n        },\n        _type == \"technologiesBlock\" => {\n          \"technologies\": technologies[]->{\n            _id,\n            name,\n            slug,\n            description,\n            icon,\n            color,\n            language\n          }\n        },\n        _type == \"projectsBlock\" => {\n          \"eyebrow\": eyebrow,\n          \"title\": title,\n          \"description\": description,\n          \"mode\": mode,\n          mode == \"selected\" => {\n            \"projects\": projects[]->[language == $lang]{\n              _id,\n              title,\n              slug,\n              description,\n              mainImage,\n              projectLink,\n              githubLink,\n              \"technologies\": coalesce(\n                technologies[]->[language == $lang]{_id, slug, name, icon, language},\n                []\n              )\n            }\n          },\n          mode == \"all\" => {\n            \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n              _id,\n              title,\n              slug,\n              description,\n              mainImage,\n              projectLink,\n              githubLink,\n              \"technologies\": coalesce(\n                technologies[]->[language == $lang]{_id, slug, name, icon, language},\n                []\n              )\n            }\n          }\n        }\n      }\n    }\n  }\n": HOME_PAGE_QUERYResult;
+    "\n  *[_type == \"technology\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    name,\n    slug,\n    description,\n    icon,\n    color,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{\n          _id,\n          _type,\n          title,\n          body\n        }\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{\n          _id,\n          name,\n          slug,\n          description,\n          icon,\n          color,\n          language\n        }\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            )\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            ),\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, name, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": TECHNOLOGY_QUERYResult;
     "\n  *[_type == \"technology\" && defined(slug.current) && language == $lang]\n  | order(name asc){\n    _id,\n    name,\n    slug,\n    description,\n    icon,\n    color,\n    language\n  }\n": TECHNOLOGIES_QUERYResult;
+    "\n  *[_type == \"service\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{\n          _id,\n          _type,\n          title,\n          body\n        }\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{\n          _id,\n          title,\n          slug,\n          description,\n          icon\n        }\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{\n          _id,\n          name,\n          slug,\n          description,\n          icon,\n          color,\n          language\n        }\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            )\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \"technologies\": coalesce(\n              technologies[]->[language == $lang]{_id, slug, name, icon, language},\n              []\n            ),\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": SERVICE_QUERYResult;
     "\n  *[_type == \"service\" && defined(slug.current) && language == $lang]\n  | order(title asc){\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    language\n  }\n": SERVICES_QUERYResult;
     "\n  *[_type == \"service\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": SERVICES_SLUGS_QUERYResult;
     "\n  *[_type == \"redirect\" && isEnabled == true]{\n    source,\n    destination,\n    permanent\n  }\n": REDIRECTS_QUERYResult;

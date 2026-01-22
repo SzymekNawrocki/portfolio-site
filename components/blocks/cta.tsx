@@ -9,8 +9,8 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { SectionTitle } from "./section-title";
-import { Eyebrow } from './eyebrow';
+import { SectionTitle } from "../ui/section-title";
+import { Eyebrow } from "../ui/eyebrow";
 
 type CTAProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],

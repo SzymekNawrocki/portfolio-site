@@ -4,8 +4,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
 import { ProjectsBlock as ProjectsBlockSchema, Project as ProjectSchema, Technology, Slug } from "@/sanity/types";
-import { Eyebrow } from "./eyebrow";
-import { SectionTitle } from "./section-title";
+import { Eyebrow } from "../ui/eyebrow";
+import { SectionTitle } from "../ui/section-title";
 
 type Project = {
   _id: string;

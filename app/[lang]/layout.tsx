@@ -1,14 +1,14 @@
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
-import { DisableDraftMode } from "@/components/disable-draft-mode";
-import { Header } from "@/components/header";
+import { DisableDraftMode } from "@/components/sanity/disable-draft-mode";
+import { Header } from "@/components/layout/header";
 import { SanityLive } from "@/sanity/lib/live";
 import { Metadata } from "next";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = {
   title: "Devemite - Where every grain holds a story",
