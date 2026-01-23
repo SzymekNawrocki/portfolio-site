@@ -196,46 +196,29 @@ export const PAGES_SLUGS_QUERY = defineQuery(`
 
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
-    homePage->{
-      ...,
+    "homePage": coalesce(
+      // PRÓBA 1: Pobierz tłumaczenie z metadata (zwróć uwagę na [0] po filtrowaniu języka)
+      *[_type == "translation.metadata" && references(^.homePage._ref)][0].translations[_key == $lang][0].value->,
+      
+      // PRÓBA 2: Fallback do ustawień
+      homePage->
+    ) {
+      // PROJEKCJA PÓL (To musi być tutaj, aby działało dla obu przypadków)
+      _id,
+      title,
       content[] {
         ...,
         _type == "faqs" => {
-          "faqs": faqs[]->{
-            _id,
-            _type,
-            title,
-            body
-          }
+          "faqs": faqs[]->{_id, _type, title, body}
         },
         _type == "servicesSection" => {
-          "services": services[]->{
-            _id,
-            title,
-            slug,
-            description,
-            icon
-          }
+          "services": services[]->{_id, title, slug, description, icon}
         },
         _type == "servicesBlock" => {
-          "services": services[]->{
-            _id,
-            title,
-            slug,
-            description,
-            icon
-          }
+          "services": services[]->{_id, title, slug, description, icon}
         },
         _type == "technologiesBlock" => {
-          "technologies": technologies[]->{
-            _id,
-            name,
-            slug,
-            description,
-            icon,
-            color,
-            language
-          }
+          "technologies": technologies[]->{_id, name, slug, description, icon, color, language}
         },
         _type == "projectsBlock" => {
           "eyebrow": eyebrow,
@@ -244,32 +227,14 @@ export const HOME_PAGE_QUERY = defineQuery(`
           "mode": mode,
           mode == "selected" => {
             "projects": projects[]->[language == $lang]{
-              _id,
-              title,
-              slug,
-              description,
-              mainImage,
-              projectLink,
-              githubLink,
-              "technologies": coalesce(
-                technologies[]->[language == $lang]{_id, slug, name, icon, language},
-                []
-              )
+              _id, title, slug, description, mainImage, projectLink, githubLink,
+              "technologies": coalesce(technologies[]->[language == $lang]{_id, slug, name, icon, language}, [])
             }
           },
           mode == "all" => {
             "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {
-              _id,
-              title,
-              slug,
-              description,
-              mainImage,
-              projectLink,
-              githubLink,
-              "technologies": coalesce(
-                technologies[]->[language == $lang]{_id, slug, name, icon, language},
-                []
-              )
+              _id, title, slug, description, mainImage, projectLink, githubLink,
+              "technologies": coalesce(technologies[]->[language == $lang]{_id, slug, name, icon, language}, [])
             }
           }
         }

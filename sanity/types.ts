@@ -13,6 +13,58 @@
  */
 
 // Source: schema.json
+export type ContactMessage = {
+  _id: string;
+  _type: "contactMessage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  email?: string;
+  message?: string;
+  createdAt?: string;
+};
+
+export type ContactSection = {
+  _type: "contactSection";
+  title: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  contactDetails?: {
+    email?: string;
+    phone?: string;
+    location?: string;
+  };
+  showForm?: boolean;
+  formSettings?: {
+    nameLabel?: string;
+    namePlaceholder?: string;
+    emailLabel?: string;
+    emailPlaceholder?: string;
+    messageLabel?: string;
+    messagePlaceholder?: string;
+    submitButtonLabel?: string;
+    successMessage?: string;
+    errorMessage?: string;
+  };
+};
+
 export type ProjectsBlock = {
   _type: "projectsBlock";
   eyebrow?: string;
@@ -222,7 +274,9 @@ export type PageBuilder = Array<{
   _key: string;
 } & Cta | {
   _key: string;
-} & ProjectsBlock>;
+} & ProjectsBlock | {
+  _key: string;
+} & ContactSection>;
 
 export type BlockContent = Array<{
   children?: Array<{
@@ -739,7 +793,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -949,6 +1003,45 @@ export type PAGE_QUERYResult = {
   social?: Social;
   slug?: Slug;
   content: Array<{
+    _key: string;
+    _type: "contactSection";
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contactDetails?: {
+      email?: string;
+      phone?: string;
+      location?: string;
+    };
+    showForm?: boolean;
+    formSettings?: {
+      nameLabel?: string;
+      namePlaceholder?: string;
+      emailLabel?: string;
+      emailPlaceholder?: string;
+      messageLabel?: string;
+      messagePlaceholder?: string;
+      submitButtonLabel?: string;
+      successMessage?: string;
+      errorMessage?: string;
+    };
+  } | {
     _key: string;
     _type: "cta";
     subtitle?: string;
@@ -1225,6 +1318,45 @@ export type PAGE_QUERYResult = {
   icon?: "Code" | "Cpu" | "Globe" | "Mail" | "Server";
   description: string;
   content: Array<{
+    _key: string;
+    _type: "contactSection";
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contactDetails?: {
+      email?: string;
+      phone?: string;
+      location?: string;
+    };
+    showForm?: boolean;
+    formSettings?: {
+      nameLabel?: string;
+      namePlaceholder?: string;
+      emailLabel?: string;
+      emailPlaceholder?: string;
+      messageLabel?: string;
+      messagePlaceholder?: string;
+      submitButtonLabel?: string;
+      successMessage?: string;
+      errorMessage?: string;
+    };
+  } | {
     _key: string;
     _type: "cta";
     subtitle?: string;
@@ -1503,6 +1635,45 @@ export type PAGE_QUERYResult = {
   color?: string;
   content: Array<{
     _key: string;
+    _type: "contactSection";
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contactDetails?: {
+      email?: string;
+      phone?: string;
+      location?: string;
+    };
+    showForm?: boolean;
+    formSettings?: {
+      nameLabel?: string;
+      namePlaceholder?: string;
+      emailLabel?: string;
+      emailPlaceholder?: string;
+      messageLabel?: string;
+      messagePlaceholder?: string;
+      submitButtonLabel?: string;
+      successMessage?: string;
+      errorMessage?: string;
+    };
+  } | {
+    _key: string;
     _type: "cta";
     subtitle?: string;
     title?: string;
@@ -1779,6 +1950,45 @@ export type HOME_PAGE_QUERYResult = {
     social?: Social;
     slug?: Slug;
     content: Array<{
+      _key: string;
+      _type: "contactSection";
+      title: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      contactDetails?: {
+        email?: string;
+        phone?: string;
+        location?: string;
+      };
+      showForm?: boolean;
+      formSettings?: {
+        nameLabel?: string;
+        namePlaceholder?: string;
+        emailLabel?: string;
+        emailPlaceholder?: string;
+        messageLabel?: string;
+        messagePlaceholder?: string;
+        submitButtonLabel?: string;
+        successMessage?: string;
+        errorMessage?: string;
+      };
+    } | {
       _key: string;
       _type: "cta";
       subtitle?: string;
@@ -2063,6 +2273,45 @@ export type TECHNOLOGY_QUERYResult = {
   };
   color: string | null;
   content: Array<{
+    _key: string;
+    _type: "contactSection";
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contactDetails?: {
+      email?: string;
+      phone?: string;
+      location?: string;
+    };
+    showForm?: boolean;
+    formSettings?: {
+      nameLabel?: string;
+      namePlaceholder?: string;
+      emailLabel?: string;
+      emailPlaceholder?: string;
+      messageLabel?: string;
+      messagePlaceholder?: string;
+      submitButtonLabel?: string;
+      successMessage?: string;
+      errorMessage?: string;
+    };
+  } | {
     _key: string;
     _type: "cta";
     subtitle?: string;
@@ -2349,6 +2598,45 @@ export type SERVICE_QUERYResult = {
   description: string;
   icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
   content: Array<{
+    _key: string;
+    _type: "contactSection";
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contactDetails?: {
+      email?: string;
+      phone?: string;
+      location?: string;
+    };
+    showForm?: boolean;
+    formSettings?: {
+      nameLabel?: string;
+      namePlaceholder?: string;
+      emailLabel?: string;
+      emailPlaceholder?: string;
+      messageLabel?: string;
+      messagePlaceholder?: string;
+      submitButtonLabel?: string;
+      successMessage?: string;
+      errorMessage?: string;
+    };
+  } | {
     _key: string;
     _type: "cta";
     subtitle?: string;
