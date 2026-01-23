@@ -26,8 +26,20 @@ const CTA = dynamic(() =>
 const ProjectsBlock = dynamic(() =>
   import("@/components/blocks/projects-block").then((mod) => mod.ProjectsBlock)
 );
+const ContactSection = dynamic(() =>
+  import("@/components/blocks/contact-section").then((mod) => mod.ContactSection)
+);
 
-export function PageBuilder({ content }: { content: any[] }) {
+export function PageBuilder({
+  content,
+  documentId,
+  documentType,
+}: {
+  content: any[];
+  documentId?: string;
+  documentType?: string;
+}) {
+
   if (!content) return null;
 
   return (
@@ -50,6 +62,8 @@ export function PageBuilder({ content }: { content: any[] }) {
             return <CTA key={block._key} {...block} />;
           case "projectsBlock":
             return <ProjectsBlock key={block._key} {...block} />;
+          case "contactSection":
+            return <ContactSection key={block._key} {...block} />;
           default:
             return null;
         }

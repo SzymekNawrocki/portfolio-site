@@ -21,6 +21,8 @@ import { serviceType } from "./serviceType";
 import { ctaBlockType } from './blocks/ctaBlockType';
 import { projectType } from "./projectType";
 import { projectsBlockType } from "./blocks/projectsBlockType";
+import { contactSectionType } from "./blocks/contactSectionType";
+import { contactMessageType } from "./contactMessageType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -46,6 +48,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     ctaBlockType,
     projectType,
     projectsBlockType,
+    contactSectionType,
+    contactMessageType,
   ],
 };
 

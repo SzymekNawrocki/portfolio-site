@@ -81,7 +81,7 @@ export default async function Page({ params }: RouteProps) {
   }
 
   return (
-    <main className="gap-6 grid grid-cols-1 mx-auto p-12 container">
+    <main className="gap-6 grid grid-cols-1 mx-auto my-22 p-12 container">
       <Project {...project} />
     </main>
   );

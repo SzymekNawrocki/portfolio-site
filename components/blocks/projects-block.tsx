@@ -13,10 +13,13 @@ type Project = {
   slug?: Slug;
   description?: string | null;
   mainImage?: ProjectSchema["mainImage"] | null;
-  technologies?: Array<Partial<Technology>> | null;
+  technologies?: Array<Omit<Partial<Technology>, "language"> & { language?: string | null }> | null;
   projectLink?: string | null;
+
   githubLink?: string | null;
+  language?: string | null;
 };
+
 
 type ProjectsBlockProps = Omit<ProjectsBlockSchema, "projects"> & {
   projects?: Array<Project>;
