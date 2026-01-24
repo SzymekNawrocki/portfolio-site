@@ -13,13 +13,15 @@ export function Hero({ title, text, image }: HeroProps) {
   return (
     <section className="relative w-full aspect-[2/1] overflow-hidden">
       {image && (
-        <Image
-          className="absolute inset-0 w-full h-full object-cover"
-          src={urlFor(image).width(1600).height(800).url()}
-          alt=""
-          fill
-          priority
-        />
+     <Image
+  className="absolute inset-0 w-full h-full object-cover"
+
+  src={urlFor(image).width(2000).auto('format').quality(100).url()}
+  alt={title || ""}
+  fill
+  priority
+  sizes="100vw"
+/>
       )}
 
       <div className="absolute inset-0 bg-black/40" />
