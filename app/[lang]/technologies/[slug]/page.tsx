@@ -3,9 +3,11 @@ import { client, sanityFetch } from "@/sanity/lib/client";
 import {
   TECHNOLOGY_QUERY,
   TECHNOLOGIES_QUERY,
-} from "../../../../sanity/lib/queries";
+} from "@/sanity/lib/queries";
 import { routing } from "@/i18n/routing";
 import { PortableText } from "next-sanity";
+
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const allParams = await Promise.all(
@@ -14,7 +16,7 @@ export async function generateStaticParams() {
         .withConfig({ useCdn: false })
         .fetch(TECHNOLOGIES_QUERY, { lang });
 
-      return slugs.map((item: { slug: { current: string } }) => ({
+      return (slugs || []).map((item: { slug: { current: string } }) => ({
         lang,
         slug: item.slug.current,
       }));
@@ -35,7 +37,7 @@ export default async function Page({
     query: TECHNOLOGY_QUERY,
     params: { slug, lang },
     revalidate: 3600,
-    tags: [`technology:${slug}`],
+    tags: [`technology:${lang}:${slug}`],
   });
 
   if (!tech) notFound();

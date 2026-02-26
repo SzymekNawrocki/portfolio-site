@@ -5,7 +5,6 @@ import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { contactSchema, type ContactFormData } from "@/lib/validation/contact";
 
-// Dedicated client for writing to Sanity
 const writeClient = createClient({
   projectId,
   dataset,
@@ -16,10 +15,9 @@ const writeClient = createClient({
 
 export async function submitContactForm(data: ContactFormData) {
   try {
-    // Validate input on the server
+
     const validatedData = contactSchema.parse(data);
 
-    // Save to Sanity
     await writeClient.create({
       _type: "contactMessage",
       ...validatedData,

@@ -18,6 +18,18 @@ export const technologyType = defineType({
       type: "slug",
       options: {
         source: "name",
+        isUnique: async (slug, context) => {
+          const { document, getClient } = context;
+          const client = getClient({ apiVersion: "2023-01-01" });
+          const id = document?._id.replace(/^drafts\./, "");
+          const type = document?._type;
+          const lang = document?.language;
+
+          const query = `count(*[_type == $type && slug.current == $slug && language == $lang && !(_id in [$id, "drafts." + $id])]) == 0`;
+          const params = { type, slug, lang, id };
+
+          return client.fetch(query, params);
+        },
       },
       validation: (Rule) => Rule.required(),
     }),
