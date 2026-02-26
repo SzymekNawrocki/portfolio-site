@@ -23,6 +23,8 @@ import { projectType } from "./projectType";
 import { projectsBlockType } from "./blocks/projectsBlockType";
 import { contactSectionType } from "./blocks/contactSectionType";
 import { contactMessageType } from "./contactMessageType";
+import { headerType } from "./headerType";
+import { footerType } from "./footerType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -50,6 +52,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projectsBlockType,
     contactSectionType,
     contactMessageType,
+    headerType,
+    footerType,
   ],
 };
 

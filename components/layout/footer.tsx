@@ -1,14 +1,56 @@
-"use client";
-
 import { Separator } from "@/components/ui/separator";
+import { Link } from "@/i18n/navigation";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
-export function Footer() {
+export function Footer({ data }: { data: any }) {
   return (
     <footer className="bg-background border-t">
       <div className="flex md:flex-row flex-col justify-between items-center gap-6 mx-auto px-6 md:px-8 py-8 max-w-7xl">
-        <div className="font-bold text-primary text-xl">Devemite</div>
+        <Link href="/" className="flex items-center gap-2 font-bold text-primary text-xl">
+          {data?.logoImage && (
+            <Image
+              src={urlFor(data.logoImage).url()}
+              alt="Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain"
+            />
+          )}
+        </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
+          {data?.privacyPolicyLink && (
+            <Link
+              href={data.privacyPolicyLink.href as any}
+              className="text-sm text-primary/70 hover:text-primary transition-colors"
+            >
+              {data.privacyPolicyLink.label}
+            </Link>
+          )}
+          
+          <div className="flex items-center gap-4">
+            {data?.socialLinks?.map((link: any, index: number) => (
+              <a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary/70 hover:text-primary transition-colors"
+                title={link.platform}
+              >
+                {link.iconImage && (
+                  <Image
+                    src={urlFor(link.iconImage).url()}
+                    alt={link.platform}
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 object-contain"
+                  />
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 

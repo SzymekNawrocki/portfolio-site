@@ -33,51 +33,53 @@ export function ContactSection({
   formSettings,
 }: ContactSectionProps) {
   return (
-    <section className="container py-12 md:py-24">
-      <div className="grid gap-12 lg:grid-cols-2">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <SectionTitle text={title} />
-            {description && (
-              <div className="text-muted-foreground prose prose-sm dark:prose-invert">
-                <PortableText value={description} />
+    <section className="py-16">
+      <div className="mx-auto px-4 max-w-7xl lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <SectionTitle text={title} />
+              {description && (
+                <div className="text-muted-foreground prose prose-sm dark:prose-invert">
+                  <PortableText value={description} />
+                </div>
+              )}
+            </div>
+
+            {contactDetails && (
+              <div className="space-y-4">
+                {contactDetails.email && (
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-primary" />
+                    <a href={`mailto:${contactDetails.email}`} className="hover:underline font-medium">
+                      {contactDetails.email}
+                    </a>
+                  </div>
+                )}
+                {contactDetails.phone && (
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <a href={`tel:${contactDetails.phone}`} className="hover:underline font-medium">
+                      {contactDetails.phone}
+                    </a>
+                  </div>
+                )}
+                {contactDetails.location && (
+                  <div className="flex items-center gap-3">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    <span className="font-medium">{contactDetails.location}</span>
+                  </div>
+                )}
               </div>
             )}
           </div>
 
-          {contactDetails && (
-            <div className="space-y-4">
-              {contactDetails.email && (
-                <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <a href={`mailto:${contactDetails.email}`} className="hover:underline">
-                    {contactDetails.email}
-                  </a>
-                </div>
-              )}
-              {contactDetails.phone && (
-                <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" />
-                  <a href={`tel:${contactDetails.phone}`} className="hover:underline">
-                    {contactDetails.phone}
-                  </a>
-                </div>
-              )}
-              {contactDetails.location && (
-                <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  <span>{contactDetails.location}</span>
-                </div>
-              )}
+          {showForm && (
+            <div className="w-full">
+              <ContactForm settings={formSettings} />
             </div>
           )}
         </div>
-
-        {showForm && (
-          <div className="mx-auto w-full max-w-md lg:mx-0">
-            <ContactForm settings={formSettings} />
-          </div>
-        )}
       </div>
     </section>
   );

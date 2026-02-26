@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/components/layout/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
+import { sanityFetch } from "@/sanity/lib/live";
+import { HEADER_QUERY, FOOTER_QUERY } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "Devemite - Where every grain holds a story",
@@ -26,6 +28,11 @@ export default async function FrontendLayout({
   const { lang } = await params;
   const messages = await getMessages();
 
+  const [headerData, footerData] = await Promise.all([
+    sanityFetch({ query: HEADER_QUERY, params: { lang } }),
+    sanityFetch({ query: FOOTER_QUERY, params: { lang } }),
+  ]);
+
   return (
     <>
       <html lang={lang} suppressHydrationWarning>
@@ -38,9 +45,9 @@ export default async function FrontendLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Header />
+              <Header data={headerData.data} />
               {children}
-              <Footer />
+              <Footer data={footerData.data} />
             </ThemeProvider>
           </NextIntlClientProvider>
           <SanityLive />

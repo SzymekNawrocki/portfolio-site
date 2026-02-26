@@ -17,7 +17,7 @@ const languages = [
   { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
 ];
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -36,7 +36,7 @@ export default function LanguageSwitcher() {
       onValueChange={handleLanguageChange}
       disabled={isPending}
     >
-      <SelectTrigger className="w-32">
+      <SelectTrigger className={`w-32 transition-all duration-300 ${!scrolled ? 'text-white border-white/40 bg-white/10' : ''}`}>
         <SelectValue placeholder="Language" />
       </SelectTrigger>
 

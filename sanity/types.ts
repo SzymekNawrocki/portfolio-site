@@ -350,6 +350,16 @@ export type InternationalizedArrayReferenceValue = {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "header";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "footer";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "postsPage";
   } | {
     _ref: string;
@@ -497,6 +507,76 @@ export type PostsPage = {
   intro?: BlockContent;
   emptyStateTitle?: string;
   emptyStateDescription?: string;
+};
+
+export type Footer = {
+  _id: string;
+  _type: "footer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  logoImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  privacyPolicyLink?: {
+    label?: string;
+    href?: string;
+  };
+  socialLinks?: Array<{
+    platform?: string;
+    url?: string;
+    iconImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _type: "socialLink";
+    _key: string;
+  }>;
+  language?: string;
+};
+
+export type Header = {
+  _id: string;
+  _type: "header";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  logoImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  navigation?: Array<{
+    label?: string;
+    href?: string;
+    _type: "navItem";
+    _key: string;
+  }>;
+  language?: string;
 };
 
 export type Post = {
@@ -793,7 +873,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -1939,6 +2019,10 @@ export type PAGES_SLUGS_QUERYResult = Array<{
 export type HOME_PAGE_QUERYResult = {
   homePage: {
     _id: string;
+    title: null;
+    content: null;
+  } | {
+    _id: string;
     title: string;
     content: null;
   } | {
@@ -2821,6 +2905,10 @@ export type HOME_PAGE_QUERYResult = {
   } | null;
 } | {
   homePage: {
+    _id: string;
+    title: null;
+    content: null;
+  } | {
     _id: string;
     title: string;
     content: null;
@@ -4416,6 +4504,62 @@ export type SITEMAP_QUERYResult = Array<{
   href: string | null;
   _updatedAt: string;
 }>;
+// Variable: HEADER_QUERY
+// Query: *[_type == "header" && language == $lang][0]{    logoImage,    navigation[]{      label,      href    }  }
+export type HEADER_QUERYResult = {
+  logoImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  navigation: Array<{
+    label: string | null;
+    href: string | null;
+  }> | null;
+} | null;
+// Variable: FOOTER_QUERY
+// Query: *[_type == "footer" && language == $lang][0]{    logoImage,    privacyPolicyLink{      label,      href    },    socialLinks[]{      platform,      url,      iconImage    }  }
+export type FOOTER_QUERYResult = {
+  logoImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  privacyPolicyLink: {
+    label: string | null;
+    href: string | null;
+  } | null;
+  socialLinks: Array<{
+    platform: string | null;
+    url: string | null;
+    iconImage: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -4438,5 +4582,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"redirect\" && isEnabled == true]{\n    source,\n    destination,\n    permanent\n  }\n": REDIRECTS_QUERYResult;
     "\n  *[_id == $id][0]{\n    title,\n    mainImage\n  }\n": OG_IMAGE_QUERYResult;
     "\n  *[_type in [\"page\", \"post\", \"technology\", \"service\", \"project\"] && defined(slug.current) && language == $lang]{\n    \"href\": select(\n      _type == \"page\" => \"/\" + slug.current,\n      _type == \"post\" => \"/posts/\" + slug.current,\n      _type == \"technology\" => \"/technologies/\" + slug.current,\n      _type == \"service\" => \"/services/\" + slug.current,\n      _type == \"project\" => \"/projects/\" + slug.current,\n      slug.current\n    ),\n    _updatedAt\n  }\n": SITEMAP_QUERYResult;
+    "\n  *[_type == \"header\" && language == $lang][0]{\n    logoImage,\n    navigation[]{\n      label,\n      href\n    }\n  }\n": HEADER_QUERYResult;
+    "\n  *[_type == \"footer\" && language == $lang][0]{\n    logoImage,\n    privacyPolicyLink{\n      label,\n      href\n    },\n    socialLinks[]{\n      platform,\n      url,\n      iconImage\n    }\n  }\n": FOOTER_QUERYResult;
   }
 }

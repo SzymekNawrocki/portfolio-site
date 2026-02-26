@@ -17,6 +17,9 @@ export const structure: StructureResolver = (S, context) => {
       S.documentTypeListItem("page").title("Pages"),
 
       S.documentTypeListItem("redirect").title("Redirects"),
+      S.divider(),
+      S.documentTypeListItem("header").title("Header"),
+      S.documentTypeListItem("footer").title("Footer"),
 
       S.divider(),
       S.listItem()
@@ -36,7 +39,7 @@ export const structure: StructureResolver = (S, context) => {
         const id = item.getId();
         if (!id) return false;
 
-        if (["post", "page", "redirect", "siteSettings"].includes(id)) {
+        if (["post", "page", "redirect", "siteSettings", "header", "footer"].includes(id)) {
           return false;
         }
 

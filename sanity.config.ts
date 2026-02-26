@@ -42,7 +42,7 @@ export default defineConfig({
       supportedLanguages: (client) =>
         client.fetch(`*[_type == "locale"]{"id": tag, "title": name}`),
 
-      schemaTypes: ["page", "post", "postsPage", "faq", "technology", "service", "project"],
+      schemaTypes: ["page", "post", "header", "footer", "postsPage", "faq", "technology", "service", "project"],
     }),
   ],
 });

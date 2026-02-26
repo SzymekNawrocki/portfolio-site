@@ -488,3 +488,28 @@ export const SITEMAP_QUERY = defineQuery(`
     _updatedAt
   }
 `);
+
+export const HEADER_QUERY = defineQuery(`
+  *[_type == "header" && language == $lang][0]{
+    logoImage,
+    navigation[]{
+      label,
+      href
+    }
+  }
+`);
+
+export const FOOTER_QUERY = defineQuery(`
+  *[_type == "footer" && language == $lang][0]{
+    logoImage,
+    privacyPolicyLink{
+      label,
+      href
+    },
+    socialLinks[]{
+      platform,
+      url,
+      iconImage
+    }
+  }
+`);
