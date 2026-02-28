@@ -5,7 +5,7 @@ import {
   SERVICES_QUERY,
 } from "../../../../sanity/lib/queries";
 import { routing } from "@/i18n/routing";
-import { PortableText } from "next-sanity";
+import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
 
 export async function generateStaticParams() {
@@ -52,7 +52,7 @@ export default async function Page({
 
         {service.content && (
           <div className="mt-8">
-            <PortableText value={service.content} />
+            <PageBuilder content={service.content} documentId={service._id} documentType="service" />
           </div>
         )}
       </Container>

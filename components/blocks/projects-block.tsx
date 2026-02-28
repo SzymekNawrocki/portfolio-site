@@ -8,17 +8,21 @@ import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
 import { Container } from "../ui/container";
 
-type ProjectsBlockProps = Extract<
+type ProjectsBlockProps = Partial<Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
   { _type: "projectsBlock" }
->;
+>> & {
+  // Ensure _type is still present for the type guard if needed, 
+  // though Partial makes it optional. We can keep it simple.
+  _type?: "projectsBlock";
+};
 
 export function ProjectsBlock(props: ProjectsBlockProps) {
   // Use a type guard to narrow the entire props object
   const isExpanded = (
     p: ProjectsBlockProps
-  ): p is Extract<ProjectsBlockProps, { projects: Array<{ _id: string }> }> => {
-    return !!p.projects && p.projects.length > 0 && "_id" in p.projects[0];
+  ): p is Extract<ProjectsBlockProps, { projects: Array<any> }> => {
+    return !!p.projects && p.projects.length > 0;
   };
 
   if (!isExpanded(props)) {
@@ -28,7 +32,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
   const { eyebrow, title, description, mode, limit, projects } = props;
 
   const displayProjects =
-    mode === "all" ? projects.slice(0, limit || 6) : projects;
+    mode === "all" ? (projects as any[]).slice(0, limit || 6) : projects;
 
   return (
     <section className="py-16">
@@ -44,7 +48,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
         </div>
 
         <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {displayProjects.map((project) => (
+          {(displayProjects as any[]).map((project: any) => (
             <div
               key={project._id}
               className="flex flex-col bg-card shadow-sm hover:shadow-md border border-border rounded-xl overflow-hidden transition-all"
@@ -77,7 +81,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
                 )}
 
                 <div className="flex flex-wrap gap-2 mt-auto mb-6">
-                    {project.technologies?.filter(Boolean).map((tech) => (
+                    {(project.technologies as any[])?.filter(Boolean).map((tech: any) => (
                         <div key={tech?._id} className="bg-secondary/50 p-1.5 rounded-md" title={tech?.name || ""}>
                              {tech.icon ? (
                                 <Image

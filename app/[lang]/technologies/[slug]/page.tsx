@@ -5,7 +5,7 @@ import {
   TECHNOLOGIES_QUERY,
 } from "@/sanity/lib/queries";
 import { routing } from "@/i18n/routing";
-import { PortableText } from "next-sanity";
+import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
 
 export const dynamicParams = true;
@@ -54,7 +54,7 @@ export default async function Page({
 
         {tech.content && (
           <div className="mt-8">
-            <PortableText value={tech.content} />
+            <PageBuilder content={tech.content} documentId={tech._id} documentType="technology" />
           </div>
         )}
       </Container>

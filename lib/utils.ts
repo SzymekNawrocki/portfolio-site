@@ -6,7 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function calculateReadingTime(body: BlockContent): number {
+export function calculateReadingTime(body: Array<{ 
+  _type: string; 
+  children?: Array<{ _type: string; text?: string }> 
+}>): number {
   if (!body) return 0;
   
   const wordsPerMinute = 200;
