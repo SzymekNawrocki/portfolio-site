@@ -7,6 +7,8 @@ import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 
+import { POSTS_QUERYResult } from "@/sanity/types";
+
 export default async function Page({
   params,
 }: {
@@ -15,7 +17,7 @@ export default async function Page({
   const resolvedParams = await params;
   const { lang } = resolvedParams;
 
-  const posts = await client.fetch(POSTS_QUERY, { lang });
+  const posts: POSTS_QUERYResult = await client.fetch(POSTS_QUERY, { lang });
 
   return (
     <section className="py-24">
@@ -30,7 +32,7 @@ export default async function Page({
         </header>
 
         <div className="gap-8 grid grid-cols-1">
-          {posts?.map((post: any) => (
+          {posts?.map((post) => (
             <PostCard key={post._id} {...post} lang={lang} />
           ))}
         </div>

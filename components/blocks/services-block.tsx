@@ -19,12 +19,18 @@ type ServicesBlockProps = Extract<
   { _type: "servicesBlock" }
 >;
 
-export function ServicesBlock({
-  eyebrow,
-  title,
-  services,
-}: ServicesBlockProps) {
-  if (!services || services.length === 0) return null;
+export function ServicesBlock(props: ServicesBlockProps) {
+  const isExpanded = (
+    p: ServicesBlockProps
+  ): p is Extract<ServicesBlockProps, { services: Array<{ _id: string }> }> => {
+    return !!p.services && p.services.length > 0 && "_id" in p.services[0];
+  };
+
+  if (!isExpanded(props)) {
+    return null;
+  }
+
+  const { eyebrow, title, services } = props;
 
   return (
     <div className="py-16">

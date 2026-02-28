@@ -10,10 +10,16 @@ type HeroProps = Extract<
   { _type: "hero" }
 >;
 
-export function Hero({ title, text, image }: HeroProps) {
+export function Hero(props: HeroProps) {
+  const { title, text, image } = props;
+
+  // Narrow image to ensure it's expanded enough for urlFor
+  const isExpandedImage = (img: any): img is { asset: any } => {
+    return !!img && typeof img === "object" && "asset" in img;
+  };
   return (
     <section className="relative w-full aspect-[2/1] overflow-hidden">
-      {image && (
+      {isExpandedImage(image) && (
      <Image
   className="absolute inset-0 w-full h-full object-cover"
 

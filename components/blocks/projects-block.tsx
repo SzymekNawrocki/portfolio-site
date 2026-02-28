@@ -3,41 +3,32 @@ import { Link } from "@/i18n/navigation";
 import { urlFor } from "@/sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
-import { ProjectsBlock as ProjectsBlockSchema, Project as ProjectSchema, Technology, Slug } from "@/sanity/types";
+import { PAGE_QUERYResult } from "@/sanity/types";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
 import { Container } from "../ui/container";
 
-type Project = {
-  _id: string;
-  title?: string;
-  slug?: Slug;
-  description?: string | null;
-  mainImage?: ProjectSchema["mainImage"] | null;
-  technologies?: Array<Omit<Partial<Technology>, "language"> & { language?: string | null }> | null;
-  projectLink?: string | null;
+type ProjectsBlockProps = Extract<
+  NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
+  { _type: "projectsBlock" }
+>;
 
-  githubLink?: string | null;
-  language?: string | null;
-};
+export function ProjectsBlock(props: ProjectsBlockProps) {
+  // Use a type guard to narrow the entire props object
+  const isExpanded = (
+    p: ProjectsBlockProps
+  ): p is Extract<ProjectsBlockProps, { projects: Array<{ _id: string }> }> => {
+    return !!p.projects && p.projects.length > 0 && "_id" in p.projects[0];
+  };
 
+  if (!isExpanded(props)) {
+    return null;
+  }
 
-type ProjectsBlockProps = Omit<ProjectsBlockSchema, "projects"> & {
-  projects?: Array<Project>;
-  _key?: string;
-};
+  const { eyebrow, title, description, mode, limit, projects } = props;
 
-export function ProjectsBlock({
-  eyebrow,
-  title,
-  description,
-  mode,
-  limit,
-  projects,
-}: ProjectsBlockProps) {
-  const displayProjects = mode === 'all' && projects ? projects.slice(0, limit || 6) : projects;
-
-  if (!displayProjects || displayProjects.length === 0) return null;
+  const displayProjects =
+    mode === "all" ? projects.slice(0, limit || 6) : projects;
 
   return (
     <section className="py-16">

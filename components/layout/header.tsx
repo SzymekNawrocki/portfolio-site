@@ -7,7 +7,9 @@ import LanguageSwitcher from "./language-switcher";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-export function Header({ data }: { data: any }) {
+import { HEADER_QUERYResult } from "@/sanity/types";
+
+export function Header({ data }: { data: HEADER_QUERYResult }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -46,10 +48,10 @@ export function Header({ data }: { data: any }) {
 
         {navigation && (
           <nav className={`hidden md:flex gap-8 font-semibold transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
-            {navigation.map((item: any, index: number) => (
+            {navigation.map((item, index: number) => (
               <Link
                 key={index}
-                href={item.href as any}
+                href={item.href as "/" | "/posts" | "/projects"}
                 className="hover:opacity-70 transition-opacity"
               >
                 {item.label}

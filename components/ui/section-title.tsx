@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 interface SectionTitleProps {
-  text?: string;
+  text?: string | null;
   className?: string;
   tag?: "h1" | "h2" | "h3" | "h4";
 }

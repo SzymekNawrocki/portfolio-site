@@ -4,6 +4,8 @@ import { SERVICES_QUERY } from '../../../sanity/lib/queries';
 import { Container } from "@/components/ui/container";
 
 
+import { SERVICES_QUERYResult } from "@/sanity/types";
+
 export default async function Page({
   params,
 }: {
@@ -12,17 +14,17 @@ export default async function Page({
   const resolvedParams = await params;
   const { lang } = resolvedParams;
 
-  const services = await client.fetch(SERVICES_QUERY, { lang });
+  const services: SERVICES_QUERYResult = await client.fetch(SERVICES_QUERY, { lang });
 
   return (
     <section className="py-12">
       <Container className="space-y-6">
         <ul className="grid grid-cols-1 divide-y divide-border">
-          {services?.map((service: any) => (
+          {services?.map((service) => (
             <li key={service._id}>
               <Link
                 className="block p-4 hover:text-blue-500"
-                href={`/${lang}/services/${service.slug.current}`}
+                href={`/${lang}/services/${service.slug?.current}`}
               >
                 {service.title}
               </Link>

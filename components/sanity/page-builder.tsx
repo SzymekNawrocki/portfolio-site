@@ -30,12 +30,14 @@ const ContactSection = dynamic(() =>
   import("@/components/blocks/contact-section").then((mod) => mod.ContactSection)
 );
 
+import { PAGE_QUERYResult } from "@/sanity/types";
+
 export function PageBuilder({
   content,
   documentId,
   documentType,
 }: {
-  content: any[];
+  content: NonNullable<PAGE_QUERYResult>["content"];
   documentId?: string;
   documentType?: string;
 }) {
@@ -44,7 +46,7 @@ export function PageBuilder({
 
   return (
     <div className="space-y-16">
-      {content.map((block: any) => {
+      {content.map((block) => {
         switch (block._type) {
           case "hero":
             return <Hero key={block._key} {...block} />;

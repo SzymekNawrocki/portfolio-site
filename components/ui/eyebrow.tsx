@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 interface EyebrowProps {
-  text?: string;
+  text?: string | null;
   className?: string;
 }
 

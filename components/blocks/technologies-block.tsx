@@ -13,13 +13,23 @@ type TechnologiesBlockProps = Extract<
   { _type: "technologiesBlock" }
 >;
 
-export function TechnologiesBlock({
-  eyebrow,
-  title,
-  image,
-  technologies,
-}: TechnologiesBlockProps) {
-  if (!technologies || technologies.length === 0) return null;
+export function TechnologiesBlock(props: TechnologiesBlockProps) {
+  const isExpanded = (
+    p: TechnologiesBlockProps
+  ): p is Extract<
+    TechnologiesBlockProps,
+    { technologies: Array<{ _id: string }> }
+  > => {
+    return (
+      !!p.technologies && p.technologies.length > 0 && "_id" in p.technologies[0]
+    );
+  };
+
+  if (!isExpanded(props)) {
+    return null;
+  }
+
+  const { eyebrow, title, image, technologies } = props;
 
   return (
     <section className="py-16">

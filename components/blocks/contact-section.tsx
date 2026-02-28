@@ -1,38 +1,20 @@
 import { PortableText } from "next-sanity";
+import { PAGE_QUERYResult } from "@/sanity/types";
 import { ContactForm } from "./contact-form";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Container } from "../ui/container";
 
-interface ContactSectionProps {
-  title: string;
-  description?: any[];
-  contactDetails?: {
-    email?: string;
-    phone?: string;
-    location?: string;
-  };
-  showForm?: boolean;
-  formSettings?: {
-    nameLabel?: string;
-    namePlaceholder?: string;
-    emailLabel?: string;
-    emailPlaceholder?: string;
-    messageLabel?: string;
-    messagePlaceholder?: string;
-    submitButtonLabel?: string;
-    successMessage?: string;
-    errorMessage?: string;
-  };
-}
+type ContactSectionProps = Extract<
+  NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
+  { _type: "contactSection" }
+>;
 
-export function ContactSection({
-  title,
-  description,
-  contactDetails,
-  showForm,
-  formSettings,
-}: ContactSectionProps) {
+export function ContactSection(props: ContactSectionProps) {
+  const { title, description, contactDetails, showForm, formSettings } = props;
+
+  // Narrow description to what PortableText expects
+  const portableTextValue = Array.isArray(description) ? (description as any) : null;
   return (
     <section className="py-16">
       <Container>
@@ -40,9 +22,9 @@ export function ContactSection({
           <div className="space-y-6">
             <div className="space-y-2">
               <SectionTitle text={title} />
-              {description && (
+              {portableTextValue && (
                 <div className="text-muted-foreground prose prose-sm dark:prose-invert">
-                  <PortableText value={description} />
+                  <PortableText value={portableTextValue} />
                 </div>
               )}
             </div>

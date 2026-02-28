@@ -3,7 +3,9 @@ import { Link } from "@/i18n/navigation";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-export function Footer({ data }: { data: any }) {
+import { FOOTER_QUERYResult } from "@/sanity/types";
+
+export function Footer({ data }: { data: FOOTER_QUERYResult }) {
   return (
     <footer className="bg-background border-t">
       <div className="flex md:flex-row flex-col justify-between items-center gap-6 mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
@@ -22,7 +24,7 @@ export function Footer({ data }: { data: any }) {
         <div className="flex items-center gap-6">
           {data?.privacyPolicyLink && (
             <Link
-              href={data.privacyPolicyLink.href as any}
+              href={data.privacyPolicyLink.href as "/"}
               className="text-sm text-primary/70 hover:text-primary transition-colors"
             >
               {data.privacyPolicyLink.label}
@@ -30,19 +32,19 @@ export function Footer({ data }: { data: any }) {
           )}
           
           <div className="flex items-center gap-4">
-            {data?.socialLinks?.map((link: any, index: number) => (
+            {data?.socialLinks?.map((link, index: number) => (
               <a
                 key={index}
-                href={link.url}
+                href={link.url ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary/70 hover:text-primary transition-colors"
-                title={link.platform}
+                title={link.platform ?? undefined}
               >
                 {link.iconImage && (
                   <Image
                     src={urlFor(link.iconImage).url()}
-                    alt={link.platform}
+                    alt={link.platform ?? ""}
                     width={24}
                     height={24}
                     className="w-6 h-6 object-contain"
