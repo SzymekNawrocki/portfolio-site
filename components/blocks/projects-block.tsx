@@ -6,6 +6,7 @@ import { ArrowRight, Github, ExternalLink } from "lucide-react";
 import { ProjectsBlock as ProjectsBlockSchema, Project as ProjectSchema, Technology, Slug } from "@/sanity/types";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
+import { Container } from "../ui/container";
 
 type Project = {
   _id: string;
@@ -40,7 +41,7 @@ export function ProjectsBlock({
 
   return (
     <section className="py-16">
-      <div className="mx-auto px-4 max-w-7xl">
+      <Container>
         <div className="mb-12">
           <Eyebrow text={eyebrow} />
           <SectionTitle text={title} className="mb-4" />
@@ -129,7 +130,7 @@ export function ProjectsBlock({
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

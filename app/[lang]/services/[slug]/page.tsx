@@ -6,6 +6,7 @@ import {
 } from "../../../../sanity/lib/queries";
 import { routing } from "@/i18n/routing";
 import { PortableText } from "next-sanity";
+import { Container } from "@/components/ui/container";
 
 export async function generateStaticParams() {
   const allParams = await Promise.all(
@@ -41,18 +42,20 @@ export default async function Page({
   if (!service) notFound();
 
   return (
-    <main className="gap-6 grid mx-auto p-12 container">
-      <h1 className="font-bold text-4xl">{service.title}</h1>
+    <section className="py-12">
+      <Container className="space-y-6">
+        <h1 className="font-bold text-4xl">{service.title}</h1>
 
-      {service.description && (
-        <p className="text-muted-foreground">{service.description}</p>
-      )}
+        {service.description && (
+          <p className="text-muted-foreground">{service.description}</p>
+        )}
 
-      {service.content && (
-        <div className="mt-8">
-          <PortableText value={service.content} />
-        </div>
-      )}
-    </main>
+        {service.content && (
+          <div className="mt-8">
+            <PortableText value={service.content} />
+          </div>
+        )}
+      </Container>
+    </section>
   );
 }

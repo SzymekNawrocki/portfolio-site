@@ -6,7 +6,7 @@ import Image from "next/image";
 export function Footer({ data }: { data: any }) {
   return (
     <footer className="bg-background border-t">
-      <div className="flex md:flex-row flex-col justify-between items-center gap-6 mx-auto px-6 md:px-8 py-8 max-w-7xl">
+      <div className="flex md:flex-row flex-col justify-between items-center gap-6 mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
         <Link href="/" className="flex items-center gap-2 font-bold text-primary text-xl">
           {data?.logoImage && (
             <Image

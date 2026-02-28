@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { SERVICES_QUERY } from '../../../sanity/lib/queries';
+import { Container } from "@/components/ui/container";
 
 
 export default async function Page({
@@ -14,23 +15,25 @@ export default async function Page({
   const services = await client.fetch(SERVICES_QUERY, { lang });
 
   return (
-    <main className="gap-6 grid mx-auto p-12 container">
-      <ul className="grid grid-cols-1 divide-y divide-border">
-        {services?.map((service: any) => (
-          <li key={service._id}>
-            <Link
-              className="block p-4 hover:text-blue-500"
-              href={`/${lang}/services/${service.slug.current}`}
-            >
-              {service.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <section className="py-12">
+      <Container className="space-y-6">
+        <ul className="grid grid-cols-1 divide-y divide-border">
+          {services?.map((service: any) => (
+            <li key={service._id}>
+              <Link
+                className="block p-4 hover:text-blue-500"
+                href={`/${lang}/services/${service.slug.current}`}
+              >
+                {service.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-      <hr />
+        <hr />
 
-      <Link href={`/${lang}`}>&larr; Return home</Link>
-    </main>
+        <Link href={`/${lang}`}>&larr; Return home</Link>
+      </Container>
+    </section>
   );
 }

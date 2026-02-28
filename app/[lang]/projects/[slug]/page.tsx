@@ -6,6 +6,7 @@ import { Project } from "@/components/projects/project";
 import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { urlFor } from "@/sanity/lib/image";
+import { Container } from "@/components/ui/container";
 
 type RouteParams = {
   slug: string;
@@ -81,8 +82,10 @@ export default async function Page({ params }: RouteProps) {
   }
 
   return (
-    <main className="gap-6 grid grid-cols-1 mx-auto my-22 p-12 container">
-      <Project {...project} />
-    </main>
+    <section className="my-22">
+       <Container>
+         <Project {...project} />
+       </Container>
+    </section>
   );
 }

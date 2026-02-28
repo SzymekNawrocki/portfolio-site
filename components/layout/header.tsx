@@ -31,15 +31,15 @@ export function Header({ data }: { data: any }) {
           : "bg-transparent"
       }`}
     >
-      <div className="flex justify-between items-center mx-auto p-4 md:p-6 max-w-7xl">
+      <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8  md:py-2 max-w-7xl">
         <Link href="/" className={`flex items-center gap-2 font-bold md:text-xl transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
           {data?.logoImage && (
             <Image
               src={urlFor(data.logoImage).url()}
               alt="Logo"
-              width={42}
-              height={42}
-              className={`w-8 h-8 object-contain transition-all ${!scrolled ? 'brightness-0 invert' : ''}`}
+              width={100}
+              height={100}
+              className="w-22 h-22"
             />
           )}
         </Link>

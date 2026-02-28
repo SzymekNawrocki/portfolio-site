@@ -1,6 +1,7 @@
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { SectionTitle } from "../ui/section-title";
+import { Container } from "../ui/container";
 
 type FeaturesProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -10,7 +11,7 @@ type FeaturesProps = Extract<
 export function Features({ features, title }: FeaturesProps) {
   return (
     <section className="py-16">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4">
+      <Container className="flex flex-col gap-8">
         <SectionTitle text={title} className="mx-auto max-w-3xl text-pretty" />
 
         {Array.isArray(features) && (
@@ -33,7 +34,7 @@ export function Features({ features, title }: FeaturesProps) {
             ))}
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

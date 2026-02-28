@@ -6,6 +6,7 @@ import {
 } from "@/sanity/lib/queries";
 import { routing } from "@/i18n/routing";
 import { PortableText } from "next-sanity";
+import { Container } from "@/components/ui/container";
 
 export const dynamicParams = true;
 
@@ -43,18 +44,20 @@ export default async function Page({
   if (!tech) notFound();
 
   return (
-    <main className="gap-6 grid mx-auto p-12 container">
-      <h1 className="font-bold text-4xl">{tech.name}</h1>
+    <section className="py-12">
+      <Container className="space-y-6">
+        <h1 className="font-bold text-4xl">{tech.name}</h1>
 
-      {tech.description && (
-        <p className="text-muted-foreground">{tech.description}</p>
-      )}
+        {tech.description && (
+          <p className="text-muted-foreground">{tech.description}</p>
+        )}
 
-      {tech.content && (
-        <div className="mt-8">
-          <PortableText value={tech.content} />
-        </div>
-      )}
-    </main>
+        {tech.content && (
+          <div className="mt-8">
+            <PortableText value={tech.content} />
+          </div>
+        )}
+      </Container>
+    </section>
   );
 }

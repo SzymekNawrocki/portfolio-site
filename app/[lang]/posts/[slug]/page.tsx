@@ -3,6 +3,7 @@ import { client, sanityFetch } from "@/sanity/lib/client";
 import { POST_QUERY, POSTS_SLUGS_QUERY } from "@/sanity/lib/queries";
 import { Post } from "@/components/blog/post";
 import { routing } from "@/i18n/routing";
+import { Container } from "@/components/ui/container";
 
 export async function generateStaticParams() {
 
@@ -42,8 +43,10 @@ export default async function Page({
   }
 
   return (
-    <main className="py-12">
-      <Post {...post} lang={lang} />
-    </main>
+    <section className="py-12">
+      <Container>
+        <Post {...post} lang={lang} />
+      </Container>
+    </section>
   );
 }

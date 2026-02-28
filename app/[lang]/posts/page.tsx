@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { PostCard } from "@/components/blog/post-card";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { Container } from "@/components/ui/container";
 
 export default async function Page({
   params,
@@ -17,8 +18,8 @@ export default async function Page({
   const posts = await client.fetch(POSTS_QUERY, { lang });
 
   return (
-    <main className="py-24">
-      <div className="mx-auto px-4 max-w-7xl">
+    <section className="py-24">
+      <Container>
         <header className="my-16">
           <Eyebrow text="Insights & Articles" />
           <SectionTitle
@@ -43,7 +44,7 @@ export default async function Page({
             Return home
           </Link>
         </div>
-      </div>
-    </main>
+      </Container>
+    </section>
   );
 }

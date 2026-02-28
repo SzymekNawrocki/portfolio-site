@@ -9,6 +9,7 @@ import {
 import { urlFor } from "@/sanity/lib/image";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
+import { Container } from "../ui/container";
 
 type FAQsProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -18,7 +19,7 @@ type FAQsProps = Extract<
 export function FAQs({ eyebrow, title, faqs, image }: FAQsProps) {
   return (
     <section className="py-22">
-      <div className="mx-auto px-4 max-w-7xl">
+      <Container>
         <div className="items-start gap-12 grid md:grid-cols-1">
           <div>
             {(eyebrow || title) && (
@@ -52,7 +53,7 @@ export function FAQs({ eyebrow, title, faqs, image }: FAQsProps) {
             ) : null}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

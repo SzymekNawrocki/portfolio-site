@@ -2,6 +2,7 @@ import { PortableText } from "next-sanity";
 import { ContactForm } from "./contact-form";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { Container } from "../ui/container";
 
 interface ContactSectionProps {
   title: string;
@@ -34,7 +35,7 @@ export function ContactSection({
 }: ContactSectionProps) {
   return (
     <section className="py-16">
-      <div className="mx-auto px-4 max-w-7xl lg:px-8">
+      <Container>
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="space-y-2">
@@ -80,7 +81,7 @@ export function ContactSection({
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

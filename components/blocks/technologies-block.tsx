@@ -6,6 +6,7 @@ import { PAGE_QUERYResult } from "@/sanity/types";
 import { ArrowRight } from "lucide-react";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
+import { Container } from "../ui/container";
 
 type TechnologiesBlockProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -22,7 +23,7 @@ export function TechnologiesBlock({
 
   return (
     <section className="py-16">
-      <div className="mx-auto my-11 px-4 max-w-7xl">
+      <Container>
         <Eyebrow text={eyebrow} />
 
         <SectionTitle text={title} className="mb-12" />
@@ -73,7 +74,7 @@ export function TechnologiesBlock({
             ))}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

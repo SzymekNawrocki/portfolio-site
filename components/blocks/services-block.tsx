@@ -4,6 +4,7 @@ import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
+import { Container } from "../ui/container";
 
 const iconsMap = {
   Globe,
@@ -27,7 +28,7 @@ export function ServicesBlock({
 
   return (
     <div className="py-16">
-      <div className="mx-auto px-4 max-w-7xl">
+      <Container>
         <Eyebrow text={eyebrow} />
 
         <SectionTitle text={title} className="mb-12" />
@@ -83,7 +84,7 @@ export function ServicesBlock({
             );
           })}
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
