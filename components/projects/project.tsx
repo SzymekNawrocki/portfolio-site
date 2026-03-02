@@ -92,6 +92,14 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
                                variant="secondary"
                                className="flex items-center gap-2 px-3 py-1"
                             >
+                                {tech?.icon ? (
+                                  <Image
+                                    src={urlFor(tech.icon).width(20).height(20).url()}
+                                    alt={tech?.name ?? ""}
+                                    width={20}
+                                    height={20}
+                                  />
+                                ) : null}
                                 {tech?.name ?? "—"}
                             </Badge>
                          ))}
