@@ -13,7 +13,6 @@ type HeroProps = Extract<
 export function Hero(props: HeroProps) {
   const { title, text, image } = props;
 
-  // Narrow image to ensure it's expanded enough for urlFor
   const isExpandedImage = (img: any): img is { asset: any } => {
     return !!img && typeof img === "object" && "asset" in img;
   };

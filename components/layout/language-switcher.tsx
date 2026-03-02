@@ -3,18 +3,18 @@
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
+import Flag from 'react-world-flags'; // <-- Importujemy nasze SVG
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
 } from '@/components/ui/select';
 
 const languages = [
-  { code: 'pl', label: 'Polski', flag: '🇵🇱' },
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pl', label: 'Polski', country: 'PL' },
+  { code: 'en', label: 'English', country: 'GB' }, // GB dla brytyjskiego angielskiego
+  { code: 'de', label: 'Deutsch', country: 'DE' },
 ];
 
 export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
@@ -30,23 +30,46 @@ export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
     });
   };
 
+  const currentLanguage = languages.find((lang) => lang.code === locale) || languages[1];
+
   return (
     <Select
       value={locale}
       onValueChange={handleLanguageChange}
       disabled={isPending}
     >
-      <SelectTrigger className={`w-32 transition-all duration-300 ${!scrolled ? 'text-white border-white/40 bg-white/10' : ''}`}>
-        <SelectValue placeholder="Language" />
+      <SelectTrigger 
+        className={`w-[140px] h-10 gap-2 border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 focus:ring-0 focus:ring-offset-0 ${
+          !scrolled ? 'text-white' : 'text-black border-gray-200'
+        }`}
+      >
+        <div className="flex items-center gap-2.5">
+          {/* Wyświetlanie flagi SVG na głównym przycisku */}
+          <Flag 
+            code={currentLanguage.country} 
+            className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm" 
+          />
+          <span className="text-sm font-medium tracking-wide">
+            {currentLanguage.label}
+          </span>
+        </div>
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent className="bg-white/90 backdrop-blur-xl border-white/20">
         {languages.map((lang) => (
-          <SelectItem key={lang.code} value={lang.code}>
-            <span className="flex items-center gap-2">
-              <span>{lang.flag}</span>
-              <span>{lang.label}</span>
-            </span>
+          <SelectItem 
+            key={lang.code} 
+            value={lang.code}
+            className="cursor-pointer hover:bg-slate-100 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              {/* Wyświetlanie flagi SVG na liście rozwijanej */}
+              <Flag 
+                code={lang.country} 
+                className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm" 
+              />
+              <span className="font-medium">{lang.label}</span>
+            </div>
           </SelectItem>
         ))}
       </SelectContent>
