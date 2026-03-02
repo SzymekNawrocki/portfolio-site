@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { createClient } from "next-sanity";
+import { Resend } from "resend";
 import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { contactSchema, type ContactFormData } from "@/lib/validation/contact";
 
@@ -13,6 +14,8 @@ const writeClient = createClient({
   token: process.env.SANITY_API_WRITE_TOKEN,
 });
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function submitContactForm(data: ContactFormData) {
   try {
 
@@ -23,6 +26,23 @@ export async function submitContactForm(data: ContactFormData) {
       ...validatedData,
       createdAt: new Date().toISOString(),
     });
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Missing RESEND_API_KEY env var. Skipping email notification.");
+    } else {
+      const { data: _emailData, error: emailError } = await resend.emails.send({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: ["devnawrocki@gmail.com"],
+        subject: `Nowa wiadomość od: ${validatedData.name}`,
+        html: `<p><strong>Imię:</strong> ${validatedData.name}</p>
+               <p><strong>Email:</strong> ${validatedData.email}</p>
+               <p><strong>Wiadomość:</strong> ${validatedData.message}</p>`,
+      });
+
+      if (emailError) {
+        console.error("Resend email error:", emailError);
+      }
+    }
 
     return { success: true };
   } catch (error) {

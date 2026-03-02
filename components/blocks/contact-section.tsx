@@ -13,7 +13,6 @@ type ContactSectionProps = Extract<
 export function ContactSection(props: ContactSectionProps) {
   const { title, description, contactDetails, showForm, formSettings } = props;
 
-  // Narrow description to what PortableText expects
   const portableTextValue = Array.isArray(description) ? (description as any) : null;
   return (
     <section className="py-16">

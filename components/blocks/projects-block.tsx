@@ -82,18 +82,21 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
 
                 <div className="flex flex-wrap gap-2 mt-auto mb-6">
                     {(project.technologies as any[])?.filter(Boolean).map((tech: any) => (
-                        <div key={tech?._id} className="bg-secondary/50 p-1.5 rounded-md" title={tech?.name || ""}>
-                             {tech.icon ? (
+                        <div
+                          key={tech?._id}
+                          className="flex items-center gap-2 bg-secondary/50 px-2 py-1.5 rounded-md"
+                          title={tech?.name || ""}
+                        >
+                             {tech?.icon ? (
                                 <Image
                                     src={urlFor(tech.icon).width(24).height(24).url()}
-                                    alt={tech.name || ""}
+                                    alt={tech?.name || ""}
                                     width={20}
                                     height={20}
                                     className="w-5 h-5 object-contain"
                                 />
-                             ) : (
-                                <span className="text-xs">{tech.name}</span>
-                             )}
+                             ) : null}
+                             <span className="text-xs">{tech?.name ?? "—"}</span>
                         </div>
                     ))}
                 </div>
