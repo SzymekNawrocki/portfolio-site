@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
-import Flag from 'react-world-flags'; // <-- Importujemy nasze SVG
+import Flag from 'react-world-flags'; 
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ import {
 
 const languages = [
   { code: 'pl', label: 'Polski', country: 'PL' },
-  { code: 'en', label: 'English', country: 'GB' }, // GB dla brytyjskiego angielskiego
+  { code: 'en', label: 'English', country: 'GB' }, 
   { code: 'de', label: 'Deutsch', country: 'DE' },
 ];
 
@@ -44,7 +44,6 @@ export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
         }`}
       >
         <div className="flex items-center gap-2.5">
-          {/* Wyświetlanie flagi SVG na głównym przycisku */}
           <Flag 
             code={currentLanguage.country} 
             className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm" 
@@ -63,7 +62,6 @@ export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
             className="cursor-pointer hover:bg-slate-100 transition-colors"
           >
             <div className="flex items-center gap-3">
-              {/* Wyświetlanie flagi SVG na liście rozwijanej */}
               <Flag 
                 code={lang.country} 
                 className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm" 
