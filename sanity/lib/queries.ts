@@ -60,6 +60,35 @@ export const POSTS_SLUGS_QUERY = defineQuery(`
   }
 `);
 
+export const POST_QUERY = defineQuery(`
+  *[_type == "post" && slug.current == $slug && language == $lang][0]{
+    _id,
+    title,
+    body,
+    mainImage,
+    publishedAt,
+    "categories": coalesce(
+      categories[]->{_id, slug, title},
+      []
+    ),
+    author->{name, image},
+    relatedPosts[]{
+      _key,
+      ...@->{
+        _id,
+        title,
+        slug,
+        language
+      }
+    },
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
 export const PROJECTS_QUERY = defineQuery(`
   *[_type == "project" && defined(slug.current) && language == $lang]
   | order(_createdAt desc){
