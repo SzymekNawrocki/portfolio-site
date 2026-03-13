@@ -39,8 +39,10 @@ export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
       disabled={isPending}
     >
       <SelectTrigger 
-        className={`w-[140px] h-10 gap-2 border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 focus:ring-0 focus:ring-offset-0 ${
-          !scrolled ? 'text-white' : 'text-black border-gray-200'
+        className={`w-[140px] h-10 gap-2 backdrop-blur-md transition-all duration-300 focus:ring-0 focus:ring-offset-0 ${
+          scrolled
+            ? 'bg-background/80 text-foreground border-border hover:bg-accent hover:text-accent-foreground'
+            : 'bg-white/10 text-white border-white/20 hover:bg-white/20' 
         }`}
       >
         <div className="flex items-center gap-2.5">
@@ -54,18 +56,16 @@ export default function LanguageSwitcher({ scrolled }: { scrolled?: boolean }) {
         </div>
       </SelectTrigger>
 
-      <SelectContent className="bg-white/90 backdrop-blur-xl border-white/20">
+      <SelectContent className="bg-popover text-popover-foreground backdrop-blur-xl border-border">
+        {/* ... reszta kodu bez zmian ... */}
         {languages.map((lang) => (
           <SelectItem 
             key={lang.code} 
             value={lang.code}
-            className="cursor-pointer hover:bg-slate-100 transition-colors"
+            className="cursor-pointer"
           >
             <div className="flex items-center gap-3">
-              <Flag 
-                code={lang.country} 
-                className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm" 
-              />
+              <Flag code={lang.country} className="w-5 h-3.5 object-cover rounded-[2px]" />
               <span className="font-medium">{lang.label}</span>
             </div>
           </SelectItem>

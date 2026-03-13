@@ -64,7 +64,7 @@ export function RelatedPosts({
             {posts.map((post) => (
               <li
                 key={post._key}
-                className="group flex-1 bg-muted/20 hover:bg-muted/30 p-5 border border-border rounded-[1.5rem] text-foreground text-sm"
+                className="group flex-1 bg-muted/20 hover:bg-accent hover:text-accent-foreground p-5 border border-border rounded-[1.5rem] text-foreground text-sm"
                 data-sanity={createDataAttribute({
                   ...createDataAttributeConfig,
                   id: documentId,
