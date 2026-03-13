@@ -11,7 +11,13 @@ import { getMessages } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HEADER_QUERY, FOOTER_QUERY } from "@/sanity/lib/queries";
+import { JetBrains_Mono } from "next/font/google";
 
+const jbMono = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-jb-mono",
+});
 export const metadata: Metadata = {
   title: "Devemite - Where every grain holds a story",
   description:
@@ -34,10 +40,8 @@ export default async function FrontendLayout({
   ]);
 
   return (
-    <>
-      <html lang={lang} suppressHydrationWarning>
-        <head />
-        <body className="bg-background min-h-screen">
+    <html lang={lang} className={jbMono.variable} suppressHydrationWarning>
+      <body className="bg-background min-h-screen antialiased">
           <NextIntlClientProvider locale={lang} messages={messages}>
             <ThemeProvider
               attribute="class"
@@ -59,6 +63,5 @@ export default async function FrontendLayout({
           )}
         </body>
       </html>
-    </>
   );
 }
