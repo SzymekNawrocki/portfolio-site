@@ -30,7 +30,7 @@ export function Hero(props: HeroProps) {
 />
       )}
 
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/80" />
 
       <Container className="z-10 relative flex flex-col justify-center items-center gap-8 h-full text-center">
         <SectionTitle text={title} tag="h1" className="text-white lg:text-6xl" />

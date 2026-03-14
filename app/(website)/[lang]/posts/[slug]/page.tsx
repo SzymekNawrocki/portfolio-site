@@ -1,9 +1,56 @@
 import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
-import { POST_QUERY, POSTS_SLUGS_QUERY } from "@/sanity/lib/queries";
+import { POST_QUERY, POSTS_SLUGS_QUERY, POSTS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Post } from "@/components/blog/post";
 import { routing } from "@/i18n/routing";
 import { Container } from "@/components/ui/container";
+import { Metadata } from "next";
+import { urlFor } from "@/sanity/lib/image";
+
+type RouteParams = {
+  slug: string;
+  lang: string;
+};
+
+type RouteProps = {
+  params: Promise<RouteParams>;
+};
+
+export async function generateMetadata({ params }: RouteProps): Promise<Metadata> {
+  const { slug, lang } = await params;
+  const post = await sanityFetch({
+    query: POST_QUERY,
+    params: { slug, lang },
+    revalidate: 3600,
+    tags: [`post:${slug}`],
+  });
+
+  if (!post) {
+    return {};
+  }
+
+  const metadata: Metadata = {
+    title: post.seo?.title || post.title,
+    description: post.seo?.description,
+  };
+
+  if (post.seo?.seoImage || post.mainImage) {
+    const image = post.seo?.seoImage || post.mainImage;
+    if (image) {
+      metadata.openGraph = {
+        images: [
+          {
+            url: urlFor(image).width(1200).height(630).url(),
+            width: 1200,
+            height: 630,
+          },
+        ],
+      };
+    }
+  }
+
+  return metadata;
+}
 
 export async function generateStaticParams() {
 
@@ -26,17 +73,23 @@ export async function generateStaticParams() {
 
 export default async function Page({
   params,
-}: {
-  params: Promise<{ slug: string; lang: string }>;
-}) {
+}: RouteProps) {
   const { slug, lang } = await params;
 
-  const post = await sanityFetch({
-    query: POST_QUERY,
-    params: { slug, lang },
-    revalidate: 3600,
-    tags: [`post:${slug}`, "category"],
-  });
+  const [post, pageData] = await Promise.all([
+    sanityFetch({
+      query: POST_QUERY,
+      params: { slug, lang },
+      revalidate: 3600,
+      tags: [`post:${slug}`, "category"],
+    }),
+    sanityFetch({
+      query: POSTS_PAGE_QUERY,
+      params: { lang },
+      revalidate: 3600,
+      tags: ["postsPage"],
+    }),
+  ]);
 
   if (!post) {
     notFound();
@@ -45,7 +98,7 @@ export default async function Page({
   return (
     <section className="py-12">
       <Container>
-        <Post {...post} lang={lang} />
+        <Post {...post} lang={lang} labels={pageData} />
       </Container>
     </section>
   );

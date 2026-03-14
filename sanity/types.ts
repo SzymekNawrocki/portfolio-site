@@ -505,8 +505,15 @@ export type PostsPage = {
   language?: string;
   title: string;
   intro?: BlockContent;
+  backToHomeLabel?: string;
+  backToBlogLabel?: string;
+  minReadLabel?: string;
+  noDescriptionLabel?: string;
+  relatedPostsEyebrow?: string;
+  relatedPostsTitle?: string;
   emptyStateTitle?: string;
   emptyStateDescription?: string;
+  seo?: Seo;
 };
 
 export type Footer = {
@@ -876,6 +883,26 @@ export type Geopoint = {
 export type AllSanitySchemaTypes = ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
+// Variable: POSTS_PAGE_QUERY
+// Query: *[_type == "postsPage" && language == $lang][0]{    eyebrow,    title,    intro,    backToHomeLabel,    backToBlogLabel,    minReadLabel,    noDescriptionLabel,    relatedPostsEyebrow,    relatedPostsTitle,    emptyStateTitle,    emptyStateDescription,    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, ""),      "seoImage": seo.seoImage    }  }
+export type POSTS_PAGE_QUERYResult = {
+  eyebrow: string | null;
+  title: string;
+  intro: BlockContent | null;
+  backToHomeLabel: string | null;
+  backToBlogLabel: string | null;
+  minReadLabel: string | null;
+  noDescriptionLabel: string | null;
+  relatedPostsEyebrow: string | null;
+  relatedPostsTitle: string | null;
+  emptyStateTitle: string | null;
+  emptyStateDescription: string | null;
+  seo: {
+    title: string;
+    description: "";
+    seoImage: null;
+  };
+} | null;
 // Variable: POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current) && language == $lang]  | order(publishedAt desc)[0...12]{    _id,    title,    slug,    body,    mainImage,    publishedAt,    "categories": coalesce(      categories[]->{_id, slug, title},      []    ),    author->{name, image},    relatedPosts[]{      _key,      ...@->{        _id,        title,        slug,        language      }    },    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, ""),      "seoImage": seo.seoImage    }  }
 export type POSTS_QUERYResult = Array<{
@@ -5153,6 +5180,7 @@ export type FOOTER_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n  *[_type == \"postsPage\" && language == $lang][0]{\n    eyebrow,\n    title,\n    intro,\n    backToHomeLabel,\n    backToBlogLabel,\n    minReadLabel,\n    noDescriptionLabel,\n    relatedPostsEyebrow,\n    relatedPostsTitle,\n    emptyStateTitle,\n    emptyStateDescription,\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POSTS_PAGE_QUERYResult;
     "\n  *[_type == \"post\" && defined(slug.current) && language == $lang]\n  | order(publishedAt desc)[0...12]{\n    _id,\n    title,\n    slug,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POSTS_QUERYResult;
     "\n  *[_type == \"post\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": POSTS_SLUGS_QUERYResult;
     "\n  *[_type == \"post\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POST_QUERYResult;

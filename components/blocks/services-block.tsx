@@ -67,7 +67,7 @@ export function ServicesBlock(props: ServicesBlockProps) {
                 <div className="px-6 pb-6">
                   <Link
                     href={`/services/${service.slug.current}`}
-                    className="inline-flex items-center gap-1 font-semibold text-primary hover:text-primary-foreground text-sm tracking-wide"
+                    className="inline-flex items-center gap-1 font-semibold text-primary hover:text-accent transition-colors text-sm tracking-wide"
                   >
                     Read more
                     <svg

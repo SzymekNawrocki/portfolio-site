@@ -1,7 +1,7 @@
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { Categories } from "./categories";
-import { POST_QUERYResult } from "@/sanity/types";
+import { POST_QUERYResult, POSTS_PAGE_QUERYResult } from "@/sanity/types";
 import { SectionTitle } from "../ui/section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
@@ -12,7 +12,10 @@ import { MoveLeft, Clock, Calendar } from "lucide-react";
 import Link from "next/link";
 import { PublishedAt } from "./published-at";
 
-export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
+export function Post(props: NonNullable<POST_QUERYResult> & { 
+  lang?: string;
+  labels?: POSTS_PAGE_QUERYResult;
+}) {
   const {
     _id,
     title,
@@ -22,6 +25,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
     categories,
     relatedPosts,
     lang,
+    labels,
   } = props;
 
   const readingTime = calculateReadingTime(body || []);
@@ -34,7 +38,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
           className="inline-flex items-center gap-2 mb-8 text-muted-foreground hover:text-foreground transition-colors group"
         >
           <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          Back to blog
+          {labels?.backToBlogLabel || "Back to blog"}
         </Link>
 
         <header className="mb-12">
@@ -51,7 +55,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>{readingTime} min read</span>
+              <span>{readingTime} {labels?.minReadLabel || "min read"}</span>
             </div>
           </div>
         </header>
@@ -78,7 +82,9 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
                {body ? (
                   <PortableText value={body} components={components} />
                ) : (
-                  <p className="text-muted-foreground italic">No detailed description provided.</p>
+                  <p className="text-muted-foreground italic">
+                    {labels?.noDescriptionLabel || "No detailed description provided."}
+                  </p>
                )}
             </div>
 
@@ -88,6 +94,8 @@ export function Post(props: NonNullable<POST_QUERYResult> & { lang?: string }) {
               relatedPosts={relatedPosts}
               documentId={_id}
               documentType="post"
+              eyebrow={labels?.relatedPostsEyebrow}
+              title={labels?.relatedPostsTitle}
             />
           </div>
         </article>

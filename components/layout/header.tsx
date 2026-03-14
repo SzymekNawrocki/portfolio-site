@@ -29,22 +29,24 @@ export function Header({ data }: { data: HEADER_QUERYResult }) {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "backdrop-blur bg-background/80 shadow-lg border-b border-border"
+          ? "backdrop-blur bg-background/80 shadow-lg"
           : "bg-transparent"
       }`}
     >
       <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8  md:py-2 max-w-7xl">
-        <Link href="/" className={`flex items-center gap-2 font-bold md:text-xl transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
-          {data?.logoImage && (
-            <Image
-              src={urlFor(data.logoImage).url()}
-              alt="Logo"
-              width={100}
-              height={100}
-              className="w-22 h-22"
-            />
-          )}
-        </Link>
+       <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
+  {data?.logoImage && (
+    <Image
+      src={urlFor(data.logoImage).url()}
+      alt="Logo Devemite"
+      width={600} // Zwiększone, żeby Next.js pobrał gęstszy plik
+      height={200}
+      priority
+      // Zmienione h-10 na h-16 (mobile) i h-14 na h-24 (desktop)
+      className="w-auto h-16 md:h-24 object-contain" 
+    />
+  )}
+</Link>
 
         {navigation && (
           <nav className={`hidden md:flex gap-8 font-semibold transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>

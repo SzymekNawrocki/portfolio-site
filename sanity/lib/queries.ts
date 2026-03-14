@@ -22,6 +22,27 @@ const TECHNOLOGIES_WITH_FALLBACK = `
   )
 `;
 
+export const POSTS_PAGE_QUERY = defineQuery(`
+  *[_type == "postsPage" && language == $lang][0]{
+    eyebrow,
+    title,
+    intro,
+    backToHomeLabel,
+    backToBlogLabel,
+    minReadLabel,
+    noDescriptionLabel,
+    relatedPostsEyebrow,
+    relatedPostsTitle,
+    emptyStateTitle,
+    emptyStateDescription,
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
 export const POSTS_QUERY = defineQuery(`
   *[_type == "post" && defined(slug.current) && language == $lang]
   | order(publishedAt desc)[0...12]{
