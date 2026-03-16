@@ -8,9 +8,8 @@ import { components } from "@/sanity/components/portableTextComponents";
 import { RelatedPosts } from "./related-posts";
 import { Separator } from "@/components/ui/separator";
 import { calculateReadingTime } from "@/lib/utils";
-import { MoveLeft, Clock, Calendar } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 import Link from "next/link";
-import { PublishedAt } from "./published-at";
 
 export function Post(props: NonNullable<POST_QUERYResult> & { 
   lang?: string;
@@ -28,7 +27,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
     labels,
   } = props;
 
-  const readingTime = calculateReadingTime(body || []);
+
 
   return (
     <div className="py-16">
@@ -47,17 +46,6 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
           </div>
 
           <SectionTitle text={title} tag="h1" className="mb-6 text-4xl md:text-5xl lg:text-6xl" />
-
-          <div className="flex flex-wrap items-center gap-6 text-muted-foreground text-sm font-medium">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <PublishedAt publishedAt={publishedAt} />
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              <span>{readingTime} {labels?.minReadLabel || "min read"}</span>
-            </div>
-          </div>
         </header>
 
         <Separator className="mb-12" />

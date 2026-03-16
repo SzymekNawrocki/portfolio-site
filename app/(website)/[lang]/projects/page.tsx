@@ -8,7 +8,6 @@ export default async function Page({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-
   const projects = await client.fetch(PROJECTS_QUERY, { lang });
 
   return (

@@ -49,6 +49,7 @@ export const POSTS_QUERY = defineQuery(`
     _id,
     title,
     slug,
+    excerpt,
     body,
     mainImage,
     publishedAt,

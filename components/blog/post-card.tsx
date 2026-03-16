@@ -12,38 +12,46 @@ import {
 } from "@/components/ui/card";
 
 
-export function PostCard(props: POSTS_QUERYResult[0] & { lang: string }) {
-  const { title, mainImage, publishedAt, categories, slug, lang } = props;
+
+export function PostCard(props: POSTS_QUERYResult[0] & { lang: string; excerpt?: string | null }) {
+  const { title, mainImage, categories, slug, lang, excerpt } = props;
 
   return (
-    <Link href={`/${lang}/posts/${slug!.current}`} className="group">
-      <Card className="gap-4 md:gap-0 grid grid-cols-1 md:grid-cols-12 hover:shadow-md rounded-2xl transition-shadow">
-        <CardContent className="md:col-span-2 md:py-6">
-          <Categories categories={categories} />
-        </CardContent>
-
-        <CardHeader className="flex flex-col justify-center md:col-span-5">
-          <CardTitle className="relative font-semibold text-foreground group-hover:text-accent text-2xl transition-colors">
-            <span className="z-10 relative">{title}</span>
-            <span className="z-0 absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 rounded-lg scale-75 group-hover:scale-100 transition-all" />
-          </CardTitle>
-
-          <div className="flex items-center gap-x-6 mt-3">
-            <PublishedAt publishedAt={publishedAt} />
-          </div>
-        </CardHeader>
-
-        <CardContent className="flex justify-end md:col-span-4 md:col-start-9 p-0 rounded-lg overflow-hidden">
+    <Link href={`/${lang}/posts/${slug!.current}`} className="group block h-full">
+      <Card className="flex flex-col h-full bg-card/40 hover:bg-card/80 border-border/50 hover:border-accent/50 rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-sm group-hover:-translate-y-1">
+        
+        <div className="relative aspect-[16/10] overflow-hidden m-2 rounded-[1.5rem]">
           {mainImage ? (
             <Image
-              src={urlFor(mainImage).width(400).height(220).url()}
-              width={400}
-              height={220}
+              src={urlFor(mainImage).width(800).height(500).url()}
+              width={800}
+              height={500}
               alt={mainImage.alt || title || ""}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
-          ) : null}
-        </CardContent>
+          ) : (
+            <div className="w-full h-full bg-muted/30 flex items-center justify-center">
+              <span className="text-muted-foreground/50 font-medium">No cover image</span>
+            </div>
+          )}
+          
+
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+             <Categories categories={categories} />
+          </div>
+        </div>
+
+        <div className="flex flex-col flex-1 p-6 pt-4">
+          <CardTitle className="font-bold text-xl md:text-2xl leading-tight group-hover:text-accent transition-colors duration-300 line-clamp-2 mb-3">
+            {title}
+          </CardTitle>
+
+          {excerpt && (
+            <p className="text-muted-foreground/80 line-clamp-3 text-sm md:text-[0.95rem] leading-relaxed mb-6">
+              {excerpt}
+            </p>
+          )}
+        </div>
       </Card>
     </Link>
   );

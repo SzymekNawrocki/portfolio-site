@@ -44,6 +44,13 @@ export const postType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
+      rows: 3,
+      description: "A short summary of the post",
+    }),
+    defineField({
       name: "mainImage",
       title: "Main image",
       type: "image",

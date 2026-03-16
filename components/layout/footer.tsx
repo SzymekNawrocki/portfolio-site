@@ -16,7 +16,7 @@ export function Footer({ data }: { data: FOOTER_QUERYResult }) {
               alt="Logo Devemite"
               width={400}
               height={120}
-              className="w-auto h-12 md:h-16 object-contain"
+              className="w-auto h-12 md:h-32 object-contain"
             />
           )}
         </Link>
@@ -59,7 +59,7 @@ export function Footer({ data }: { data: FOOTER_QUERYResult }) {
       <Separator className="opacity-30" />
 
       <div className="py-6 text-primary/70 text-sm text-center">
-        &copy; {new Date().getFullYear()} 
+        &copy; {new Date().getFullYear()} Szymon Nawrocki - Devemite
       </div>
     </footer>
   );

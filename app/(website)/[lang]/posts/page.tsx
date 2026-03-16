@@ -62,11 +62,11 @@ export default async function Page({
           <SectionTitle
             text={pageData?.title || "Blog"}
             tag="h1"
-            className="mb-4 max-w-2xl"
+            className="mb-4 max-w-1xl"
           />
         </header>
 
-        <div className="gap-8 grid grid-cols-1">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {posts?.length > 0 ? (
             posts.map((post) => (
               <PostCard key={post._id} {...post} lang={lang} />
@@ -82,7 +82,7 @@ export default async function Page({
         <div className="mt-20 pt-8 border-t">
           <Link
             href={`/${lang}`}
-            className="group inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="group inline-flex items-center gap-2 text-muted-foreground"
           >
             <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             {pageData?.backToHomeLabel || "Return home"}
