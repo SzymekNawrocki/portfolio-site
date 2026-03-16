@@ -82,7 +82,7 @@ export default async function Page({ params }: RouteProps) {
   }
 
   return (
-    <section className="my-22">
+    <section className="my-22 py-2">
        <Container>
          <Project {...project} />
        </Container>

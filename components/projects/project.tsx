@@ -27,12 +27,12 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
   } = props;
 
   return (
-    <Card className="p-6 md:p-10 rounded-3xl">
+    <Card className="mt-22 md:mt-24 p-6 md:p-14 rounded-3xl">
       <CardHeader className="space-y-6">
         <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
             <div>
                 <CardTitle>
-                    <SectionTitle text={title} tag="h1" className="lg:text-6xl text-2xl md:text-4xl" />
+                    <SectionTitle text={title} tag="h1" className="lg:text-4xl text-xl md:text-4xl" />
                 </CardTitle>
             </div>
 
@@ -47,7 +47,7 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
                 {projectLink && (
                     <Button asChild>
                         <a href={projectLink} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 w-4 h-4" /> Live Demo
+                            <ExternalLink className="w-4 h-4" /> 
                         </a>
                     </Button>
                 )}

@@ -39,7 +39,7 @@ export function FAQs({ eyebrow, title, faqs, image }: FAQsProps) {
                       value={faqKey}
                       className="border-border border-b"
                     >
-                      <AccordionTrigger className="py-6 text-primary [&>svg]:text-accent text-lg text-left hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                      <AccordionTrigger className="py-6 text-primary [&>svg]:text-accent text-lg text-left hover:no-underline [&[data-state=open]>svg]:rotate-180 cursor-pointer">
                         {faq.title}
                       </AccordionTrigger>
 
