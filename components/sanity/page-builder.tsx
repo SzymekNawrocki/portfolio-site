@@ -29,6 +29,9 @@ const ProjectsBlock = dynamic(() =>
 const ContactSection = dynamic(() =>
   import("@/components/blocks/contact-section").then((mod) => mod.ContactSection)
 );
+const RichText = dynamic(() =>
+  import("@/components/blocks/rich-text").then((mod) => mod.RichText)
+);
 
 import { PAGE_QUERYResult } from "@/sanity/types";
 
@@ -37,7 +40,7 @@ export function PageBuilder({
   documentId,
   documentType,
 }: {
-  content: NonNullable<PAGE_QUERYResult>["content"];
+  content: any[];
   documentId?: string;
   documentType?: string;
 }) {
@@ -66,6 +69,8 @@ export function PageBuilder({
             return <ProjectsBlock key={block._key} {...block} />;
           case "contactSection":
             return <ContactSection key={block._key} {...block} />;
+          case "richText":
+            return <RichText key={(block as any)._key} {...(block as any)} />;
           default:
             return null;
         }

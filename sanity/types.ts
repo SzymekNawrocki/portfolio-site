@@ -596,6 +596,7 @@ export type Post = {
   language?: string;
   slug: Slug;
   publishedAt: string;
+  excerpt?: string;
   mainImage?: {
     asset?: {
       _ref: string;
@@ -904,11 +905,12 @@ export type POSTS_PAGE_QUERYResult = {
   };
 } | null;
 // Variable: POSTS_QUERY
-// Query: *[_type == "post" && defined(slug.current) && language == $lang]  | order(publishedAt desc)[0...12]{    _id,    title,    slug,    body,    mainImage,    publishedAt,    "categories": coalesce(      categories[]->{_id, slug, title},      []    ),    author->{name, image},    relatedPosts[]{      _key,      ...@->{        _id,        title,        slug,        language      }    },    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, ""),      "seoImage": seo.seoImage    }  }
+// Query: *[_type == "post" && defined(slug.current) && language == $lang]  | order(publishedAt desc)[0...12]{    _id,    title,    slug,    excerpt,    body,    mainImage,    publishedAt,    "categories": coalesce(      categories[]->{_id, slug, title},      []    ),    author->{name, image},    relatedPosts[]{      _key,      ...@->{        _id,        title,        slug,        language      }    },    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, ""),      "seoImage": seo.seoImage    }  }
 export type POSTS_QUERYResult = Array<{
   _id: string;
   title: string;
   slug: Slug;
+  excerpt: string | null;
   body: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -5181,7 +5183,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"postsPage\" && language == $lang][0]{\n    eyebrow,\n    title,\n    intro,\n    backToHomeLabel,\n    backToBlogLabel,\n    minReadLabel,\n    noDescriptionLabel,\n    relatedPostsEyebrow,\n    relatedPostsTitle,\n    emptyStateTitle,\n    emptyStateDescription,\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POSTS_PAGE_QUERYResult;
-    "\n  *[_type == \"post\" && defined(slug.current) && language == $lang]\n  | order(publishedAt desc)[0...12]{\n    _id,\n    title,\n    slug,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POSTS_QUERYResult;
+    "\n  *[_type == \"post\" && defined(slug.current) && language == $lang]\n  | order(publishedAt desc)[0...12]{\n    _id,\n    title,\n    slug,\n    excerpt,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POSTS_QUERYResult;
     "\n  *[_type == \"post\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": POSTS_SLUGS_QUERYResult;
     "\n  *[_type == \"post\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    body,\n    mainImage,\n    publishedAt,\n    \"categories\": coalesce(\n      categories[]->{_id, slug, title},\n      []\n    ),\n    author->{name, image},\n    relatedPosts[]{\n      _key,\n      ...@->{\n        _id,\n        title,\n        slug,\n        language\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": POST_QUERYResult;
     "\n  *[_type == \"project\" && defined(slug.current) && language == $lang]\n  | order(_createdAt desc){\n    _id,\n    title,\n    slug,\n    description,\n    mainImage,\n    projectLink,\n    githubLink,\n    \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n,\n    language\n  }\n": PROJECTS_QUERYResult;

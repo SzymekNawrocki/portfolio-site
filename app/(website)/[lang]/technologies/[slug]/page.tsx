@@ -7,6 +7,7 @@ import {
 import { routing } from "@/i18n/routing";
 import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
+import { TechnologyBody } from "@/components/technology/technology-body";
 
 export const dynamicParams = true;
 
@@ -44,12 +45,18 @@ export default async function Page({
   if (!tech) notFound();
 
   return (
-    <section className="py-12">
+    <section className="py-22 mt-12">
       <Container className="space-y-6">
         <h1 className="font-bold text-4xl">{tech.name}</h1>
 
         {tech.description && (
           <p className="text-muted-foreground">{tech.description}</p>
+        )}
+
+        {tech.body && (
+           <div className="mt-8 pt-8 border-t">
+              <TechnologyBody body={tech.body} />
+           </div>
         )}
 
         {tech.content && (

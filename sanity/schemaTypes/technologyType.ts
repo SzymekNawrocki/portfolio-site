@@ -49,6 +49,11 @@ export const technologyType = defineType({
       rows: 3,
     }),
     defineField({
+      name: "body",
+      type: "blockContent",
+      title: "Main Content",
+    }),
+    defineField({
       name: "color",
       type: "string",
       title: "Brand Color",

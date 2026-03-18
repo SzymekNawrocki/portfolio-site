@@ -254,6 +254,7 @@ export const TECHNOLOGY_QUERY = defineQuery(`
     name,
     slug,
     description,
+    body,
     icon,
     color,
     content[]{
