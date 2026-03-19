@@ -44,7 +44,6 @@ export function PageBuilder({
   documentId?: string;
   documentType?: string;
 }) {
-
   if (!content) return null;
 
   return (
@@ -70,7 +69,7 @@ export function PageBuilder({
           case "contactSection":
             return <ContactSection key={block._key} {...block} />;
           case "richText":
-            return <RichText key={(block as any)._key} {...(block as any)} />;
+            return <RichText key={block._key} {...block} />;
           default:
             return null;
         }

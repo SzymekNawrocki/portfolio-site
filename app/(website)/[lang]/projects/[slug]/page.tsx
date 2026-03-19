@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
-import { PROJECT_QUERY, PROJECTS_SLUGS_QUERY } from "@/sanity/lib/queries";
+import { HOME_TITLE_QUERY, PROJECT_QUERY, PROJECTS_SLUGS_QUERY, HEADER_QUERY } from "@/sanity/lib/queries";
 import { PROJECTS_SLUGS_QUERYResult } from "@/sanity/types";
 import { Project } from "@/components/projects/project";
 import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { urlFor } from "@/sanity/lib/image";
 import { Container } from "@/components/ui/container";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 
 type RouteParams = {
   slug: string;
@@ -75,7 +76,14 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: RouteProps) {
   const resolvedParams = await params;
-  const project = await getProject(resolvedParams);
+  const [project, homeData, headerData] = await Promise.all([
+    getProject(resolvedParams),
+    sanityFetch({ query: HOME_TITLE_QUERY, params: { lang: resolvedParams.lang } }),
+    sanityFetch({ query: HEADER_QUERY, params: { lang: resolvedParams.lang } }),
+  ]);
+
+  const projectsLabel = headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
+
 
   if (!project) {
     notFound();
@@ -84,6 +92,15 @@ export default async function Page({ params }: RouteProps) {
   return (
     <section className="my-22 py-2">
        <Container>
+         <Breadcrumbs
+            homeLabel={homeData?.title || "Home"}
+            items={[
+               { label: projectsLabel, href: "/projects" },
+               { label: project?.title }
+            ]}
+            className="mb-8"
+         />
+
          <Project {...project} />
        </Container>
     </section>

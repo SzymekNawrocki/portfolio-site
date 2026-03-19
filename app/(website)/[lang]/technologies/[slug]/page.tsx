@@ -3,7 +3,10 @@ import { client, sanityFetch } from "@/sanity/lib/client";
 import {
   TECHNOLOGY_QUERY,
   TECHNOLOGIES_QUERY,
+  HOME_TITLE_QUERY,
+  HEADER_QUERY,
 } from "@/sanity/lib/queries";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { routing } from "@/i18n/routing";
 import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
@@ -34,19 +37,38 @@ export default async function Page({
   params: Promise<{ slug: string; lang: string }>;
 }) {
   const { slug, lang } = await params;
+  const [tech, homeData, headerData] = await Promise.all([
+    sanityFetch({
+      query: TECHNOLOGY_QUERY,
+      params: { slug, lang },
+      revalidate: 3600,
+      tags: [`technology:${lang}:${slug}`],
+    }),
+    sanityFetch({
+      query: HOME_TITLE_QUERY,
+      params: { lang },
+    }),
+    sanityFetch({
+      query: HEADER_QUERY,
+      params: { lang },
+    }),
+  ]);
 
-  const tech = await sanityFetch({
-    query: TECHNOLOGY_QUERY,
-    params: { slug, lang },
-    revalidate: 3600,
-    tags: [`technology:${lang}:${slug}`],
-  });
+  const technologiesLabel = headerData?.navigation?.find((n: any) => n.href === "/technologies")?.label || "Technologies";
 
   if (!tech) notFound();
 
   return (
     <section className="py-22 mt-12">
       <Container className="space-y-6">
+        <Breadcrumbs
+          homeLabel={homeData?.title || "Home"}
+          items={[
+            { label: technologiesLabel, href: "/technologies" },
+            { label: tech?.name }
+          ]} 
+          className="mb-8"
+        />
         <h1 className="font-bold text-4xl">{tech.name}</h1>
 
         {tech.description && (

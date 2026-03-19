@@ -3,7 +3,10 @@ import { client, sanityFetch } from "@/sanity/lib/client";
 import {
   SERVICE_QUERY,
   SERVICES_QUERY,
-} from "../../../../sanity/lib/queries";
+  HOME_TITLE_QUERY,
+  HEADER_QUERY,
+} from "@/sanity/lib/queries";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { routing } from "@/i18n/routing";
 import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
@@ -15,7 +18,7 @@ export async function generateStaticParams() {
         .withConfig({ useCdn: false })
         .fetch(SERVICES_QUERY, { lang });
 
-      return slugs.map((item: { slug: { current: string } }) => ({
+      return (slugs || []).map((item: { slug: { current: string } }) => ({
         lang,
         slug: item.slug.current,
       }));
@@ -31,19 +34,38 @@ export default async function Page({
   params: Promise<{ slug: string; lang: string }>;
 }) {
   const { slug, lang } = await params;
+  const [service, homeData, headerData] = await Promise.all([
+    sanityFetch({
+      query: SERVICE_QUERY,
+      params: { slug, lang },
+      revalidate: 3600,
+      tags: [`service:${slug}`],
+    }),
+    sanityFetch({
+      query: HOME_TITLE_QUERY,
+      params: { lang },
+    }),
+    sanityFetch({
+      query: HEADER_QUERY,
+      params: { lang },
+    }),
+  ]);
 
-  const service = await sanityFetch({
-    query: SERVICE_QUERY,
-    params: { slug, lang },
-    revalidate: 3600,
-    tags: [`service:${slug}`],
-  });
+  const servicesLabel = headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
 
   if (!service) notFound();
 
   return (
-    <section className="py-12">
+    <section className="py-24">
       <Container className="space-y-6">
+        <Breadcrumbs
+          homeLabel={homeData?.title || "Home"}
+          items={[
+            { label: servicesLabel, href: "/services" },
+            { label: service?.title }
+          ]} 
+          className="mb-8"
+        />
         <h1 className="font-bold text-4xl">{service.title}</h1>
 
         {service.description && (

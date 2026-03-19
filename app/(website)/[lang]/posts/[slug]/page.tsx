@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
-import { POST_QUERY, POSTS_SLUGS_QUERY, POSTS_PAGE_QUERY } from "@/sanity/lib/queries";
+import { POST_QUERY, POSTS_SLUGS_QUERY, POSTS_PAGE_QUERY, HOME_TITLE_QUERY } from "@/sanity/lib/queries";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Post } from "@/components/blog/post";
 import { routing } from "@/i18n/routing";
 import { Container } from "@/components/ui/container";
@@ -76,7 +77,7 @@ export default async function Page({
 }: RouteProps) {
   const { slug, lang } = await params;
 
-  const [post, pageData] = await Promise.all([
+  const [post, pageData, homeData] = await Promise.all([
     sanityFetch({
       query: POST_QUERY,
       params: { slug, lang },
@@ -89,6 +90,10 @@ export default async function Page({
       revalidate: 3600,
       tags: ["postsPage"],
     }),
+    sanityFetch({
+      query: HOME_TITLE_QUERY,
+      params: { lang },
+    }),
   ]);
 
   if (!post) {
@@ -98,6 +103,14 @@ export default async function Page({
   return (
     <section className="py-12">
       <Container>
+        <Breadcrumbs 
+          homeLabel={homeData?.title || "Home"}
+          items={[
+            { label: pageData?.title || "Blog", href: "/posts" },
+            { label: post?.title }
+          ]} 
+          className="mb-8"
+        />
         <Post {...post} lang={lang} labels={pageData} />
       </Container>
     </section>

@@ -1,6 +1,5 @@
 import { PortableText } from "next-sanity";
 import { components } from "@/sanity/components/portableTextComponents";
-import { Container } from "../ui/container";
 
 interface TechnologyBodyProps {
   body: any;

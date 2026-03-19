@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
-import { POSTS_QUERY, POSTS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { SectionTitle } from "@/components/ui/section-title";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { HOME_TITLE_QUERY, POSTS_QUERY, POSTS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { PostCard } from "@/components/blog/post-card";
 import { MoveLeft } from "lucide-react";
@@ -49,15 +50,21 @@ export default async function Page({
   const resolvedParams = await params;
   const { lang } = resolvedParams;
 
-  const [posts, pageData]: [POSTS_QUERYResult, POSTS_PAGE_QUERYResult] = await Promise.all([
+  const [posts, pageData, homeData]: [POSTS_QUERYResult, POSTS_PAGE_QUERYResult, any] = await Promise.all([
     client.fetch(POSTS_QUERY, { lang }),
     client.fetch(POSTS_PAGE_QUERY, { lang }),
+    client.fetch(HOME_TITLE_QUERY, { lang }),
   ]);
 
   return (
     <section className="py-24">
       <Container>
-        <header className="my-16">
+        <Breadcrumbs 
+          homeLabel={homeData?.title || "Home"}
+          items={[{ label: pageData?.title || "Blog", href: "/posts" }]} 
+          className="mb-4" 
+        />
+        <header className="mb-16">
           {pageData?.eyebrow && <Eyebrow text={pageData.eyebrow} />}
           <SectionTitle
             text={pageData?.title || "Blog"}

@@ -248,6 +248,15 @@ export const HOME_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const HOME_TITLE_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+    "title": coalesce(
+      *[_type == "translation.metadata" && references(^.homePage._ref)][0].translations[_key == $lang][0].value->title,
+      homePage->title
+    )
+  }
+`);
+
 export const TECHNOLOGY_QUERY = defineQuery(`
   *[_type == "technology" && slug.current == $slug && language == $lang][0]{
     _id,

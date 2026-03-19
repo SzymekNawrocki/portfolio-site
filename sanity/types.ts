@@ -13,6 +13,12 @@
  */
 
 // Source: schema.json
+export type RichText = {
+  _type: "richText";
+  body: BlockContent;
+  alignment?: "left" | "center";
+};
+
 export type ContactMessage = {
   _id: string;
   _type: "contactMessage";
@@ -276,7 +282,9 @@ export type PageBuilder = Array<{
   _key: string;
 } & ProjectsBlock | {
   _key: string;
-} & ContactSection>;
+} & ContactSection | {
+  _key: string;
+} & RichText>;
 
 export type BlockContent = Array<{
   children?: Array<{
@@ -478,6 +486,7 @@ export type Technology = {
     _type: "image";
   };
   description?: string;
+  body?: BlockContent;
   color?: string;
   content?: PageBuilder;
   seo?: Seo;
@@ -881,7 +890,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: POSTS_PAGE_QUERY
@@ -1442,6 +1451,11 @@ export type PAGE_QUERYResult = {
     limit?: number;
   } | {
     _key: string;
+    _type: "richText";
+    body: BlockContent;
+    alignment?: "center" | "left";
+  } | {
+    _key: string;
     _type: "servicesBlock";
     eyebrow?: string;
     title?: string;
@@ -1805,6 +1819,11 @@ export type PAGE_QUERYResult = {
     limit?: number;
   } | {
     _key: string;
+    _type: "richText";
+    body: BlockContent;
+    alignment?: "center" | "left";
+  } | {
+    _key: string;
     _type: "servicesBlock";
     eyebrow?: string;
     title?: string;
@@ -1897,6 +1916,7 @@ export type PAGE_QUERYResult = {
     _type: "image";
   };
   description?: string;
+  body?: BlockContent;
   color?: string;
   content: Array<{
     _key: string;
@@ -2167,6 +2187,11 @@ export type PAGE_QUERYResult = {
       }>;
     }> | null;
     limit?: number;
+  } | {
+    _key: string;
+    _type: "richText";
+    body: BlockContent;
+    alignment?: "center" | "left";
   } | {
     _key: string;
     _type: "servicesBlock";
@@ -2536,6 +2561,11 @@ export type HOME_PAGE_QUERYResult = {
       limit?: number;
     } | {
       _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
+    } | {
+      _key: string;
       _type: "servicesBlock";
       eyebrow?: string;
       title?: string;
@@ -2875,6 +2905,11 @@ export type HOME_PAGE_QUERYResult = {
       limit?: number;
     } | {
       _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
+    } | {
+      _key: string;
       _type: "servicesBlock";
       eyebrow?: string;
       title?: string;
@@ -3212,6 +3247,11 @@ export type HOME_PAGE_QUERYResult = {
         }>;
       }> | null;
       limit?: number;
+    } | {
+      _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
     } | {
       _key: string;
       _type: "servicesBlock";
@@ -3567,6 +3607,11 @@ export type HOME_PAGE_QUERYResult = {
       limit?: number;
     } | {
       _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
+    } | {
+      _key: string;
       _type: "servicesBlock";
       eyebrow?: string;
       title?: string;
@@ -3904,6 +3949,11 @@ export type HOME_PAGE_QUERYResult = {
         }>;
       }> | null;
       limit?: number;
+    } | {
+      _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
     } | {
       _key: string;
       _type: "servicesBlock";
@@ -4245,6 +4295,11 @@ export type HOME_PAGE_QUERYResult = {
       limit?: number;
     } | {
       _key: string;
+      _type: "richText";
+      body: BlockContent;
+      alignment?: "center" | "left";
+    } | {
+      _key: string;
       _type: "servicesBlock";
       eyebrow?: string;
       title?: string;
@@ -4313,12 +4368,13 @@ export type HOME_PAGE_QUERYResult = {
   } | null;
 } | null;
 // Variable: TECHNOLOGY_QUERY
-// Query: *[_type == "technology" && slug.current == $slug && language == $lang][0]{    _id,    name,    slug,    description,    icon,    color,    content[]{      ...,      _type == "faqs" => {        "faqs": faqs[]->{_id, _type, title, body}      },      _type == "servicesSection" => {        "services": services[]->{_id, title, slug, description, icon}      },      _type == "servicesBlock" => {        "services": services[]->{_id, title, slug, description, icon}      },      _type == "technologiesBlock" => {        "technologies": technologies[]->{_id, name, slug, description, icon, color, language}      },      _type == "projectsBlock" => {        "eyebrow": eyebrow,        "title": title,        "description": description,        "mode": mode,        mode == "selected" => {          "projects": projects[]->[language == $lang]{            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,              "technologies": coalesce(    technologies[]->{      "tech": coalesce(        *[_type == "translation.metadata" && references(^._id)][0].translations[_key == $lang][0].value->,        @      ){          _id,  slug,  name,  icon,  language      }    }.tech,    []  )          }        },        mode == "all" => {          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,              "technologies": coalesce(    technologies[]->{      "tech": coalesce(        *[_type == "translation.metadata" && references(^._id)][0].translations[_key == $lang][0].value->,        @      ){          _id,  slug,  name,  icon,  language      }    }.tech,    []  ),            language          }        }      }    },    "seo": {      "title": coalesce(seo.title, name, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    }  }
+// Query: *[_type == "technology" && slug.current == $slug && language == $lang][0]{    _id,    name,    slug,    description,    body,    icon,    color,    content[]{      ...,      _type == "faqs" => {        "faqs": faqs[]->{_id, _type, title, body}      },      _type == "servicesSection" => {        "services": services[]->{_id, title, slug, description, icon}      },      _type == "servicesBlock" => {        "services": services[]->{_id, title, slug, description, icon}      },      _type == "technologiesBlock" => {        "technologies": technologies[]->{_id, name, slug, description, icon, color, language}      },      _type == "projectsBlock" => {        "eyebrow": eyebrow,        "title": title,        "description": description,        "mode": mode,        mode == "selected" => {          "projects": projects[]->[language == $lang]{            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,              "technologies": coalesce(    technologies[]->{      "tech": coalesce(        *[_type == "translation.metadata" && references(^._id)][0].translations[_key == $lang][0].value->,        @      ){          _id,  slug,  name,  icon,  language      }    }.tech,    []  )          }        },        mode == "all" => {          "projects": *[_type == "project" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {            _id,            title,            slug,            description,            mainImage,            projectLink,            githubLink,              "technologies": coalesce(    technologies[]->{      "tech": coalesce(        *[_type == "translation.metadata" && references(^._id)][0].translations[_key == $lang][0].value->,        @      ){          _id,  slug,  name,  icon,  language      }    }.tech,    []  ),            language          }        }      }    },    "seo": {      "title": coalesce(seo.title, name, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    }  }
 export type TECHNOLOGY_QUERYResult = {
   _id: string;
   name: string;
   slug: Slug;
   description: string | null;
+  body: BlockContent | null;
   icon: {
     asset?: {
       _ref: string;
@@ -4602,6 +4658,11 @@ export type TECHNOLOGY_QUERYResult = {
       }>;
     }> | null;
     limit?: number;
+  } | {
+    _key: string;
+    _type: "richText";
+    body: BlockContent;
+    alignment?: "center" | "left";
   } | {
     _key: string;
     _type: "servicesBlock";
@@ -4977,6 +5038,11 @@ export type SERVICE_QUERYResult = {
     limit?: number;
   } | {
     _key: string;
+    _type: "richText";
+    body: BlockContent;
+    alignment?: "center" | "left";
+  } | {
+    _key: string;
     _type: "servicesBlock";
     eyebrow?: string;
     title?: string;
@@ -5192,7 +5258,7 @@ declare module "@sanity/client" {
     "\n  *[_type in [\"page\", \"technology\", \"service\"] && slug.current == $slug && language == $lang][0]{\n    ...,\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, name, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    },\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{_id, _type, title, body}\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id, title, slug, description, mainImage, projectLink, githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id, title, slug, description, mainImage, projectLink, githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        }\n      }\n    }\n  }\n": PAGE_QUERYResult;
     "\n  *[_type == \"page\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": PAGES_SLUGS_QUERYResult;
     "\n  *[_id == \"siteSettings\"][0]{\n    \"homePage\": coalesce(\n      *[_type == \"translation.metadata\" && references(^.homePage._ref)][0].translations[_key == $lang][0].value->,\n      homePage->\n    ) {\n      _id,\n      title,\n      content[] {\n        ...,\n        _type == \"faqs\" => {\n          \"faqs\": faqs[]->{_id, _type, title, body}\n        },\n        _type == \"servicesSection\" => {\n          \"services\": services[]->{_id, title, slug, description, icon}\n        },\n        _type == \"servicesBlock\" => {\n          \"services\": services[]->{_id, title, slug, description, icon}\n        },\n        _type == \"technologiesBlock\" => {\n          \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n        },\n        _type == \"projectsBlock\" => {\n          \"eyebrow\": eyebrow,\n          \"title\": title,\n          \"description\": description,\n          \"mode\": mode,\n          mode == \"selected\" => {\n            \"projects\": projects[]->[language == $lang]{\n              _id, title, slug, description, mainImage, projectLink, githubLink,\n              \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n            }\n          },\n          mode == \"all\" => {\n            \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n              _id, title, slug, description, mainImage, projectLink, githubLink,\n              \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n            }\n          }\n        }\n      }\n    }\n  }\n": HOME_PAGE_QUERYResult;
-    "\n  *[_type == \"technology\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    name,\n    slug,\n    description,\n    icon,\n    color,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{_id, _type, title, body}\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n,\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, name, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": TECHNOLOGY_QUERYResult;
+    "\n  *[_type == \"technology\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    name,\n    slug,\n    description,\n    body,\n    icon,\n    color,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{_id, _type, title, body}\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n,\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, name, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": TECHNOLOGY_QUERYResult;
     "\n  *[_type == \"technology\" && defined(slug.current) && language == $lang]\n  | order(name asc){\n    _id,\n    name,\n    slug,\n    description,\n    icon,\n    color,\n    language\n  }\n": TECHNOLOGIES_QUERYResult;
     "\n  *[_type == \"service\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{_id, _type, title, body}\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{_id, title, slug, description, icon}\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n,\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": SERVICE_QUERYResult;
     "\n  *[_type == \"service\" && defined(slug.current) && language == $lang]\n  | order(title asc){\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    language\n  }\n": SERVICES_QUERYResult;
