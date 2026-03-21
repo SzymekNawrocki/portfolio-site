@@ -26,6 +26,7 @@ import { contactMessageType } from "./contactMessageType";
 import { headerType } from "./headerType";
 import { footerType } from "./footerType";
 import { richTextType } from "./blocks/richTextType";
+import { aboutMeType } from "./blocks/aboutMeType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -56,6 +57,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     headerType,
     footerType,
     richTextType,
+    aboutMeType,
   ],
 };
 

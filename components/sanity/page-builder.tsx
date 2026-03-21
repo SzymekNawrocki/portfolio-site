@@ -32,6 +32,9 @@ const ContactSection = dynamic(() =>
 const RichText = dynamic(() =>
   import("@/components/blocks/rich-text").then((mod) => mod.RichText)
 );
+const AboutMe = dynamic(() =>
+  import("@/components/blocks/about-me").then((mod) => mod.AboutMe)
+);
 
 import { PAGE_QUERYResult } from "@/sanity/types";
 
@@ -70,6 +73,8 @@ export function PageBuilder({
             return <ContactSection key={block._key} {...block} />;
           case "richText":
             return <RichText key={block._key} {...block} />;
+          case "aboutMe":
+            return <AboutMe key={block._key} {...block} />;
           default:
             return null;
         }

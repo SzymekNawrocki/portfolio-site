@@ -14,6 +14,7 @@ export const pageBuilderType = defineType({
     defineArrayMember({ type: "projectsBlock" }),
     defineArrayMember({ type: "contactSection" }),
     defineArrayMember({ type: "richText" }),
+    defineArrayMember({ type: "aboutMe" }),
   ],
   options: {
     insertMenu: {
