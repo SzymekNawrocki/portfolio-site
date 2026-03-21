@@ -13,6 +13,24 @@
  */
 
 // Source: schema.json
+export type AboutMe = {
+  _type: "aboutMe";
+  title?: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  content: BlockContent;
+};
+
 export type RichText = {
   _type: "richText";
   body: BlockContent;
@@ -284,7 +302,9 @@ export type PageBuilder = Array<{
   _key: string;
 } & ContactSection | {
   _key: string;
-} & RichText>;
+} & RichText | {
+  _key: string;
+} & AboutMe>;
 
 export type BlockContent = Array<{
   children?: Array<{
@@ -890,7 +910,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = AboutMe | RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: POSTS_PAGE_QUERY
@@ -1181,6 +1201,23 @@ export type PAGE_QUERYResult = {
   social?: Social;
   slug?: Slug;
   content: Array<{
+    _key: string;
+    _type: "aboutMe";
+    title?: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content: BlockContent;
+  } | {
     _key: string;
     _type: "contactSection";
     title: string;
@@ -1549,6 +1586,23 @@ export type PAGE_QUERYResult = {
   icon?: "Code" | "Cpu" | "Globe" | "Mail" | "Server";
   description: string;
   content: Array<{
+    _key: string;
+    _type: "aboutMe";
+    title?: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content: BlockContent;
+  } | {
     _key: string;
     _type: "contactSection";
     title: string;
@@ -1919,6 +1973,23 @@ export type PAGE_QUERYResult = {
   body?: BlockContent;
   color?: string;
   content: Array<{
+    _key: string;
+    _type: "aboutMe";
+    title?: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content: BlockContent;
+  } | {
     _key: string;
     _type: "contactSection";
     title: string;
@@ -2292,6 +2363,23 @@ export type HOME_PAGE_QUERYResult = {
     title: null;
     content: Array<{
       _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
+      _key: string;
       _type: "contactSection";
       title: string;
       description?: Array<{
@@ -2636,6 +2724,23 @@ export type HOME_PAGE_QUERYResult = {
     title: string;
     content: Array<{
       _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
+      _key: string;
       _type: "contactSection";
       title: string;
       description?: Array<{
@@ -2979,6 +3084,23 @@ export type HOME_PAGE_QUERYResult = {
     _id: string;
     title: string | null;
     content: Array<{
+      _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
       _key: string;
       _type: "contactSection";
       title: string;
@@ -3338,6 +3460,23 @@ export type HOME_PAGE_QUERYResult = {
     title: null;
     content: Array<{
       _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
+      _key: string;
       _type: "contactSection";
       title: string;
       description?: Array<{
@@ -3682,6 +3821,23 @@ export type HOME_PAGE_QUERYResult = {
     title: string;
     content: Array<{
       _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
+      _key: string;
       _type: "contactSection";
       title: string;
       description?: Array<{
@@ -4025,6 +4181,23 @@ export type HOME_PAGE_QUERYResult = {
     _id: string;
     title: string | null;
     content: Array<{
+      _key: string;
+      _type: "aboutMe";
+      title?: string;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      content: BlockContent;
+    } | {
       _key: string;
       _type: "contactSection";
       title: string;
@@ -4396,6 +4569,23 @@ export type TECHNOLOGY_QUERYResult = {
   };
   color: string | null;
   content: Array<{
+    _key: string;
+    _type: "aboutMe";
+    title?: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content: BlockContent;
+  } | {
     _key: string;
     _type: "contactSection";
     title: string;
@@ -4774,6 +4964,23 @@ export type SERVICE_QUERYResult = {
   description: string;
   icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
   content: Array<{
+    _key: string;
+    _type: "aboutMe";
+    title?: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content: BlockContent;
+  } | {
     _key: string;
     _type: "contactSection";
     title: string;

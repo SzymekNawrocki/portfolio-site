@@ -82,8 +82,8 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
               relatedPosts={relatedPosts}
               documentId={_id}
               documentType="post"
-              eyebrow={labels?.relatedPostsEyebrow}
-              title={labels?.relatedPostsTitle}
+              eyebrow={labels?.relatedPostsEyebrow ?? undefined}
+              title={labels?.relatedPostsTitle ?? undefined}
             />
           </div>
         </article>
