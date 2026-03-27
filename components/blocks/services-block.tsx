@@ -1,23 +1,28 @@
 import Link from "next/link";
-import { Globe, Code, Mail, Server, Cpu } from "lucide-react";
+import { Globe, Code, Mail, Server, Cpu, Layers, Zap, LineChart, Database, Monitor } from "lucide-react";
 import { PAGE_QUERYResult } from "@/sanity/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
 import { Container } from "../ui/container";
 
-const iconsMap = {
+const iconsMap: any = {
   Globe,
   Code,
   Mail,
   Server,
   Cpu,
+  Layers,
+  Zap,
+  LineChart,
+  Database,
+  Monitor,
 };
 
 type ServicesBlockProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
   { _type: "servicesBlock" }
->;
+> & { readMoreLabel?: string; documentType?: string };
 
 export function ServicesBlock(props: ServicesBlockProps) {
   const isExpanded = (
@@ -30,7 +35,7 @@ export function ServicesBlock(props: ServicesBlockProps) {
     return null;
   }
 
-  const { eyebrow, title, services } = props;
+  const { eyebrow, title, services, readMoreLabel } = props;
 
   return (
     <div className="py-16">
@@ -60,16 +65,18 @@ export function ServicesBlock(props: ServicesBlockProps) {
                   </CardTitle>
                 </CardHeader>
 
-                <CardContent className="mb-4 text-accent text-sm">
-                  {service.description}
-                </CardContent>
+                {service.description && props.documentType !== "service" && (
+                  <CardContent className="mb-4 text-accent text-sm">
+                    {service.description}
+                  </CardContent>
+                )}
 
                 <div className="px-6 pb-6">
                   <Link
                     href={`/services/${service.slug.current}`}
                     className="inline-flex items-center gap-1 font-semibold text-primary hover:text-accent transition-colors text-sm tracking-wide"
                   >
-                    Read more
+                    {readMoreLabel || "Read more"}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

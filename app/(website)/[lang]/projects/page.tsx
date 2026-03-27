@@ -19,7 +19,7 @@ export default async function Page({
   const projectsLabel = headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
 
   return (
-    <main className="min-h-screen pt-24">
+    <main className="min-h-screen pt-28 md:pt-40">
        <Container>
          <Breadcrumbs 
             homeLabel={homeData?.title || "Home"}

@@ -90,7 +90,7 @@ export default async function Page({ params }: RouteProps) {
   }
 
   return (
-    <section className="my-22 py-2">
+    <section className="pt-28 md:pt-40">
        <Container>
          <Breadcrumbs
             homeLabel={homeData?.title || "Home"}

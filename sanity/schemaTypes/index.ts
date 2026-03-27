@@ -27,6 +27,7 @@ import { headerType } from "./headerType";
 import { footerType } from "./footerType";
 import { richTextType } from "./blocks/richTextType";
 import { aboutMeType } from "./blocks/aboutMeType";
+import { servicesPageType } from "./servicesPageType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -58,6 +59,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     footerType,
     richTextType,
     aboutMeType,
+    servicesPageType,
   ],
 };
 

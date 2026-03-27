@@ -30,7 +30,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
 
 
   return (
-    <div className="py-16">
+    <div className="pb-16">
       <div className="mx-auto px-4 max-w-4xl">
         <Link 
           href={`/${lang ?? ""}/posts`} 

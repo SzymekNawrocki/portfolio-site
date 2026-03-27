@@ -27,7 +27,7 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
   } = props;
 
   return (
-    <Card className="mt-22 md:mt-24 p-6 md:p-14 rounded-3xl">
+    <Card className="p-6 md:p-14 rounded-3xl">
       <CardHeader className="space-y-6">
         <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
             <div>

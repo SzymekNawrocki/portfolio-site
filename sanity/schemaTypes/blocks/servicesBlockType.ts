@@ -24,6 +24,13 @@ export const servicesBlockType = defineType({
       of: [{ type: "reference", to: [{ type: "service" }] }],
       validation: (Rule) => Rule.required().min(1),
     }),
+    defineField({
+      name: "readMoreLabel",
+      type: "string",
+      title: "Read More Label",
+      description: "Text for the 'Read more' link (e.g. 'Read more', 'Czytaj więcej')",
+      initialValue: "Read more",
+    }),
   ],
   preview: {
     select: {

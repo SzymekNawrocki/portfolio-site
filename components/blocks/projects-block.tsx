@@ -15,6 +15,7 @@ type ProjectsBlockProps = Partial<Extract<
   // Ensure _type is still present for the type guard if needed, 
   // though Partial makes it optional. We can keep it simple.
   _type?: "projectsBlock";
+  detailsLabel?: string;
 };
 
 export function ProjectsBlock(props: ProjectsBlockProps) {
@@ -29,7 +30,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
     return null;
   }
 
-  const { eyebrow, title, description, mode, limit, projects } = props;
+  const { eyebrow, title, description, mode, limit, projects, detailsLabel } = props;
 
   const displayProjects =
     mode === "all" ? (projects as any[]).slice(0, limit || 6) : projects;
@@ -51,7 +52,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
           {(displayProjects as any[]).map((project: any) => (
             <div
               key={project._id}
-              className="flex flex-col bg-card shadow-sm hover:shadow-md border border-border rounded-xl overflow-hidden transition-all"
+              className="flex flex-col bg-card border border-border rounded-xl overflow-hidden"
             >
               {project.mainImage && (
                 <div className="relative h-48 overflow-hidden">
@@ -59,14 +60,14 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
                     src={urlFor(project.mainImage).width(600).height(400).url()}
                     alt={project.mainImage.alt || project.title || "Project Image"}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    className="object-cover"
                   />
                 </div>
               )}
               <div className="flex flex-col flex-1 p-6">
                 <div className="mb-4">
                   {project.slug?.current ? (
-                    <Link href={`/projects/${project.slug.current}`} className="hover:underline">
+                    <Link href={`/projects/${project.slug.current}`} className="hover:opacity-70 transition-opacity">
                       <h3 className="font-bold text-xl">{project.title}</h3>
                     </Link>
                   ) : (
@@ -102,13 +103,15 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <Button asChild variant="outline" size="sm" className="flex-1">
-                        {project.slug?.current && (
-                        <Link href={`/projects/${project.slug.current}`}>
-                            Details <ArrowRight className="ml-2 w-4 h-4" />
-                        </Link>
-                        )}
-                    </Button>
+                  {project.slug?.current && (
+                    <Link
+                      href={`/projects/${project.slug.current}`}
+                      className="flex items-center gap-2 font-semibold hover:opacity-70 transition-opacity text-sm"
+                    >
+                      {detailsLabel || "Details"}
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  )}
                      {project.githubLink && (
                         <Button asChild variant="ghost" size="icon">
                              <a href={project.githubLink} target="_blank" rel="noopener noreferrer">

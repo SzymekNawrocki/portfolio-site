@@ -617,6 +617,13 @@
             "type": "number"
           },
           "optional": true
+        },
+        "detailsLabel": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
         }
       }
     }
@@ -804,6 +811,13 @@
             }
           },
           "optional": false
+        },
+        "readMoreLabel": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
         }
       }
     }

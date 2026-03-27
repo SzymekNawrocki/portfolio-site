@@ -101,7 +101,7 @@ export default async function Page({
   }
 
   return (
-    <section className="py-12">
+    <section className="pt-28 md:pt-40 pb-12">
       <Container>
         <Breadcrumbs 
           homeLabel={homeData?.title || "Home"}

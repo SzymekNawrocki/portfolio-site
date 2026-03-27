@@ -36,21 +36,26 @@ const AboutMe = dynamic(() =>
   import("@/components/blocks/about-me").then((mod) => mod.AboutMe)
 );
 
+import { cn } from "@/lib/utils";
 import { PAGE_QUERYResult } from "@/sanity/types";
 
 export function PageBuilder({
   content,
   documentId,
   documentType,
+  disablePadding = false,
 }: {
   content: any[];
   documentId?: string;
   documentType?: string;
+  disablePadding?: boolean;
 }) {
   if (!content) return null;
 
+  const isFirstBlockHero = content?.[0]?._type === "hero";
+
   return (
-    <div className="space-y-16">
+    <div className={cn("space-y-16", !isFirstBlockHero && !disablePadding && "pt-28 md:pt-40")}>
       {content.map((block) => {
         switch (block._type) {
           case "hero":
@@ -64,7 +69,7 @@ export function PageBuilder({
           case "technologiesBlock":
             return <TechnologiesBlock key={block._key} {...block} />;
           case "servicesBlock":
-            return <ServicesBlock key={block._key} {...block} />;
+            return <ServicesBlock key={block._key} {...block} documentType={documentType} />;
           case "cta":
             return <CTA key={block._key} {...block} />;
           case "projectsBlock":

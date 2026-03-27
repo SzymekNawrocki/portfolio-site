@@ -10,6 +10,20 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { routing } from "@/i18n/routing";
 import { PageBuilder } from "@/components/sanity/page-builder";
 import { Container } from "@/components/ui/container";
+import { Globe, Code, Mail, Server, Cpu, Layers, Zap, LineChart, Database, Monitor } from "lucide-react";
+
+const iconsMap: any = {
+  Globe,
+  Code,
+  Mail,
+  Server,
+  Cpu,
+  Layers,
+  Zap,
+  LineChart,
+  Database,
+  Monitor,
+};
 
 export async function generateStaticParams() {
   const allParams = await Promise.all(
@@ -53,29 +67,30 @@ export default async function Page({
 
   const servicesLabel = headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
 
-  if (!service) notFound();
+  const Icon = service.icon && iconsMap[service.icon] ? iconsMap[service.icon] : Globe;
 
   return (
-    <section className="py-24">
-      <Container className="space-y-6">
+    <section className="pt-28 md:pt-40">
+      <Container className="space-y-10">
         <Breadcrumbs
           homeLabel={homeData?.title || "Home"}
           items={[
             { label: servicesLabel, href: "/services" },
             { label: service?.title }
           ]} 
-          className="mb-8"
         />
-        <h1 className="font-bold text-4xl">{service.title}</h1>
 
-        {service.description && (
-          <p className="text-muted-foreground">{service.description}</p>
-        )}
+        <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <div className="flex justify-center items-center bg-primary/10 rounded-2xl w-16 h-16 text-primary">
+            <Icon className="w-9 h-9" />
+          </div>
+          <h1 className="font-bold text-4xl lg:text-5xl">{service.title}</h1>
+        </div>
+
+
 
         {service.content && (
-          <div className="mt-8">
-            <PageBuilder content={service.content} documentId={service._id} documentType="service" />
-          </div>
+          <PageBuilder content={service.content} documentId={service._id} documentType="service" disablePadding />
         )}
       </Container>
     </section>

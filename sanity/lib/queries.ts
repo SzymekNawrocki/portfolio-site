@@ -166,10 +166,12 @@ export const PAGE_QUERY = defineQuery(`
         "faqs": faqs[]->{_id, _type, title, body}
       },
       _type == "servicesSection" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "servicesBlock" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "technologiesBlock" => {
         "technologies": technologies[]->{_id, name, slug, description, icon, color, language}
@@ -179,6 +181,7 @@ export const PAGE_QUERY = defineQuery(`
         "title": title,
         "description": description,
         "mode": mode,
+        detailsLabel,
         mode == "selected" => {
           "projects": projects[]->[language == $lang]{
             _id, title, slug, description, mainImage, projectLink, githubLink,
@@ -217,10 +220,12 @@ export const HOME_PAGE_QUERY = defineQuery(`
           "faqs": faqs[]->{_id, _type, title, body}
         },
         _type == "servicesSection" => {
-          "services": services[]->{_id, title, slug, description, icon}
+          "services": services[]->{_id, title, slug, description, icon},
+          readMoreLabel
         },
         _type == "servicesBlock" => {
-          "services": services[]->{_id, title, slug, description, icon}
+          "services": services[]->{_id, title, slug, description, icon},
+          readMoreLabel
         },
         _type == "technologiesBlock" => {
           "technologies": technologies[]->{_id, name, slug, description, icon, color, language}
@@ -230,6 +235,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
           "title": title,
           "description": description,
           "mode": mode,
+          detailsLabel,
           mode == "selected" => {
             "projects": projects[]->[language == $lang]{
               _id, title, slug, description, mainImage, projectLink, githubLink,
@@ -272,10 +278,12 @@ export const TECHNOLOGY_QUERY = defineQuery(`
         "faqs": faqs[]->{_id, _type, title, body}
       },
       _type == "servicesSection" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "servicesBlock" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "technologiesBlock" => {
         "technologies": technologies[]->{_id, name, slug, description, icon, color, language}
@@ -285,6 +293,7 @@ export const TECHNOLOGY_QUERY = defineQuery(`
         "title": title,
         "description": description,
         "mode": mode,
+        detailsLabel,
         mode == "selected" => {
           "projects": projects[]->[language == $lang]{
             _id,
@@ -346,10 +355,12 @@ export const SERVICE_QUERY = defineQuery(`
         "faqs": faqs[]->{_id, _type, title, body}
       },
       _type == "servicesSection" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "servicesBlock" => {
-        "services": services[]->{_id, title, slug, description, icon}
+        "services": services[]->{_id, title, slug, description, icon},
+        readMoreLabel
       },
       _type == "technologiesBlock" => {
         "technologies": technologies[]->{_id, name, slug, description, icon, color, language}
@@ -359,6 +370,7 @@ export const SERVICE_QUERY = defineQuery(`
         "title": title,
         "description": description,
         "mode": mode,
+        detailsLabel,
         mode == "selected" => {
           "projects": projects[]->[language == $lang]{
             _id,
@@ -403,6 +415,13 @@ export const SERVICES_QUERY = defineQuery(`
     description,
     icon,
     language
+  }
+`);
+
+export const SERVICES_PAGE_QUERY = defineQuery(`
+  *[_type == "servicesPage" && language == $lang][0]{
+    title,
+    readMoreLabel
   }
 `);
 

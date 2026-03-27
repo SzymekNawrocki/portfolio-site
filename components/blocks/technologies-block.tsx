@@ -55,7 +55,7 @@ export function TechnologiesBlock(props: TechnologiesBlockProps) {
               <div key={tech._id}>
                 <Link
                   href={`/technologies/${tech.slug.current}`}
-                  className="group flex items-center gap-4 bg-card hover:bg-accent p-4 rounded-lg transition-colors"
+                  className="group flex items-center gap-4 bg-card p-4 rounded-lg transition-opacity hover:opacity-70"
                 >
                   {tech.icon && (
                     <div className="relative flex-shrink-0 w-12 h-12">
@@ -69,12 +69,12 @@ export function TechnologiesBlock(props: TechnologiesBlockProps) {
                   )}
 
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg transition-colors group-hover:text-accent-foreground">
+                    <h3 className="font-semibold text-lg">
                       {tech.name}
                     </h3>
                   </div>
 
-                  <ArrowRight className="w-5 h-5 text-muted-foreground transition-colors group-hover:text-accent-foreground" />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground" />
                 </Link>
 
                 {index < technologies.length - 1 && (

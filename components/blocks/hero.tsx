@@ -17,7 +17,7 @@ export function Hero(props: HeroProps) {
     return !!img && typeof img === "object" && "asset" in img;
   };
   return (
-    <section className="relative w-full aspect-[2/1] overflow-hidden">
+    <section className="relative w-full h-[100dvh] md:h-auto md:aspect-[2/1] overflow-hidden">
       {isExpandedImage(image) && (
      <Image
   className="absolute inset-0 w-full h-full object-cover"

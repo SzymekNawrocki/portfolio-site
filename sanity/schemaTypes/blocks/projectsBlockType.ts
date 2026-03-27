@@ -50,6 +50,13 @@ export const projectsBlockType = defineType({
       hidden: ({ parent }) => parent?.mode !== "all",
       initialValue: 6,
     }),
+    defineField({
+      name: "detailsLabel",
+      type: "string",
+      title: "Details Button Label",
+      description: "Text for the 'Details' button (e.g. 'Details', 'Szczegóły')",
+      initialValue: "Details",
+    }),
   ],
   preview: {
     select: {
