@@ -67,7 +67,9 @@ export default async function Page({
 
   const servicesLabel = headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
 
-  const Icon = service.icon && iconsMap[service.icon] ? iconsMap[service.icon] : Globe;
+  if (!service) notFound();
+
+  const Icon = service?.icon && iconsMap[service.icon] ? iconsMap[service.icon] : Globe;
 
   return (
     <section className="pt-28 md:pt-40">

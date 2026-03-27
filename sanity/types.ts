@@ -13,6 +13,23 @@
  */
 
 // Source: schema.json
+export type ServicesPage = {
+  _id: string;
+  _type: "servicesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title: string;
+  readMoreLabel?: string;
+  seo?: Seo;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+};
+
 export type AboutMe = {
   _type: "aboutMe";
   title?: string;
@@ -339,11 +356,6 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Seo = {
-  _type: "seo";
-  title?: string;
-};
-
 export type Social = {
   _type: "social";
   linkedIn?: string;
@@ -480,7 +492,7 @@ export type Service = {
   _rev: string;
   title: string;
   slug: Slug;
-  icon?: "Globe" | "Code" | "Mail" | "Server" | "Cpu";
+  icon?: "Globe" | "Code" | "Mail" | "Server" | "Cpu" | "Layers" | "Zap" | "LineChart" | "Database" | "Monitor";
   description: string;
   content?: PageBuilder;
   seo?: Seo;
@@ -912,7 +924,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = AboutMe | RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Seo | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ServicesPage | Seo | AboutMe | RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: POSTS_PAGE_QUERY
@@ -1108,7 +1120,7 @@ export type PROJECTS_QUERYResult = Array<{
     _id: string;
     slug: Slug;
     name: null;
-    icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     language: string | null;
   }>;
   language: string | null;
@@ -1181,7 +1193,7 @@ export type PROJECT_QUERYResult = {
     _id: string;
     slug: Slug;
     name: null;
-    icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+    icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     language: string | null;
   }>;
   seo: {
@@ -1397,7 +1409,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }>;
@@ -1485,7 +1497,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }> | null;
@@ -1506,7 +1518,7 @@ export type PAGE_QUERYResult = {
       title: string;
       slug: Slug;
       description: string;
-      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     }>;
     readMoreLabel: string | null;
   } | {
@@ -1589,7 +1601,7 @@ export type PAGE_QUERYResult = {
   _rev: string;
   title: string;
   slug: Slug;
-  icon?: "Code" | "Cpu" | "Globe" | "Mail" | "Server";
+  icon?: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap";
   description: string;
   content: Array<{
     _key: string;
@@ -1786,7 +1798,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }>;
@@ -1874,7 +1886,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }> | null;
@@ -1895,7 +1907,7 @@ export type PAGE_QUERYResult = {
       title: string;
       slug: Slug;
       description: string;
-      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     }>;
     readMoreLabel: string | null;
   } | {
@@ -2177,7 +2189,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }>;
@@ -2265,7 +2277,7 @@ export type PAGE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }> | null;
@@ -2286,7 +2298,7 @@ export type PAGE_QUERYResult = {
       title: string;
       slug: Slug;
       description: string;
-      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     }>;
     readMoreLabel: string | null;
   } | {
@@ -2570,7 +2582,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -2658,7 +2670,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -2679,7 +2691,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -2935,7 +2947,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -3023,7 +3035,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -3044,7 +3056,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -3300,7 +3312,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -3388,7 +3400,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -3409,7 +3421,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -3679,7 +3691,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -3767,7 +3779,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -3788,7 +3800,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -4044,7 +4056,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -4132,7 +4144,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -4153,7 +4165,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -4409,7 +4421,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }>;
@@ -4497,7 +4509,7 @@ export type HOME_PAGE_QUERYResult = {
           _id: string;
           slug: Slug;
           name: null;
-          icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+          icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
           language: string | null;
         }>;
       }> | null;
@@ -4518,7 +4530,7 @@ export type HOME_PAGE_QUERYResult = {
         title: string;
         slug: Slug;
         description: string;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
       }>;
       readMoreLabel: string | null;
     } | {
@@ -4801,7 +4813,7 @@ export type TECHNOLOGY_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
       language: string | null;
@@ -4890,7 +4902,7 @@ export type TECHNOLOGY_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }> | null;
@@ -4911,7 +4923,7 @@ export type TECHNOLOGY_QUERYResult = {
       title: string;
       slug: Slug;
       description: string;
-      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     }>;
     readMoreLabel: string | null;
   } | {
@@ -5004,7 +5016,7 @@ export type SERVICE_QUERYResult = {
   title: string;
   slug: Slug;
   description: string;
-  icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+  icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
   content: Array<{
     _key: string;
     _type: "aboutMe";
@@ -5200,7 +5212,7 @@ export type SERVICE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
       language: string | null;
@@ -5289,7 +5301,7 @@ export type SERVICE_QUERYResult = {
         _id: string;
         slug: Slug;
         name: null;
-        icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+        icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
         language: string | null;
       }>;
     }> | null;
@@ -5310,7 +5322,7 @@ export type SERVICE_QUERYResult = {
       title: string;
       slug: Slug;
       description: string;
-      icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+      icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
     }>;
     readMoreLabel: string | null;
   } | {
@@ -5381,9 +5393,15 @@ export type SERVICES_QUERYResult = Array<{
   title: string;
   slug: Slug;
   description: string;
-  icon: "Code" | "Cpu" | "Globe" | "Mail" | "Server" | null;
+  icon: "Code" | "Cpu" | "Database" | "Globe" | "Layers" | "LineChart" | "Mail" | "Monitor" | "Server" | "Zap" | null;
   language: string | null;
 }>;
+// Variable: SERVICES_PAGE_QUERY
+// Query: *[_type == "servicesPage" && language == $lang][0]{    title,    readMoreLabel  }
+export type SERVICES_PAGE_QUERYResult = {
+  title: string;
+  readMoreLabel: string | null;
+} | null;
 // Variable: SERVICES_SLUGS_QUERY
 // Query: *[_type == "service" && defined(slug.current) && language == $lang]{    "slug": slug.current,    language  }
 export type SERVICES_SLUGS_QUERYResult = Array<{
@@ -5523,6 +5541,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"technology\" && defined(slug.current) && language == $lang]\n  | order(name asc){\n    _id,\n    name,\n    slug,\n    description,\n    icon,\n    color,\n    language\n  }\n": TECHNOLOGIES_QUERYResult;
     "\n  *[_type == \"service\" && slug.current == $slug && language == $lang][0]{\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    content[]{\n      ...,\n      _type == \"faqs\" => {\n        \"faqs\": faqs[]->{_id, _type, title, body}\n      },\n      _type == \"servicesSection\" => {\n        \"services\": services[]->{_id, title, slug, description, icon},\n        readMoreLabel\n      },\n      _type == \"servicesBlock\" => {\n        \"services\": services[]->{_id, title, slug, description, icon},\n        readMoreLabel\n      },\n      _type == \"technologiesBlock\" => {\n        \"technologies\": technologies[]->{_id, name, slug, description, icon, color, language}\n      },\n      _type == \"projectsBlock\" => {\n        \"eyebrow\": eyebrow,\n        \"title\": title,\n        \"description\": description,\n        \"mode\": mode,\n        detailsLabel,\n        mode == \"selected\" => {\n          \"projects\": projects[]->[language == $lang]{\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n\n          }\n        },\n        mode == \"all\" => {\n          \"projects\": *[_type == \"project\" && defined(slug.current) && language == $lang] | order(_createdAt desc)[0...100] {\n            _id,\n            title,\n            slug,\n            description,\n            mainImage,\n            projectLink,\n            githubLink,\n            \n  \"technologies\": coalesce(\n    technologies[]->{\n      \"tech\": coalesce(\n        *[_type == \"translation.metadata\" && references(^._id)][0].translations[_key == $lang][0].value->,\n        @\n      ){\n        \n  _id,\n  slug,\n  name,\n  icon,\n  language\n\n      }\n    }.tech,\n    []\n  )\n,\n            language\n          }\n        }\n      }\n    },\n    \"seo\": {\n      \"title\": coalesce(seo.title, title, \"\"),\n      \"description\": coalesce(seo.description, description, \"\"),\n      \"seoImage\": seo.seoImage\n    }\n  }\n": SERVICE_QUERYResult;
     "\n  *[_type == \"service\" && defined(slug.current) && language == $lang]\n  | order(title asc){\n    _id,\n    title,\n    slug,\n    description,\n    icon,\n    language\n  }\n": SERVICES_QUERYResult;
+    "\n  *[_type == \"servicesPage\" && language == $lang][0]{\n    title,\n    readMoreLabel\n  }\n": SERVICES_PAGE_QUERYResult;
     "\n  *[_type == \"service\" && defined(slug.current) && language == $lang]{\n    \"slug\": slug.current,\n    language\n  }\n": SERVICES_SLUGS_QUERYResult;
     "\n  *[_type == \"redirect\" && isEnabled == true]{\n    source,\n    destination,\n    permanent\n  }\n": REDIRECTS_QUERYResult;
     "\n  *[_id == $id][0]{\n    title,\n    mainImage\n  }\n": OG_IMAGE_QUERYResult;
