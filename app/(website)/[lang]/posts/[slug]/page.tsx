@@ -77,7 +77,7 @@ export default async function Page({
 }: RouteProps) {
   const { slug, lang } = await params;
 
-  const [post, pageData, homeData] = await Promise.all([
+  const [post, pageData, homeData]: [any, any, any] = await Promise.all([
     sanityFetch({
       query: POST_QUERY,
       params: { slug, lang },

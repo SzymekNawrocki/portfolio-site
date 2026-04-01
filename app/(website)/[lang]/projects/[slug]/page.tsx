@@ -83,7 +83,7 @@ export default async function Page({ params }: RouteProps) {
     sanityFetch({ query: PROJECTS_PAGE_QUERY, params: { lang: resolvedParams.lang } }),
   ]);
 
-  const projectsLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
+  const projectsLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
 
 
   if (!project) {

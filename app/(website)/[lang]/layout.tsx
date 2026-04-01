@@ -64,7 +64,7 @@ export default async function FrontendLayout({
             >
               <Header data={headerData.data} />
               {children}
-              <Footer data={footerData.data} copyrightText={settingsData.data?.copyrightText} />
+              <Footer data={footerData.data} copyrightText={settingsData.data?.copyrightText ?? undefined} />
             </ThemeProvider>
           </NextIntlClientProvider>
           <SanityLive />

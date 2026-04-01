@@ -80,7 +80,7 @@ export default async function Page({
                 key={post._id} 
                 {...post} 
                 lang={lang} 
-                noCoverImageLabel={pageData?.noCoverImageLabel} 
+                noCoverImageLabel={pageData?.noCoverImageLabel ?? undefined} 
               />
             ))
           ) : (
