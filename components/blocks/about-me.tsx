@@ -10,11 +10,12 @@ interface AboutMeProps {
   _type: "aboutMe";
   _key: string;
   title?: string;
+  eyebrow?: string;
   image: any;
   content: any;
 }
 
-export function AboutMe({ title, image, content }: AboutMeProps) {
+export function AboutMe({ title, eyebrow, image, content }: AboutMeProps) {
   if (!image || !content) return null;
 
   return (
@@ -41,9 +42,11 @@ export function AboutMe({ title, image, content }: AboutMeProps) {
           <div className="flex flex-col space-y-8">
             {title && (
               <div className="space-y-4">
-                <span className="text-sm font-medium tracking-[0.2em] text-accent/60 uppercase">
-                  Discover
-                </span>
+                {eyebrow && (
+                  <span className="text-sm font-medium tracking-[0.2em] text-accent/60 uppercase">
+                    {eyebrow}
+                  </span>
+                )}
                 <SectionTitle
                   text={title}
                   className="text-4xl md:text-5xl lg:text-7xl font-extralight tracking-tight leading-none text-accent"

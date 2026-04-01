@@ -13,6 +13,26 @@
  */
 
 // Source: schema.json
+export type TechnologiesPage = {
+  _id: string;
+  _type: "technologiesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title: string;
+  description?: string;
+  backToHomeLabel?: string;
+  emptyStateTitle?: string;
+  emptyStateDescription?: string;
+  seo?: Seo;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+};
+
 export type ProjectsPage = {
   _id: string;
   _type: "projectsPage";
@@ -30,11 +50,6 @@ export type ProjectsPage = {
   seo?: Seo;
 };
 
-export type Seo = {
-  _type: "seo";
-  title?: string;
-};
-
 export type ServicesPage = {
   _id: string;
   _type: "servicesPage";
@@ -50,6 +65,7 @@ export type ServicesPage = {
 export type AboutMe = {
   _type: "aboutMe";
   title?: string;
+  eyebrow?: string;
   image: {
     asset?: {
       _ref: string;
@@ -946,7 +962,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ProjectsPage | Seo | ServicesPage | AboutMe | RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = TechnologiesPage | Seo | ProjectsPage | ServicesPage | AboutMe | RichText | ContactMessage | ContactSection | ProjectsBlock | Cta | ServicesBlock | TechnologiesBlock | Redirect | SiteSettings | SplitImage | Hero | Features | Locale | Faqs | PageBuilder | BlockContent | Social | TranslationMetadata | InternationalizedArrayReference | InternationalizedArrayReferenceValue | Project | SanityImageCrop | SanityImageHotspot | Slug | Service | Technology | Faq | PostsPage | Footer | Header | Post | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: POSTS_PAGE_QUERY
@@ -1257,6 +1273,7 @@ export type PAGE_QUERYResult = {
     _key: string;
     _type: "aboutMe";
     title?: string;
+    eyebrow?: string;
     image: {
       asset?: {
         _ref: string;
@@ -1646,6 +1663,7 @@ export type PAGE_QUERYResult = {
     _key: string;
     _type: "aboutMe";
     title?: string;
+    eyebrow?: string;
     image: {
       asset?: {
         _ref: string;
@@ -2037,6 +2055,7 @@ export type PAGE_QUERYResult = {
     _key: string;
     _type: "aboutMe";
     title?: string;
+    eyebrow?: string;
     image: {
       asset?: {
         _ref: string;
@@ -2430,6 +2449,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -2795,6 +2815,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -3160,6 +3181,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -3539,6 +3561,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -3904,6 +3927,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -4269,6 +4293,7 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "aboutMe";
       title?: string;
+      eyebrow?: string;
       image: {
         asset?: {
           _ref: string;
@@ -4661,6 +4686,7 @@ export type TECHNOLOGY_QUERYResult = {
     _key: string;
     _type: "aboutMe";
     title?: string;
+    eyebrow?: string;
     image: {
       asset?: {
         _ref: string;
@@ -5060,6 +5086,7 @@ export type SERVICE_QUERYResult = {
     _key: string;
     _type: "aboutMe";
     title?: string;
+    eyebrow?: string;
     image: {
       asset?: {
         _ref: string;
@@ -5450,7 +5477,18 @@ export type SERVICES_PAGE_QUERYResult = {
 } | null;
 // Variable: TECHNOLOGIES_PAGE_QUERY
 // Query: *[_type == "technologiesPage" && language == $lang][0]{    title,    description,    backToHomeLabel,    emptyStateTitle,    emptyStateDescription,    "seo": {      "title": coalesce(seo.title, title, ""),      "description": coalesce(seo.description, description, ""),      "seoImage": seo.seoImage    }  }
-export type TECHNOLOGIES_PAGE_QUERYResult = null;
+export type TECHNOLOGIES_PAGE_QUERYResult = {
+  title: string;
+  description: string | null;
+  backToHomeLabel: string | null;
+  emptyStateTitle: string | null;
+  emptyStateDescription: string | null;
+  seo: {
+    title: string;
+    description: string | "";
+    seoImage: null;
+  };
+} | null;
 // Variable: SERVICES_SLUGS_QUERY
 // Query: *[_type == "service" && defined(slug.current) && language == $lang]{    "slug": slug.current,    language  }
 export type SERVICES_SLUGS_QUERYResult = Array<{

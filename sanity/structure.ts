@@ -11,10 +11,15 @@ export const structure: StructureResolver = (S, context) => {
     .items([
 
       S.documentTypeListItem("post").title("Posts"),
+      S.divider(),
+      S.documentTypeListItem("page").title("Pages"),
+      S.divider(),
+      S.documentTypeListItem("projectsPage").title("Projects Page Settings"),
+      S.documentTypeListItem("servicesPage").title("Services Page Settings"),
+      S.documentTypeListItem("technologiesPage").title("Technologies Page Settings"),
+      S.documentTypeListItem("postsPage").title("Posts Page Settings"),
 
       S.divider(),
-
-      S.documentTypeListItem("page").title("Pages"),
 
       S.documentTypeListItem("redirect").title("Redirects"),
       S.divider(),
@@ -22,16 +27,7 @@ export const structure: StructureResolver = (S, context) => {
       S.documentTypeListItem("footer").title("Footer"),
 
       S.divider(),
-      S.listItem()
-        .id("siteSettings")
-        .schemaType("siteSettings")
-        .title("Site Settings")
-        .child(
-          S.editor()
-            .id("siteSettings")
-            .schemaType("siteSettings")
-            .documentId("siteSettings")
-        ),
+      S.documentTypeListItem("siteSettings").title("Site Settings"),
 
       S.divider(),
 
@@ -39,7 +35,7 @@ export const structure: StructureResolver = (S, context) => {
         const id = item.getId();
         if (!id) return false;
 
-        if (["post", "page", "redirect", "siteSettings", "header", "footer"].includes(id)) {
+        if (["post", "page", "redirect", "siteSettings", "header", "footer", "projectsPage", "servicesPage", "technologiesPage", "postsPage"].includes(id)) {
           return false;
         }
 

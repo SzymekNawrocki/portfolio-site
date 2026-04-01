@@ -104,9 +104,9 @@ export default async function Page({
     <section className="pt-28 md:pt-40 pb-12">
       <Container>
         <Breadcrumbs 
-          homeLabel={homeData?.title || "Home"}
+          homeLabel={homeData?.title ?? undefined}
           items={[
-            { label: pageData?.title || "Blog", href: "/posts" },
+            { label: pageData?.title ?? undefined, href: "/posts" },
             { label: post?.title }
           ]} 
           className="mb-8"

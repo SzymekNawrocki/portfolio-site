@@ -59,7 +59,7 @@ export default async function Page({
     }),
   ]);
 
-  const technologiesLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/technologies")?.label || "Technologies";
+  const technologiesLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/technologies")?.label;
 
   if (!tech) notFound();
 
@@ -67,9 +67,9 @@ export default async function Page({
     <section className="py-22 mt-12">
       <Container className="space-y-6">
         <Breadcrumbs
-          homeLabel={(homeData as any)?.title || "Home"}
+          homeLabel={(homeData as any)?.title ?? undefined}
           items={[
-            { label: technologiesLabel, href: "/technologies" },
+            { label: technologiesLabel ?? undefined, href: "/technologies" },
             { label: tech?.name }
           ]} 
           className="mb-8"

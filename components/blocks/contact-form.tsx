@@ -32,15 +32,15 @@ export function ContactForm({ settings }: ContactFormProps) {
 	}>({ type: null, message: null })
 
 	const {
-		nameLabel = 'Name',
-		namePlaceholder = 'Your name',
-		emailLabel = 'Email',
-		emailPlaceholder = 'Your email',
-		messageLabel = 'Message',
-		messagePlaceholder = 'Tell us more...',
-		submitButtonLabel = 'Send Message',
-		successMessage = 'Thank you! Your message has been sent.',
-		errorMessage = 'Something went wrong. Please try again.',
+		nameLabel,
+		namePlaceholder,
+		emailLabel,
+		emailPlaceholder,
+		messageLabel,
+		messagePlaceholder,
+		submitButtonLabel,
+		successMessage,
+		errorMessage,
 	} = settings || {}
 
 	const form = useForm<ContactFormData>({
@@ -58,13 +58,13 @@ export function ContactForm({ settings }: ContactFormProps) {
 		try {
 			const result = await submitContactForm(data)
 			if (result.success) {
-				setStatus({ type: 'success', message: successMessage })
+				setStatus({ type: 'success', message: successMessage ?? null })
 				form.reset()
 			} else {
-				setStatus({ type: 'error', message: result.message || errorMessage })
+				setStatus({ type: 'error', message: (result.message || errorMessage) ?? null })
 			}
 		} catch (error) {
-			setStatus({ type: 'error', message: errorMessage })
+			setStatus({ type: 'error', message: errorMessage ?? null })
 		}
 	}
 

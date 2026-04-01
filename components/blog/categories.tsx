@@ -1,16 +1,20 @@
 import { POST_QUERYResult } from '@/sanity/types'
+import { Badge } from "@/components/ui/badge"
 
 type CategoriesProps = {
   categories: NonNullable<POST_QUERYResult>['categories']
 }
 
 export function Categories({ categories }: CategoriesProps) {
+  if (!categories) return null;
+  
   return categories.map((category : any) => (
-    <span
+    <Badge
       key={category._id}
-      className="bg-secondary px-2 py-1 rounded-full font-semibold text-secondary-foreground text-xs"
+      variant="outline"
+      className="bg-primary/5 text-primary border-primary/20 px-2.5 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider"
     >
       {category.title}
-    </span>
+    </Badge>
   ))
 }

@@ -83,7 +83,7 @@ export default async function Page({ params }: RouteProps) {
     sanityFetch({ query: PROJECTS_PAGE_QUERY, params: { lang: resolvedParams.lang } }),
   ]);
 
-  const projectsLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
+  const projectsLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/projects")?.label;
 
 
   if (!project) {
@@ -91,12 +91,12 @@ export default async function Page({ params }: RouteProps) {
   }
 
   return (
-    <section className="pt-28 md:pt-40">
+    <section className="pt-28 md:pt-40 pb-24">
        <Container>
          <Breadcrumbs
-            homeLabel={homeData?.title || "Home"}
+            homeLabel={homeData?.title ?? undefined}
             items={[
-               { label: projectsLabel, href: "/projects" },
+               { label: projectsLabel ?? undefined, href: "/projects" },
                { label: project?.title }
             ]}
             className="mb-8"

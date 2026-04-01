@@ -37,7 +37,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
           className="inline-flex items-center gap-2 mb-8 text-muted-foreground hover:text-foreground transition-colors group"
         >
           <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          {labels?.backToBlogLabel || "Back to blog"}
+          {labels?.backToBlogLabel}
         </Link>
 
         <header className="mb-12">
@@ -71,7 +71,7 @@ export function Post(props: NonNullable<POST_QUERYResult> & {
                   <PortableText value={body} components={components} />
                ) : (
                   <p className="text-muted-foreground italic">
-                    {labels?.noDescriptionLabel || "No detailed description provided."}
+                    {labels?.noDescriptionLabel}
                   </p>
                )}
             </div>

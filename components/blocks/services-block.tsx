@@ -76,7 +76,7 @@ export function ServicesBlock(props: ServicesBlockProps) {
                     href={`/services/${service.slug.current}`}
                     className="inline-flex items-center gap-1 font-semibold text-primary hover:text-accent transition-colors text-sm tracking-wide"
                   >
-                    {readMoreLabel || "Read more"}
+                    {readMoreLabel}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

@@ -40,7 +40,7 @@ export function Project(props: NonNullable<PROJECT_QUERYResult> & {
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
           >
             <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            {labels?.backToProjectsLabel || (lang === "pl" ? "Wróć do projektów" : "Back to projects")}
+            {labels?.backToProjectsLabel}
           </Link>
           <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
               <div>
@@ -91,30 +91,31 @@ export function Project(props: NonNullable<PROJECT_QUERYResult> & {
              {body ? (
                 <PortableText value={body} components={components} />
              ) : (
-                <p className="text-muted-foreground italic">{labels?.noDescriptionLabel || "No detailed description provided."}</p>
+                <p className="text-muted-foreground italic">{labels?.noDescriptionLabel}</p>
              )}
           </div>
 
           <div className="lg:col-span-4 lg:pl-12">
              {technologies && technologies.length > 0 && (
                 <div className="bg-muted/30 p-6 rounded-2xl">
-                    <h3 className="mb-4 font-semibold text-lg">{labels?.technologiesLabel || "Technologies"}</h3>
+                    <h3 className="mb-4 font-semibold text-lg">{labels?.technologiesLabel}</h3>
                     <div className="flex flex-wrap gap-2">
                          {technologies.map((tech: any) => (
                             <Badge
                                key={tech?._id}
-                               variant="secondary"
-                               className="flex items-center gap-2 px-3 py-1"
+                               variant="outline"
+                               className="bg-primary/5 text-primary border-primary/20 flex items-center gap-2 px-3 py-1.5 rounded-lg"
                             >
                                 {tech?.icon ? (
                                   <Image
-                                    src={urlFor(tech.icon).width(20).height(20).url()}
+                                    src={urlFor(tech.icon).width(16).height(16).url()}
                                     alt={tech?.name ?? ""}
-                                    width={20}
-                                    height={20}
+                                    width={16}
+                                    height={16}
+                                    className="w-4 h-4"
                                   />
                                 ) : null}
-                                {tech?.name ?? "—"}
+                                <span className="font-medium text-xs tracking-wide">{tech?.name ?? "—"}</span>
                             </Badge>
                          ))}
                     </div>

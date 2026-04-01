@@ -31,7 +31,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: settings?.title || "Devemite",
+    title: settings?.title,
     description: settings?.description,
   };
 }

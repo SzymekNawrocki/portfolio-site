@@ -38,19 +38,19 @@ export default async function Page({
   ]);
 
   const servicesLabel = pageData?.title ||
-    headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
+    headerData?.navigation?.find((n: any) => n.href === "/services")?.label;
 
-  const readMoreLabel = pageData?.readMoreLabel || (lang === "pl" ? "Dowiedz się więcej" : "Learn more");
+  const readMoreLabel = pageData?.readMoreLabel;
 
   return (
     <section className="pt-28 md:pt-40 pb-24">
       <Container className="space-y-12">
         <div className="space-y-4">
           <Breadcrumbs
-            homeLabel={homeData?.title || "Home"}
-            items={[{ label: servicesLabel, href: "/services" }]}
+            homeLabel={homeData?.title ?? undefined}
+            items={[{ label: servicesLabel ?? undefined, href: "/services" }]}
           />
-          <SectionTitle text={servicesLabel} />
+          <SectionTitle text={servicesLabel ?? ""} />
         </div>
 
         <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

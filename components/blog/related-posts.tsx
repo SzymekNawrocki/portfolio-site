@@ -50,8 +50,8 @@ export function RelatedPosts({
     <aside className="mt-16">
       <Card className="bg-card/80 shadow-primary/10 shadow-xl border border-border rounded-[2rem] text-card-foreground">
         <CardHeader className="gap-3">
-          <Eyebrow text={eyebrow || "Keep Reading"} className="tracking-[0.35em] text-xs" />
-          <SectionTitle text={title || "Related posts"} tag="h3" className="text-2xl font-serif" />
+          <Eyebrow text={eyebrow} className="tracking-[0.35em] text-xs" />
+          <SectionTitle text={title ?? ""} tag="h3" className="text-2xl font-serif" />
           <Separator className="bg-border/60" />
         </CardHeader>
 

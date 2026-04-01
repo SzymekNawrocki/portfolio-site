@@ -14,7 +14,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { 
   TECHNOLOGIES_QUERY, 
   HOME_TITLE_QUERY, 
-  HEADER_QUERY 
+  HEADER_QUERY,
+  TECHNOLOGIES_PAGE_QUERY
 } from '@/sanity/lib/queries';
 import { MoveLeft } from "lucide-react";
 
@@ -24,7 +25,7 @@ export default async function Page({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const [technologies, homeData, headerData] = await Promise.all([
+  const [technologies, homeData, headerData, pageData] = await Promise.all([
     sanityFetch({
       query: TECHNOLOGIES_QUERY,
       params: { lang },
@@ -38,28 +39,34 @@ export default async function Page({
       query: HEADER_QUERY,
       params: { lang },
     }),
+    sanityFetch({
+      query: TECHNOLOGIES_PAGE_QUERY,
+      params: { lang },
+    }),
   ]);
 
-  const technologiesLabel = headerData?.navigation?.find((n: any) => n.href === "/technologies")?.label || "Technologies";
+  const technologiesLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/technologies")?.label;
 
   return (
     <section className="pt-28 md:pt-40 pb-24 min-h-screen">
       <Container>
         <Breadcrumbs
-          homeLabel={homeData?.title || "Home"}
-          items={[{ label: technologiesLabel, href: "/technologies" }]} 
+          homeLabel={homeData?.title ?? undefined}
+          items={[{ label: technologiesLabel ?? undefined, href: "/technologies" }]} 
           className="mb-12"
         />
         
         <header className="mb-16">
           <SectionTitle
-            text={technologiesLabel}
+            text={technologiesLabel ?? ""}
             tag="h1"
             className="mb-4"
           />
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            A comprehensive list of the tools, frameworks, and technologies that drive our projects and solutions.
-          </p>
+          {pageData?.description && (
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              {pageData.description}
+            </p>
+          )}
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -103,8 +110,8 @@ export default async function Page({
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
-              <h2 className="text-2xl font-semibold opacity-50">No technologies found</h2>
-              <p className="text-muted-foreground mt-2">Come back later to see more updates.</p>
+              <h2 className="text-2xl font-semibold opacity-50">{pageData?.emptyStateTitle}</h2>
+              <p className="text-muted-foreground mt-2">{pageData?.emptyStateDescription}</p>
             </div>
           )}
         </div>
@@ -115,7 +122,7 @@ export default async function Page({
             className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-medium"
           >
             <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            &larr; Return home
+            {pageData?.backToHomeLabel}
           </Link>
         </div>
       </Container>

@@ -2,7 +2,7 @@ import { ProjectsBlock } from "@/components/blocks/projects-block";
 import { client } from "@/sanity/lib/client";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/ui/container";
-import { HOME_TITLE_QUERY, PROJECTS_QUERY, HEADER_QUERY } from "@/sanity/lib/queries";
+import { HOME_TITLE_QUERY, PROJECTS_QUERY, HEADER_QUERY, PROJECTS_PAGE_QUERY } from "@/sanity/lib/queries";
 
 export default async function Page({
   params,
@@ -10,20 +10,21 @@ export default async function Page({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const [projects, homeData, headerData] = await Promise.all([
+  const [projects, homeData, headerData, pageData] = await Promise.all([
     client.fetch(PROJECTS_QUERY, { lang }),
     client.fetch(HOME_TITLE_QUERY, { lang }),
     client.fetch(HEADER_QUERY, { lang }),
+    client.fetch(PROJECTS_PAGE_QUERY, { lang }),
   ]);
 
-  const projectsLabel = headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
+  const projectsLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/projects")?.label;
 
   return (
     <main className="min-h-screen pt-28 md:pt-40">
        <Container>
          <Breadcrumbs 
-            homeLabel={homeData?.title || "Home"}
-            items={[{ label: projectsLabel, href: "/projects" }]} 
+            homeLabel={homeData?.title ?? undefined}
+            items={[{ label: projectsLabel ?? undefined, href: "/projects" }]} 
             className="mb-8" 
          />
        </Container>
@@ -32,8 +33,8 @@ export default async function Page({
           _key="projects-listing"
           mode="selected" 
           projects={projects}
-          title="All Projects"
-          description="Explore our latest work and case studies."
+          title={pageData?.title ?? ""}
+          description={pageData?.description ?? ""}
        />
     </main>
   );

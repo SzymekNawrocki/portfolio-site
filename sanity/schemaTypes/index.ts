@@ -29,6 +29,7 @@ import { richTextType } from "./blocks/richTextType";
 import { aboutMeType } from "./blocks/aboutMeType";
 import { servicesPageType } from "./servicesPageType";
 import { projectsPageType } from "./projectsPageType";
+import { technologiesPageType } from "./technologiesPageType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -62,6 +63,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     aboutMeType,
     servicesPageType,
     projectsPageType,
+    technologiesPageType,
   ],
 };
 

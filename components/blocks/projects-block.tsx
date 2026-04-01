@@ -7,6 +7,7 @@ import { PAGE_QUERYResult } from "@/sanity/types";
 import { Eyebrow } from "../ui/eyebrow";
 import { SectionTitle } from "../ui/section-title";
 import { Container } from "../ui/container";
+import { Badge } from "@/components/ui/badge";
 
 type ProjectsBlockProps = Partial<Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
@@ -83,22 +84,23 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
 
                 <div className="flex flex-wrap gap-2 mt-auto mb-6">
                     {(project.technologies as any[])?.filter(Boolean).map((tech: any) => (
-                        <div
+                        <Badge
                           key={tech?._id}
-                          className="flex items-center gap-2 bg-secondary/50 px-2 py-1.5 rounded-md"
+                          variant="outline"
                           title={tech?.name || ""}
+                          className="bg-primary/5 text-primary border-primary/20 flex items-center gap-2 px-2.5 py-1 rounded-lg"
                         >
                              {tech?.icon ? (
                                 <Image
-                                    src={urlFor(tech.icon).width(24).height(24).url()}
+                                    src={urlFor(tech.icon).width(16).height(16).url()}
                                     alt={tech?.name || ""}
-                                    width={20}
-                                    height={20}
-                                    className="w-5 h-5 object-contain"
+                                    width={16}
+                                    height={16}
+                                    className="w-4 h-4 object-contain"
                                 />
                              ) : null}
-                             <span className="text-xs">{tech?.name ?? "—"}</span>
-                        </div>
+                             <span className="text-[10px] uppercase font-bold tracking-wider">{tech?.name ?? "—"}</span>
+                        </Badge>
                     ))}
                 </div>
 
@@ -108,7 +110,7 @@ export function ProjectsBlock(props: ProjectsBlockProps) {
                       href={`/projects/${project.slug.current}`}
                       className="flex items-center gap-2 font-semibold hover:opacity-70 transition-opacity text-sm"
                     >
-                      {detailsLabel || "Details"}
+                      {detailsLabel}
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   )}

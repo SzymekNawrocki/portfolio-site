@@ -64,7 +64,7 @@ export function Footer({ data, copyrightText }: { data: FOOTER_QUERYResult; copy
       <Separator className="opacity-30" />
 
       <div className="py-6 text-primary/70 text-sm text-center">
-        &copy; {new Date().getFullYear()} {copyrightText || "Szymon Nawrocki - Devemite"}
+        &copy; {new Date().getFullYear()} {copyrightText}
       </div>
     </footer>
   );

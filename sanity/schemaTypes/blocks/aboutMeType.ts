@@ -13,6 +13,11 @@ export const aboutMeType = defineType({
       title: "Title",
     }),
     defineField({
+      name: "eyebrow",
+      type: "string",
+      title: "Eyebrow",
+    }),
+    defineField({
       name: "image",
       type: "image",
       title: "Image",
@@ -31,12 +36,13 @@ export const aboutMeType = defineType({
   preview: {
     select: {
       title: "title",
+      eyebrow: "eyebrow",
       media: "image",
     },
-    prepare({ title, media }) {
+    prepare({ title, eyebrow, media }) {
       return {
         title: title || "About Me",
-        subtitle: "About Me Section",
+        subtitle: eyebrow || "About Me Section",
         media: media ?? UserIcon,
       };
     },

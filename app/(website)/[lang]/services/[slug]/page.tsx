@@ -70,7 +70,7 @@ export default async function Page({
     }),
   ]);
 
-  const servicesLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
+  const servicesLabel = (pageData as any)?.title || (headerData as any)?.navigation?.find((n: any) => n.href === "/services")?.label;
 
   if (!service) notFound();
 
@@ -80,9 +80,9 @@ export default async function Page({
     <section className="pt-28 md:pt-40">
       <Container className="space-y-10">
         <Breadcrumbs
-          homeLabel={(homeData as any)?.title || "Home"}
+          homeLabel={(homeData as any)?.title ?? undefined}
           items={[
-            { label: servicesLabel, href: "/services" },
+            { label: servicesLabel ?? undefined, href: "/services" },
             { label: service?.title }
           ]} 
         />

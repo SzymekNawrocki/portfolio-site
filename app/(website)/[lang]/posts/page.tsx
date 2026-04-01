@@ -60,14 +60,14 @@ export default async function Page({
     <section className="pt-28 md:pt-40 pb-24">
       <Container>
         <Breadcrumbs 
-          homeLabel={homeData?.title || "Home"}
-          items={[{ label: pageData?.title || "Blog", href: "/posts" }]} 
+          homeLabel={homeData?.title ?? undefined}
+          items={[{ label: pageData?.title ?? undefined, href: "/posts" }]} 
           className="mb-4" 
         />
         <header className="mb-16">
           {pageData?.eyebrow && <Eyebrow text={pageData.eyebrow} />}
           <SectionTitle
-            text={pageData?.title || "Blog"}
+            text={pageData?.title ?? ""}
             tag="h1"
             className="mb-4 max-w-1xl"
           />
@@ -85,8 +85,8 @@ export default async function Page({
             ))
           ) : (
             <div className="py-20 text-center">
-               <h2 className="text-2xl font-semibold">{pageData?.emptyStateTitle || "No posts yet"}</h2>
-               <p className="mt-2 text-muted-foreground">{pageData?.emptyStateDescription || "Check back soon for new articles."}</p>
+               <h2 className="text-2xl font-semibold">{pageData?.emptyStateTitle}</h2>
+               <p className="mt-2 text-muted-foreground">{pageData?.emptyStateDescription}</p>
             </div>
           )}
         </div>
@@ -97,7 +97,7 @@ export default async function Page({
             className="group inline-flex items-center gap-2 text-muted-foreground"
           >
             <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            {pageData?.backToHomeLabel || "Return home"}
+            {pageData?.backToHomeLabel}
           </Link>
         </div>
       </Container>

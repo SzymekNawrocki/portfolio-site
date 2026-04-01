@@ -20,10 +20,7 @@ export function Header({ data }: { data: HEADER_QUERYResult }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navigation = data?.navigation || [
-    { label: "Blog", href: "/posts" },
-    { label: "Projects", href: "/projects" },
-  ];
+  const navigation = data?.navigation;
 
   return (
     <header
