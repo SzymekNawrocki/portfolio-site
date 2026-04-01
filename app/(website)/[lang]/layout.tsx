@@ -10,7 +10,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
 import { sanityFetch } from "@/sanity/lib/live";
-import { HEADER_QUERY, FOOTER_QUERY } from "@/sanity/lib/queries";
+import { HEADER_QUERY, FOOTER_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import { JetBrains_Mono } from "next/font/google";
 
 const jbMono = JetBrains_Mono({
@@ -18,11 +18,23 @@ const jbMono = JetBrains_Mono({
   display: "swap",
   variable: "--font-jb-mono",
 });
-export const metadata: Metadata = {
-  title: "Devemite - Where every grain holds a story",
-  description:
-    "Devemite - Where every grain holds a story. A portfolio/blog website of a developer Szymon Nawrocki",
-};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const { data: settings } = await sanityFetch({
+    query: SITE_SETTINGS_QUERY,
+    params: { lang },
+  });
+
+  return {
+    title: settings?.title || "Devemite",
+    description: settings?.description,
+  };
+}
 
 export default async function FrontendLayout({
   children,
@@ -34,9 +46,10 @@ export default async function FrontendLayout({
   const { lang } = await params;
   const messages = await getMessages();
 
-  const [headerData, footerData] = await Promise.all([
+  const [headerData, footerData, settingsData] = await Promise.all([
     sanityFetch({ query: HEADER_QUERY, params: { lang } }),
     sanityFetch({ query: FOOTER_QUERY, params: { lang } }),
+    sanityFetch({ query: SITE_SETTINGS_QUERY, params: { lang } }),
   ]);
 
   return (
@@ -51,7 +64,7 @@ export default async function FrontendLayout({
             >
               <Header data={headerData.data} />
               {children}
-              <Footer data={footerData.data} />
+              <Footer data={footerData.data} copyrightText={settingsData.data?.copyrightText} />
             </ThemeProvider>
           </NextIntlClientProvider>
           <SanityLive />

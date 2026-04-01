@@ -5,6 +5,7 @@ import {
   SERVICES_QUERY,
   HOME_TITLE_QUERY,
   HEADER_QUERY,
+  SERVICES_PAGE_QUERY,
 } from "@/sanity/lib/queries";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { routing } from "@/i18n/routing";
@@ -48,7 +49,7 @@ export default async function Page({
   params: Promise<{ slug: string; lang: string }>;
 }) {
   const { slug, lang } = await params;
-  const [service, homeData, headerData] = await Promise.all([
+  const [service, homeData, headerData, pageData] = await Promise.all([
     sanityFetch({
       query: SERVICE_QUERY,
       params: { slug, lang },
@@ -63,9 +64,13 @@ export default async function Page({
       query: HEADER_QUERY,
       params: { lang },
     }),
+    sanityFetch({
+      query: SERVICES_PAGE_QUERY,
+      params: { lang },
+    }),
   ]);
 
-  const servicesLabel = headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
+  const servicesLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/services")?.label || "Services";
 
   if (!service) notFound();
 

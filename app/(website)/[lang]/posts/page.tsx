@@ -76,7 +76,12 @@ export default async function Page({
         <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {posts?.length > 0 ? (
             posts.map((post) => (
-              <PostCard key={post._id} {...post} lang={lang} />
+              <PostCard 
+                key={post._id} 
+                {...post} 
+                lang={lang} 
+                noCoverImageLabel={pageData?.noCoverImageLabel} 
+              />
             ))
           ) : (
             <div className="py-20 text-center">

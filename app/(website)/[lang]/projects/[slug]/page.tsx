@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { client, sanityFetch } from "@/sanity/lib/client";
-import { HOME_TITLE_QUERY, PROJECT_QUERY, PROJECTS_SLUGS_QUERY, HEADER_QUERY } from "@/sanity/lib/queries";
+import { HOME_TITLE_QUERY, PROJECT_QUERY, PROJECTS_SLUGS_QUERY, HEADER_QUERY, PROJECTS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { PROJECTS_SLUGS_QUERYResult } from "@/sanity/types";
 import { Project } from "@/components/projects/project";
 import { routing } from "@/i18n/routing";
@@ -76,13 +76,14 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: RouteProps) {
   const resolvedParams = await params;
-  const [project, homeData, headerData] = await Promise.all([
+  const [project, homeData, headerData, pageData] = await Promise.all([
     getProject(resolvedParams),
     sanityFetch({ query: HOME_TITLE_QUERY, params: { lang: resolvedParams.lang } }),
     sanityFetch({ query: HEADER_QUERY, params: { lang: resolvedParams.lang } }),
+    sanityFetch({ query: PROJECTS_PAGE_QUERY, params: { lang: resolvedParams.lang } }),
   ]);
 
-  const projectsLabel = headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
+  const projectsLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/projects")?.label || "Projects";
 
 
   if (!project) {
@@ -101,7 +102,7 @@ export default async function Page({ params }: RouteProps) {
             className="mb-8"
          />
 
-         <Project {...project} />
+         <Project {...project} labels={pageData} lang={resolvedParams.lang} />
        </Container>
     </section>
   );

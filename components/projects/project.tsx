@@ -1,6 +1,6 @@
 import { PortableText } from "next-sanity";
 import Image from "next/image";
-import { PROJECT_QUERYResult } from "@/sanity/types";
+import { PROJECTS_PAGE_QUERYResult, PROJECT_QUERYResult } from "@/sanity/types";
 import { SectionTitle } from "../ui/section-title";
 import { urlFor } from "@/sanity/lib/image";
 import { components } from "@/sanity/components/portableTextComponents";
@@ -13,45 +13,59 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
-import { Eyebrow } from '../ui/eyebrow';
+import { ExternalLink, Github, MoveLeft } from "lucide-react";
+import Link from "next/link";
 
-export function Project(props: NonNullable<PROJECT_QUERYResult>) {
+export function Project(props: NonNullable<PROJECT_QUERYResult> & { 
+  labels?: PROJECTS_PAGE_QUERYResult;
+  lang?: string;
+}) {
   const {
     title,
     mainImage,
     body,
     projectLink,
     githubLink,
-    technologies
+    technologies,
+    labels,
+    lang
   } = props;
 
   return (
     <Card className="p-6 md:p-14 rounded-3xl">
       <CardHeader className="space-y-6">
-        <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
-            <div>
-                <CardTitle>
-                    <SectionTitle text={title} tag="h1" className="lg:text-4xl text-xl md:text-4xl" />
-                </CardTitle>
-            </div>
+        <div className="flex flex-col gap-4">
+          <Link 
+            href={`/${lang}/projects`}
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+          >
+            <MoveLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            {labels?.backToProjectsLabel || (lang === "pl" ? "Wróć do projektów" : "Back to projects")}
+          </Link>
+          <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
+              <div>
+                  <CardTitle>
+                      <SectionTitle text={title} tag="h1" className="lg:text-4xl text-xl md:text-4xl" />
+                  </CardTitle>
+              </div>
 
-            <div className="flex gap-3">
-                {githubLink && (
-                    <Button asChild variant="outline">
-                        <a href={githubLink} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 w-4 h-4" /> GitHub
-                        </a>
-                    </Button>
-                )}
-                {projectLink && (
-                    <Button asChild>
-                        <a href={projectLink} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4" /> 
-                        </a>
-                    </Button>
-                )}
-            </div>
+              <div className="flex gap-3">
+                  {githubLink && (
+                      <Button asChild variant="outline">
+                          <a href={githubLink} target="_blank" rel="noopener noreferrer">
+                              <Github className="mr-2 w-4 h-4" /> GitHub
+                          </a>
+                      </Button>
+                  )}
+                  {projectLink && (
+                      <Button asChild>
+                          <a href={projectLink} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4" /> 
+                          </a>
+                      </Button>
+                  )}
+              </div>
+          </div>
         </div>
 
         <Separator />
@@ -77,16 +91,16 @@ export function Project(props: NonNullable<PROJECT_QUERYResult>) {
              {body ? (
                 <PortableText value={body} components={components} />
              ) : (
-                <p className="text-muted-foreground italic">No detailed description provided.</p>
+                <p className="text-muted-foreground italic">{labels?.noDescriptionLabel || "No detailed description provided."}</p>
              )}
           </div>
 
           <div className="lg:col-span-4 lg:pl-12">
              {technologies && technologies.length > 0 && (
                 <div className="bg-muted/30 p-6 rounded-2xl">
-                    <h3 className="mb-4 font-semibold text-lg">Technologies</h3>
+                    <h3 className="mb-4 font-semibold text-lg">{labels?.technologiesLabel || "Technologies"}</h3>
                     <div className="flex flex-wrap gap-2">
-                         {technologies.map((tech) => (
+                         {technologies.map((tech: any) => (
                             <Badge
                                key={tech?._id}
                                variant="secondary"

@@ -31,6 +31,7 @@ export const POSTS_PAGE_QUERY = defineQuery(`
     backToBlogLabel,
     minReadLabel,
     noDescriptionLabel,
+    noCoverImageLabel,
     relatedPostsEyebrow,
     relatedPostsTitle,
     emptyStateTitle,
@@ -144,6 +145,23 @@ export const PROJECT_QUERY = defineQuery(`
     projectLink,
     githubLink,
     ${TECHNOLOGIES_WITH_FALLBACK},
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const PROJECTS_PAGE_QUERY = defineQuery(`
+  *[_type == "projectsPage" && language == $lang][0]{
+    title,
+    description,
+    detailsLabel,
+    backToProjectsLabel,
+    technologiesLabel,
+    noDescriptionLabel,
+    backToHomeLabel,
     "seo": {
       "title": coalesce(seo.title, title, ""),
       "description": coalesce(seo.description, description, ""),
@@ -421,7 +439,29 @@ export const SERVICES_QUERY = defineQuery(`
 export const SERVICES_PAGE_QUERY = defineQuery(`
   *[_type == "servicesPage" && language == $lang][0]{
     title,
-    readMoreLabel
+    description,
+    readMoreLabel,
+    backToHomeLabel,
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
+  }
+`);
+
+export const TECHNOLOGIES_PAGE_QUERY = defineQuery(`
+  *[_type == "technologiesPage" && language == $lang][0]{
+    title,
+    description,
+    backToHomeLabel,
+    emptyStateTitle,
+    emptyStateDescription,
+    "seo": {
+      "title": coalesce(seo.title, title, ""),
+      "description": coalesce(seo.description, description, ""),
+      "seoImage": seo.seoImage
+    }
   }
 `);
 
@@ -429,6 +469,18 @@ export const SERVICES_SLUGS_QUERY = defineQuery(`
   *[_type == "service" && defined(slug.current) && language == $lang]{
     "slug": slug.current,
     language
+  }
+`);
+
+export const SITE_SETTINGS_QUERY = defineQuery(`
+  *[_type == "siteSettings" && language == $lang][0]{
+    title,
+    description,
+    copyrightText,
+    "homePage": homePage->{
+      _id,
+      slug
+    }
   }
 `);
 

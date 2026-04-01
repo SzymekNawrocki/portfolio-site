@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { FOOTER_QUERYResult } from "@/sanity/types";
 
-export function Footer({ data }: { data: FOOTER_QUERYResult }) {
+export function Footer({ data, copyrightText }: { data: FOOTER_QUERYResult; copyrightText?: string }) {
   return (
     <footer className="bg-background border-t">
       <div className="flex md:flex-row flex-col justify-between items-center gap-8 mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-7xl">
@@ -64,7 +64,7 @@ export function Footer({ data }: { data: FOOTER_QUERYResult }) {
       <Separator className="opacity-30" />
 
       <div className="py-6 text-primary/70 text-sm text-center">
-        &copy; {new Date().getFullYear()} Szymon Nawrocki - Devemite
+        &copy; {new Date().getFullYear()} {copyrightText || "Szymon Nawrocki - Devemite"}
       </div>
     </footer>
   );

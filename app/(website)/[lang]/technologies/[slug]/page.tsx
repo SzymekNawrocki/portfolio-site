@@ -5,6 +5,7 @@ import {
   TECHNOLOGIES_QUERY,
   HOME_TITLE_QUERY,
   HEADER_QUERY,
+  TECHNOLOGIES_PAGE_QUERY,
 } from "@/sanity/lib/queries";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { routing } from "@/i18n/routing";
@@ -37,7 +38,7 @@ export default async function Page({
   params: Promise<{ slug: string; lang: string }>;
 }) {
   const { slug, lang } = await params;
-  const [tech, homeData, headerData] = await Promise.all([
+  const [tech, homeData, headerData, pageData] = await Promise.all([
     sanityFetch({
       query: TECHNOLOGY_QUERY,
       params: { slug, lang },
@@ -52,9 +53,13 @@ export default async function Page({
       query: HEADER_QUERY,
       params: { lang },
     }),
+    sanityFetch({
+      query: TECHNOLOGIES_PAGE_QUERY,
+      params: { lang },
+    }),
   ]);
 
-  const technologiesLabel = headerData?.navigation?.find((n: any) => n.href === "/technologies")?.label || "Technologies";
+  const technologiesLabel = pageData?.title || headerData?.navigation?.find((n: any) => n.href === "/technologies")?.label || "Technologies";
 
   if (!tech) notFound();
 

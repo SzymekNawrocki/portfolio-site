@@ -13,8 +13,8 @@ import {
 
 
 
-export function PostCard(props: POSTS_QUERYResult[0] & { lang: string; excerpt?: string | null }) {
-  const { title, mainImage, categories, slug, lang, excerpt } = props;
+export function PostCard(props: POSTS_QUERYResult[0] & { lang: string; excerpt?: string | null; noCoverImageLabel?: string }) {
+  const { title, mainImage, categories, slug, lang, excerpt, noCoverImageLabel } = props;
 
   return (
     <Link href={`/${lang}/posts/${slug!.current}`} className="group block h-full">
